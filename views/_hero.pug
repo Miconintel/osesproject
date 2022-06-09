@@ -1,0 +1,33 @@
+section.hero--section
+  .hero--container.content
+    // the slider is so the slides can be padded so because the slider contents are absolte psitions I had to put the padding in the content container and not in the slider container, which is equivalent to grid contaier in other sections
+    .slider
+      // i expect to make each slide a frid at the right time
+      .slide.hero--grid
+        img.image.hero--image.hero--image__1(src='img/hero/oses-market-08.jpg', alt='hero image two women in African oses-market-08')
+      |             
+      .slide.hero--grid
+        img.image.hero--image.hero--image__2(src='img/hero/oses-bag-03.jpg', alt='hero image shopping bag')
+      |             
+      .slide.hero--grid
+        img.image.hero--image.hero--image__3(src='img/hero/oses-kiosk-12.jpg', alt='hero image african store')
+      |             
+      .slide.hero--grid
+        img.image.hero--image.hero--image__4(src='img/hero/oses-grilled-07.jpg', alt='hero image grilled chicken')
+      |             
+      .dots--container
+        //
+          <div class="dot dot--active" data-slide="0"></div>
+          <div class="dot" data-slide="1"></div>
+          <div class="dot" data-slide="2"></div>
+      |             
+      .button--container
+        button.button.button--icon.button--chevron.button--chevron__left
+          i.icon.icon--chevron(data-feather='chevron-left')
+        |               
+        button.button.button--icon.button--chevron.button--chevron__right
+          i.icon.icon--chevron(data-feather='chevron-right')
+      |             
+      .hero--cta--container
+        button.button.hero--button
+          a.link.link--cta.hero--link--cta(href='#') Shop Now

@@ -1,0 +1,52 @@
+[
+  {
+    "productName": "milo 400g",
+    "category": "provisions",
+    "price": "5.99",
+    "image": "milo.jpeg"
+  },
+  {
+    "productName": "milo 1kg",
+    "category": "provisions",
+    "price": "15.99",
+    "image": "milo.jpeg"
+  },
+  {
+    "productName": "okomu oil 2lt",
+    "category": "oil",
+    "price": "15.50",
+    "image": "milo.jpeg"
+  },
+  {
+    "productName": "peeled beans",
+    "category": "grains",
+    "price": "12",
+    "image": "milo.jpeg",
+    "weight": "4 lbs"
+  },
+  {
+    "productName": "onga stew 20mg",
+    "category": "spices",
+    "price": "2.50",
+    "image": "milo.jpeg"
+  },
+  {
+    "productName": "Grounded Melon seed (Egusi)",
+    "category": "spices",
+    "price": "8.00",
+    "image": "milo.jpeg",
+    "weight": "8 oz"
+  },
+  {
+    "productName": "White garri",
+    "category": "provisions",
+    "price": "10",
+    "image": "milo.jpeg"
+  },
+  {
+    "productName": "Yellow garri",
+    "category": "provisions",
+    "price": "10",
+    "image": "milo.jpeg"
+  }
+]

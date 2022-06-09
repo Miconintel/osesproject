@@ -1,0 +1,241 @@
+[
+  {
+    "productName": "Milo 400g",
+    "category": "Provisions",
+    "price": "5.99",
+    "image": "milo.jpeg"
+  },
+  {
+    "productName": "milo 1kg",
+    "category": "Provisions",
+    "price": "15.99",
+    "image": "milo.jpeg"
+  },
+  {
+    "productName": "Okomu oil 2lt",
+    "category": "Oil",
+    "price": "15.50",
+    "image": "okomu-oil.jpeg"
+  },
+  {
+    "productName": "Peeled Beans",
+    "category": "Grains",
+    "price": "12",
+    "image": "peeled-beans.jpeg",
+    "weight": "4 lbs"
+  },
+  {
+    "productName": "Onga Stew 20mg",
+    "category": "Spices",
+    "price": "2.50",
+    "image": "onga-stew.jpeg"
+  },
+  {
+    "productName": "Grounded Melon seeds (Egusi)",
+    "category": "Spices",
+    "price": "8.00",
+    "image": "grounded-melon-seeds.jpeg",
+    "weight": "8 oz"
+  },
+
+  {
+    "productName": "Peak Milk 400mg",
+    "category": "Provisions",
+    "price": "8.99",
+    "image": "peak-milk.jpeg"
+  },
+  {
+    "productName": "Peak Milk 900mg",
+    "category": "Provisions",
+    "price": "16.99",
+    "image": "peak-milk.jpeg"
+  },
+  {
+    "productName": "Star Maggi",
+    "category": "Provisions",
+    "price": "5",
+    "image": "star-maggi.jpeg"
+  },
+  {
+    "productName": "Plantain Flour",
+    "category": "Flour",
+    "price": "15",
+    "image": "plantain-flour.jpeg",
+    "weight": "10 lbs"
+  },
+  {
+    "productName": "Onga Chicken 20mg",
+    "category": "Spices",
+    "price": "4",
+    "image": "onga-chicken.jpeg"
+  },
+  {
+    "productName": "Yam Flour",
+    "category": "Flour",
+    "price": "15",
+    "image": "yam-flour.jpeg",
+    "weight": "10 lbs"
+  },
+  {
+    "productName": "Goat Meat Big",
+    "category": "Animal Protein",
+    "price": "26",
+    "image": "goat-meat.jpeg"
+  },
+  {
+    "productName": "Cassava Flour",
+    "category": "Flour",
+    "price": "12",
+    "image": "cassava-flour.jpeg",
+    "weight": "4 lbs"
+  },
+  {
+    "productName": "Utazi",
+    "category": "Spices",
+    "price": "5",
+    "image": "utazi.jpeg",
+    "weight": "4 oz"
+  },
+  {
+    "productName": "Uziza",
+    "category": "Spices",
+    "price": "5",
+    "image": "uziza.jpeg",
+    "weight": "4 oz"
+  },
+  {
+    "productName": "Ugu",
+    "category": "Others",
+    "price": "5",
+    "image": "ugu.jpeg",
+    "weight": "4 oz"
+  },
+  {
+    "productName": "Pepper-S",
+    "category": "Spices",
+    "price": "5",
+    "image": "pepper.jpeg",
+    "weight": "4 oz"
+  },
+  {
+    "productName": "Pepper-B",
+    "category": "Spices",
+    "price": "10",
+    "image": "pepper.jpeg",
+    "weight": "8 oz"
+  },
+  {
+    "productName": "Banga Spice",
+    "category": "Spices",
+    "price": "9",
+    "image": "banga-spice.jpeg",
+    "weight": "4 oz"
+  },
+  {
+    "productName": "Pepper soup spice",
+    "category": "Spices",
+    "price": "5",
+    "image": "pepper-soup-spice.jpeg",
+    "weight": "4 oz"
+  },
+  {
+    "productName": "Indomie Chicken 40-pack",
+    "category": "Provision",
+    "price": "18.99",
+    "image": "indomie-chicken.jpeg"
+  },
+  {
+    "productName": "Indomie Onion Chicken 40-pack",
+    "category": "Provision",
+    "price": "18.99",
+    "image": "indomie-onion-chicken.jpeg"
+  },
+  {
+    "productName": "Grounded Mango Seeds",
+    "category": "Others",
+    "price": "20",
+    "image": "grounded-mango-seeds.jpeg",
+    "weight": "1 lb"
+  },
+  {
+    "productName": "Mango Seeds",
+    "category": "Others",
+    "price": "10",
+    "image": "mango-seeds.jpeg",
+    "weight": "8 oz"
+  },
+  {
+    "productName": "Goat Meat Small",
+    "category": "Animal Protein",
+    "price": "15",
+    "image": "goat-meat-small.jpeg"
+  },
+  {
+    "productName": "Scent Leaves",
+    "category": "Spices",
+    "price": "5",
+    "image": "scent-leaves.jpeg",
+    "weight": "4 oz"
+  },
+  {
+    "productName": "Crayfish-B",
+    "category": "Animal Protein",
+    "price": "22",
+    "image": "crayfish.jpeg",
+    "weight": "1 lb"
+  },
+  {
+    "productName": "Grounded Crayfish",
+    "category": "Animal Protein",
+    "price": "15",
+    "image": "grounded-crayfish.jpeg",
+    "weight": "8 oz"
+  },
+  {
+    "productName": "Crayfish-S",
+    "category": "Animal Protein",
+    "price": "8.99",
+    "image": "crayfish.jpeg",
+    "weight": "4 oz"
+  },
+  {
+    "productName": "Spicy Suya Seasoning",
+    "category": "Spices",
+    "price": "10",
+    "image": "spicy-suya-seasoning.jpeg",
+    "weight": "8 oz"
+  },
+  {
+    "productName": "White Garri",
+    "category": "Provisions",
+    "price": "10",
+    "image": "white-garri.jpeg",
+    "w,eight": "4 lbs"
+  },
+  {
+    "productName": "Yellow Garri",
+    "category": "Provisions",
+    "price": "10",
+    "image": "yellow-garri.jpeg",
+    "weight": "4 lbs"
+  },
+  {
+    "productName": "Honey Beans (Oloyin)",
+    "category": "Grains",
+    "price": "16",
+    "image": "honey-beans.jpeg",
+    "weight": "10 lbs"
+  },
+  {
+    "productName": "Knorr Chicken 400gm",
+    "category": "Spices",
+    "price": "6",
+    "image": "knorr-chicken.jpeg"
+  },
+  {
+    "productName": "Ghana Palmnut Cream 800gm",
+    "category": "Others",
+    "price": "6",
+    "image": "ghana-palmnut-cream.jpeg"
+  }
+]

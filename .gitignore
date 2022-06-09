@@ -1,0 +1,5 @@
+node_modules/
+*.env
+.cache/
+old-public/
+old-views/

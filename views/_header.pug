@@ -1,0 +1,66 @@
+header.main--header
+  .content
+    .container.header--container.flex.header--flex
+      // FLEX ITEM 1
+      .header--logo__container
+        a.image--link(href='/')
+          img.logo(src='/img/logo/oses-logo-17.png', alt='oses logo')
+      // FLEX ITEM 2
+      .nav--container
+        nav.nav.header--nav.flex
+          // FLEX ITEM 1
+          ul.lists.nav--lists.flex
+            //
+              <li class="list">
+              <a href="#" class="link nav--link">About Us</a>
+              </li>
+            li.list
+              a.link.nav--link(href='#products--id') Contact us
+            |                 
+            li.list
+              a.link.nav--link(href='#products--id')  Products 
+            |                 
+            li.list
+              .search--container
+                button.button.button--icon.button--search
+                  i.icon.icon--search(data-feather='search')
+                |                     
+                input.search--input(type='text', placeholder='search for a product or category')
+          // FLEX ITEM 2
+          //
+            <ul class="nav--lists flex">
+            <li class="list list--cta">
+            <a href="#" class="link nav--link link--outline">Login</a>
+            </li>
+            <li class="list list--cta">
+            <a
+            href="#"
+            class="list--cta__element link nav--link link--cta"
+            >Shop Now</a
+            >
+            <button
+            class="list--cta__element button button--icon button--cart"
+            >
+            <i data-feather="shopping-cart" class="icon icon--cart"></i>
+            </button>
+            </li>
+            </ul>
+          ul.nav--lists.flex
+            li.list.list--cta
+              a.link.nav--link.link--outline(href='#') Logout
+            |                 
+            li.list.list--cta
+              a.link.user--image--container(href=`page=${currentPage+1}`)
+                img.image.user--image(src='img/hero/oses-bag-03.jpg', alt='logged-in-user-image')
+              |                   
+              button.list--cta__element.button.button--icon.button--cart
+                .cart--number--container
+                  p.cart--number 0
+                i.icon.icon--cart(data-feather='shopping-cart')
+      |           
+      .mobile--nav--button--container
+        button.button.mobile--nav--button.mobile--menu
+          i.icon.mobile--nav--icon(data-feather='menu')
+        |             
+        button.button.mobile--nav--button.mobile--close
+          i.icon.mobile--nav--icon(data-feather='x')

@@ -1,0 +1,441 @@
+/* body size 12, 16, 20, 24, 32
+    h1 size 80, 96
+    h2 size 48, 64, 
+    h3 size 32, 48
+    quotes 8, 12
+    button size 48
+    padding top 24
+    padding left 48
+
+    margin 1 :24
+    margin 2 : 48
+
+    primary color: #da9d19 #f2ae1c #f9d78e #f7ce77 #fef7e8
+    secondary :    #369f43 #3cb14a #9ed8a5 #ecf7ed
+   
+    
+here we can match your class and taste when it comes to epoxy installation.
+Do you have high and classic taste when it comes to interior designs.
+are you looking to transform your interiors with epoxy installations neatly done by professionals.
+we have everuthing it takes to give you the best when it comes to metallic walls, vinyl walls and other installations.
+Like our page to see more of our works and contact us to book our service.
+
+
+for enquiries, contact
+
+*/
+:root {
+  --primary-color: #f2ae1c;
+  --primary-color--darker: #da9d19;
+  --primary-color--lighter: #fef7e8;
+  --primary-color--mid: #f9d78e;
+  --secondary-color: #3cb14a;
+  --secondary-color--darker: #369f43;
+  --secondary-color--lighter: #ecf7ed;
+  --secondary-color--mid: #9ed8a5;
+  --shadow--place: -0.2rem 0.2rem 1.4rem 0 #727272;
+  --shadow--hover: 0 1rem 3rem 0 #4e4e4e;
+  --light-shadow--place: -0.1rem 0.1rem 1.1rem 0 #c4c4c4;
+  --light-shadow--hover: 0 0.2rem 2rem 0 #c4c4c4;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+*:focus {
+  outline: 0;
+  border: 0.1rem solid var(--primary-color);
+}
+
+html {
+  font-size: 65%;
+}
+body {
+  font-family: 'PT Sans', 'Open Sans', 'Poppins', sans-serif;
+  background-color: #fff;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #444;
+}
+
+/* GENERAL */
+
+.flex {
+  display: flex;
+  align-items: center;
+}
+
+.container {
+  max-width: 130rem;
+  margin: auto;
+  padding: 0 1.2rem;
+}
+
+.grid {
+  display: grid;
+  /* grid-auto-columns: 1fr 1fr 1fr 1fr;  when u use this u have to explicitly state the positionsof the grid items on he columns, and u ae free to state any column position ad it will take the 1fr o width stated*/
+  /* grid-template-columns: repeat(4, 1fr); */
+  gap: 4rem;
+  row-gap: 8rem;
+  justify-items: center;
+}
+
+.grid--4--columns {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.image {
+  max-width: 100%;
+}
+
+.button {
+  background: none;
+  border: none;
+}
+
+/* HEADER */
+
+.main--header {
+  padding: 1.2rem 0;
+}
+
+.header--container {
+  max-width: 135rem;
+}
+
+.header--flex {
+  gap: 6.4rem;
+}
+
+.nav--container {
+  flex: 2;
+}
+
+.logo {
+  max-width: 16rem;
+}
+.nav--lists {
+  list-style: none;
+  gap: 6.4rem;
+}
+
+.nav--lists:nth-child(2) {
+  gap: 3.6rem;
+}
+.header--nav {
+  justify-content: space-between;
+}
+
+.link:link,
+.link:visited {
+  display: inline-block;
+  font-size: 1.6rem;
+  text-decoration: none;
+  color: var(--primary-color);
+  transition: all 1s;
+}
+.link:hover,
+.link:active {
+  color: var(--primary-color--darker) !important;
+}
+
+.link--cta:link,
+.link--cta:visited {
+  color: #fff !important;
+  padding: 1rem 3.2rem;
+  border-radius: 50rem;
+  background-color: var(--primary-color);
+}
+.link--cta:hover,
+.link--cta:active {
+  transform: translateY(-0.6rem);
+  background-color: var(--primary-color--darker);
+}
+
+.link--outline:link,
+.link--outline:visited {
+  padding: 1rem 3.2rem;
+  border-radius: 50rem;
+  border: var(--primary-color) solid 0.3rem;
+  /* transition: all 1s; */
+}
+.link--outline:hover,
+.link--outline:active {
+  transform: translateY(-0.6rem);
+  border: var(--primary-color--darker) solid 0.3rem;
+}
+
+.list--cta {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+}
+/* MAIN 
+
+STARTS HERE  */
+
+/* hero--section
+
+
+
+
+
+*/
+
+/* .hero--section {
+  
+} */
+
+.hero--container {
+  padding: 0 2.4rem;
+}
+
+.slider {
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+}
+
+.slide {
+  position: absolute;
+  left: 0;
+  height: 100%;
+  transition: all 1.5s;
+}
+
+/* .hero--image__4 {
+  top: 0;
+  left: 0;
+  transform: translateX(100%);
+}
+.hero--image__3 {
+  top: 0;
+  left: 0;
+  transform: translateX(200%);
+}
+.hero--image__2 {
+  top: 0;
+  left: 0;
+  transform: translateX(300%);
+} */
+.dots--container {
+  display: flex;
+  width: 100%;
+  gap: 1rem;
+  position: absolute;
+  left: 0;
+  top: 90%;
+  justify-content: center;
+}
+.dot {
+  width: 0.8rem;
+  padding: 0.8rem;
+  border: none;
+  border-radius: 50rem;
+  background-color: var(--secondary-color--mid);
+}
+.dot--active {
+  background-color: var(--secondary-color);
+}
+
+.button--container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 90;
+  width: 100%;
+  position: absolute;
+  left: 0;
+  top: 50%;
+}
+
+.button--icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 4.2rem;
+  height: 4.2rem;
+
+  transition: all 0.8s;
+}
+.button--chevron {
+  border-radius: 50rem;
+  background-color: var(--secondary-color);
+}
+
+.input--container .button--chevron {
+  border-radius: 0;
+  background: none;
+}
+.button-plus-minus:hover {
+  border-radius: 0;
+  background-color: var(--primary-color--darker);
+}
+
+.cart--container .button--cart {
+  border-radius: 1rem;
+  background-color: var(--primary-color);
+  border-bottom-right-radius: 2rem;
+}
+.cart--container .button--cart:hover {
+  border-bottom-right-radius: 1rem;
+}
+
+.button--cart:hover {
+  transform: translateY(-0.6rem);
+}
+
+.icon {
+  color: var(--primary-color);
+}
+.icon-plus-minus {
+  color: var(--primary-color--mid);
+}
+.icon--chevron {
+  color: var(--primary-color--lighter);
+}
+.cart--container .icon--cart {
+  color: var(--primary-color--lighter);
+  stroke-width: 0.2rem;
+}
+.icon--chevron {
+  width: 3rem;
+  height: 3rem;
+}
+.hero--cta--container {
+  position: absolute;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  left: 0;
+  top: 60%;
+}
+
+.hero--link--cta:link,
+.hero--link--cta:visited {
+  box-shadow: -0.5rem 0.5rem 1.6rem 0 #727272;
+  font-size: 3.6rem;
+
+  background-color: var(--primary-color);
+}
+.hero--link--cta:hover,
+.hero--link--cta:active {
+  box-shadow: 0 1rem 3rem 0 #4e4e4e;
+}
+
+/* PRODUCT SECTION 
+
+
+
+
+*/
+
+.products {
+  padding: 14rem 0;
+  background-color: var(--primary-color--lighter);
+}
+
+.product--image--container {
+  height: 25rem;
+  overflow: hidden;
+}
+
+.product {
+  border: 0.1rem solid var(--primary-color--mid);
+  border-radius: 2rem;
+  overflow: hidden;
+  transition: all 0.8s;
+  box-shadow: var(--light-shadow--place);
+  background-color: #fff;
+}
+.product:hover {
+  border: 0.1rem solid var(--secondary-color--mid);
+  transform: translateY(-2rem);
+  box-shadow: var(--light-shadow--hover);
+}
+
+.paragraph {
+  font-size: 1.6rem;
+}
+
+.product--description--container {
+  padding: 3.2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.input--container {
+  display: flex;
+  align-items: center;
+  border-radius: 1.2rem;
+  border: 0.1rem solid var(--primary-color--mid);
+  overflow: hidden;
+}
+.input {
+  max-width: 6rem;
+  min-width: 4.2rem;
+  height: 4.2rem;
+  border: none;
+  background-color: var(--primary-color--lighter);
+  padding: 1.2rem;
+  text-align: center;
+  font-weight: 700;
+}
+.product--unit--quantity::-webkit-inner-spin-button,
+.product--unit--quantity::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.cart--container {
+  justify-content: space-between;
+}
+
+.product-name {
+  font-weight: 600;
+  color: var(--secondary-color);
+}
+.price {
+  font-weight: 700;
+  color: var(--primary-color);
+}
+.price--effect {
+  font-size: 2.4rem;
+  letter-spacing: 0.1;
+  font-style: italic;
+}
+
+.category--header {
+  grid-column: 1/-1;
+  grid-row: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3.6rem;
+}
+.secondary--header {
+  color: var(--primary-color);
+  font-size: 3.6rem;
+  letter-spacing: 0.01rem;
+}
+
+.category--list-container {
+  display: flex;
+  gap: 2.4rem;
+  align-items: center;
+}
+.tertiary--header {
+  color: var(--secondary-color);
+  font-size: 1.6rem;
+}
+.link--category:link,
+.link--category:visited {
+  color: var(--secondary-color);
+}
+.link--product--name:link,
+.link--product--name:visited {
+  color: var(--secondary-color);
+}

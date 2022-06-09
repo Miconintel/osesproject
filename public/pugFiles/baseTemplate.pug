@@ -1,0 +1,198 @@
+doctype html
+html(lang='en')
+  head
+    meta(charset='UTF-8')
+    meta(http-equiv='X-UA-Compatible', content='IE=edge')
+    meta(name='viewport', content='width=device-width, initial-scale=1.0')
+    // opensans
+    link(rel='preconnect', href='https://fonts.googleapis.com')
+    link(rel='preconnect', href='https://fonts.gstatic.com', crossorigin='')
+    link(href='https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,700&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Rubik:wght@300;400;500;600;700&display=swap', rel='stylesheet')
+    // ptsans
+    link(rel='preconnect', href='https://fonts.googleapis.com')
+    link(rel='preconnect', href='https://fonts.gstatic.com', crossorigin='')
+    link(href='https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,700&family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Rubik:wght@300;400;500;600;700&display=swap', rel='stylesheet')
+    // poppins
+    link(rel='preconnect', href='https://fonts.googleapis.com')
+    link(rel='preconnect', href='https://fonts.gstatic.com', crossorigin='')
+    link(href='https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Rubik:wght@300;400;500;600;700&display=swap', rel='stylesheet')
+    link(rel='apple-touch-icon', sizes='180x180', href='/img/fav/apple-touch-icon.png')
+    link(rel='icon', type='image/png', sizes='32x32', href='/img/fav/favicon-32x32.png')
+    link(rel='icon', type='image/png', sizes='16x16', href='/img/fav/osesfav-18.png')
+    link(rel='manifest', href='/img/fav/site.webmanifest')
+    link(rel='stylesheet', href='/css/style.css')
+    script(src='https://unpkg.com/feather-icons')
+    script(src='https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js')
+    script(defer='', src='/js/script.js')
+    title Oses home Page
+  body
+    // HEADER
+    header.main--header
+      .content
+        .container.header--.container.flex.header--flex
+          // FLEX ITEM 1
+          .header--logo__container
+            a.image--link(href='#')
+              img.logo(src='/img/logo/oses-logo-17.png', alt='oses logo')
+          // FLEX ITEM 2
+          .nav--container
+            nav.nav.header--nav.flex
+              // FLEX ITEM 1
+              ul.nav--lists.flex
+                li.list
+                  a.link.nav--link(href='#') About Us
+                li.list
+                  a.link.nav--link(href='#') Contact us
+                li.list
+                  a.link.nav--link(href='#')  Products 
+              // FLEX ITEM 2
+              ul.nav--lists.flex
+                li.list.list--cta
+                  a.link.nav--link.link--outline(href='#') Login
+                li.list.list--cta
+                  a.link.nav--link.link--cta(href='#') Shop Now
+                  button.button.button--icon.button--cart(href='#')
+                    i.icon.icon--cart(data-feather='shopping-cart')
+    // MAIN PART
+    main
+      section.hero--section
+        .hero--container.content
+          // the slider is so the slides can be padded so because the slider contents are absolte psitions I had to put the padding in the content container and not in the slider container, which is equivalent to grid contaier in other sections
+          .slider
+            // i expect to make each slide a frid at the right time
+            .slide.hero--grid
+              img.image.hero--image.hero--image__1(src='img/hero/oses-market-08.jpg', alt='hero image two women in African oses-market-08')
+            .slide.hero--grid
+              img.image.hero--image.hero--image__2(src='img/hero/oses-bag-03.jpg', alt='hero image shopping bag')
+            .slide.hero--grid
+              img.image.hero--image.hero--image__3(src='img/hero/oses-kiosk-12.jpg', alt='hero image african store')
+            .slide.hero--grid
+              img.image.hero--image.hero--image__4(src='img/hero/oses-grilled-07.jpg', alt='hero image grilled chicken')
+            .dots--container
+              //
+                <div class="dot dot--active" data-slide="0"></div>
+                <div class="dot" data-slide="1"></div>
+                <div class="dot" data-slide="2"></div>
+            .button--container
+              button.button.button--icon.button--chevron.button--chevron__left
+                i.icon.icon--chevron(data-feather='chevron-left')
+              button.button.button--icon.button--chevron.button--chevron__right
+                i.icon.icon--chevron(data-feather='chevron-right')
+            .hero--cta--container
+              button.button.hero--button
+                a.link.link--cta.hero--link--cta(href='#') Shop Now
+      // PRODUCT SECTION
+      section.products
+        .content
+          .container.product--container.grid.grid--4--columns.product--grid
+            .category--header
+              h2.secondary--header Our Produts
+              .category--list-container
+                h3.tertiary--header
+                  a.link.link--category(href='#') All Products
+                h3.tertiary--header
+                  a.link.link--category(href='#') Provisions
+                h3.tertiary--header
+                  a.link.link--category(href='#') Cereals and Legumes
+                h3.tertiary--header
+                  a.link.link--category(href='#') flours
+            figure.product
+              .product--image--container
+                img.image.product--image(src='img/product-images/milo-400g.jpg', alt='milo-sachet-400-gram')
+              .product--description--container
+                p.paragraph.category
+                  a.link(href='#') Provisions
+                p.paragraph.product-name
+                  a.link.link--product--name(href='#')
+                    | Milo 400g
+                p.paragraph.weight
+                  span.weight-effect Weight
+                  | : N/a
+                p.paragraph.price
+                  | $
+                  span.price--effect 12
+                .flex.cart--container
+                  .input--container
+                    button.button.button--icon.button-plus-minus.button--minus
+                      i.icon.icon--minus.icon-plus-minus(data-feather='minus')
+                    input.input.product--unit--quantity(type='number', name='product-unit', value='1')
+                    button.button.button--icon.button-plus-minus.button--plus
+                      i.icon.icon--plus.icon-plus-minus(data-feather='plus')
+                  button.button.button--icon.button--cart(href='#')
+                    i.icon.icon--cart(data-feather='shopping-cart')
+            figure.product
+              .product--image--container
+                img.image.product--image(src='img/product-images/milo-400g.jpg', alt='milo-sachet-400-gram')
+              .product--description--container
+                p.paragraph.category
+                  a.link(href='#') Provisions
+                p.paragraph.product-name
+                  a.link.link--product--name(href='#')
+                    | Milo 400g
+                p.paragraph.weight
+                  span.weight-effect weight
+                  | : N/a
+                p.paragraph.price
+                  | $
+                  span.price--effect 12
+                .flex.cart--container
+                  .input--container
+                    button.button.button--icon.button-plus-minus.button--minus
+                      i.icon.icon--minus.icon-plus-minus(data-feather='minus')
+                    input.input.product--unit--quantity(type='number', name='product-unit', value='1')
+                    button.button.button--icon.button-plus-minus.button--plus
+                      i.icon.icon--plus.icon-plus-minus(data-feather='plus')
+                  button.button.button--icon.button--cart(href='#')
+                    i.icon.icon--cart(data-feather='shopping-cart')
+            figure.product
+              .product--image--container
+                img.image.product--image(src='img/product-images/milo-400g.jpg', alt='milo-sachet-400-gram')
+              .product--description--container
+                p.paragraph.category
+                  a.link(href='#') Provisions
+                p.paragraph.product-name
+                  a.link.link--product--name(href='#')
+                    | Milo 400g
+                p.paragraph.weight
+                  span.weight-effect weight
+                  | : N/a
+                p.paragraph.price
+                  | $
+                  span.price--effect 12
+                .flex.cart--container
+                  .input--container
+                    button.button.button--icon.button-plus-minus.button--minus
+                      i.icon.icon--minus.icon-plus-minus(data-feather='minus')
+                    input.input.product--unit--quantity(type='number', name='product-unit', value='1')
+                    button.button.button--icon.button-plus-minus.button--plus
+                      i.icon.icon--plus.icon-plus-minus(data-feather='plus')
+                  button.button.button--icon.button--cart(href='#')
+                    i.icon.icon--cart(data-feather='shopping-cart')
+            figure.product
+              .product--image--container
+                img.image.product--image(src='img/product-images/milo-400g.jpg', alt='milo-sachet-400-gram')
+              .product--description--container
+                p.paragraph.category
+                  a.link(href='#') Provisions
+                p.paragraph.product-name
+                  a.link.link--product--name(href='#')
+                    | Milo 400g
+                p.paragraph.weight
+                  span.weight-effect weight
+                  | : N/a
+                p.paragraph.price
+                  | $
+                  span.price--effect 12
+                .flex.cart--container
+                  .input--container
+                    button.button.button--icon.button-plus-minus.button--minus
+                      i.icon.icon--minus.icon-plus-minus(data-feather='minus')
+                    input.input.product--unit--quantity(type='number', name='product-unit', value='1')
+                    button.button.button--icon.button-plus-minus.button--plus
+                      i.icon.icon--plus.icon-plus-minus(data-feather='plus')
+                  button.button.button--icon.button--cart(href='#')
+                    i.icon.icon--cart(data-feather='shopping-cart')
+    // FOOTER SECTION
+    footer
+      .content
+        .container.grid
