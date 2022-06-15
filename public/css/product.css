@@ -1,0 +1,96 @@
+/* body size 12, 16, 20, 24, 32
+    h1 size 80, 96
+    h2 size 48, 64, 
+    h3 size 32, 48
+    quotes 8, 12
+    button size 48
+    padding top 24
+    padding left 48
+
+    margin 1 :24
+    margin 2 : 48
+
+    primary color: #da9d19 #f2ae1c #f9d78e #f7ce77 #fef7e8
+    secondary :    #369f43 #3cb14a #9ed8a5 #ecf7ed
+   
+    
+here we can match your class and taste when it comes to epoxy installation.
+Do you have high and classic taste when it comes to interior designs.
+are you looking to transform your interiors with epoxy installations neatly done by professionals.
+we have everuthing it takes to give you the best when it comes to metallic walls, vinyl walls and other installations.
+Like our page to see more of our works and contact us to book our service.
+
+
+for enquiries, contact
+
+https://codebeautify.org/html-to-pug-converter
+https://www.cssportal.com/html-to-pug/
+
+*/
+
+:root {
+    --primary-color: #f2ae1c;
+    --primary-color--darker: #da9d19;
+    --primary-color--lighter: #fef7e8;
+    --primary-color--mid: #f9d78e;
+    --secondary-color: #3cb14a;
+    --secondary-color--darker: #369f43;
+    --secondary-color--lighter: #ecf7ed;
+    --secondary-color--mid: #9ed8a5;
+    --shadow--place: -0.2rem 0.2rem 1.4rem 0 #727272;
+    --shadow--hover: 0 1rem 3rem 0 #4e4e4e;
+    --light-shadow--place: -0.1rem 0.1rem 1.1rem 0 #c4c4c4;
+    --light-shadow--hover: 0 0.2rem 2rem 0 #c4c4c4;
+  }
+  
+html {
+  font-size: 65%;
+}
+body {
+  font-family: "PT Sans", "Open Sans", "Poppins", sans-serif;
+  background-color: #fff;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #444;
+  width: 100%;
+  overflow-x: hidden;
+}
+
+/* GENERAL */
+.full--description--section {
+  padding: 9.6rem 0;
+}
+.full--description--grid {
+  display: grid;
+}
+.grid--2--columns {
+  grid-template-columns: repeat(2, 1fr);
+}
+.full--description--header {
+  text-align: center;
+}
+.full--description--header {
+  text-align: center;
+}
+.product--full--description--image {
+  height: 50rem;
+}
+.full--product--description {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  align-items: center;
+}
+.scale--up {
+  transform: scale(1.2);
+}
+.cart--container {
+  justify-content: flex-start;
+  gap: 4rem;
+}
+.checkout--button {
+  color: #fff;
+  background-color: var(--primary-color);
+  padding: 2rem 3.6rem;
+  border-radius: 1.6rem;
+}

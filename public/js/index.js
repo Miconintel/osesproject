@@ -1,5 +1,7 @@
-'use strict';
+// 'use strict';
+import "regenerator-runtime"
 feather.replace();
+
 
 // SELECT ITEMS
 const dotContainer = document.querySelector('.dots--container');
@@ -70,7 +72,7 @@ const increaseCart = (e) => {
   }
 };
 
-parentCartContainer.addEventListener('click', increaseCart);
+ parentCartContainer&&addEventListener('click', increaseCart);
 
 // // add to cart
 
@@ -126,7 +128,7 @@ const addtoCart = function (e) {
   }
 };
 
-parentCartContainer.addEventListener('click', addtoCart);
+parentCartContainer&&addEventListener('click', addtoCart);
 
 const localState = JSON.parse(window.localStorage.getItem('state'));
 if (localState) {
@@ -182,7 +184,6 @@ const removeCart = function (e) {
   // console.log(e.target);
   const clicked = e.target.classList.contains('button--remove--cart');
   if (clicked) {
-    console.log(`allState ${allState}`)
    
     // remove item from cart
     const productParent = e.target.closest('.product');
@@ -207,7 +208,7 @@ const removeCart = function (e) {
   }
 };
 
-parentCartContainer.addEventListener('click', removeCart);
+parentCartContainer && parentCartContainer.addEventListener('click', removeCart);
 
 
 /// SET HERO HEIGHT
@@ -216,16 +217,17 @@ parentCartContainer.addEventListener('click', removeCart);
 //
 
 const ChangeHeroSize = function () {
+
   // I could hae also used getBoundingclient rect and get the nubers in number  type withput hving to parse int and now calculate it inside a iteral string , but it is god that i also know the get computed style.
   // get headerheight
-  let headerHeight = parseInt(window.getComputedStyle(header).height);
+  let headerHeight = slider&&parseInt(window.getComputedStyle(header).height);
   // getslidereigt
-  let sliderHeight = parseInt(window.getComputedStyle(slider).height);
+  let sliderHeight =slider&& parseInt(window.getComputedStyle(slider).height);
   // console.log(sliderHeight);
   // compute new height
-  const herowidth = hero.getBoundingClientRect().width * 1;
-  console.log(herowidth);
-  if (herowidth > 390)
+  const herowidth = hero?.getBoundingClientRect().width * 1;
+ 
+  if (herowidth && herowidth > 390)
     slider.style.maxHeight = `${sliderHeight - headerHeight}px`;
 };
 ChangeHeroSize();
@@ -246,7 +248,7 @@ const createDot = function () {
   });
 };
 
-let dots;
+// let dots;
 
 // SLIDE POSITION
 
@@ -286,6 +288,7 @@ function setAutomatedTimeout() {
 }
 
 // IMMEDIATELY INVOKED INIT FUNCTION
+let dots;
 (() => {
   createDot();
   dots = document.querySelectorAll('.dot');
@@ -365,20 +368,20 @@ const moveWithDots = function (e) {
     });
   }
 };
-buttonLeft.addEventListener('click', moveLeft);
-buttonRight.addEventListener('click', moveRight);
-dotContainer.addEventListener('click', moveWithDots);
+buttonLeft && buttonLeft.addEventListener('click', moveLeft);
+buttonRight && buttonRight.addEventListener('click', moveRight);
+buttonRight && dotContainer.addEventListener('click', moveWithDots);
 
 // SMOOTH SCROLL WITH EVENT DELEGATION
 //
 //
 
-navContainer.addEventListener('click', function (e) {
+ navContainer.addEventListener('click', function (e) {
   if (e.target.classList.contains('nav--link')) {
     e.preventDefault();
     const idShowninHref = e.target.getAttribute('href');
     const elementOfEquivalentId = document.querySelector(idShowninHref);
-    elementOfEquivalentId.scrollIntoView({ behavior: 'smooth' });
+    elementOfEquivalentId?.scrollIntoView({ behavior: 'smooth' });
   }
 });
 
@@ -389,7 +392,7 @@ navContainer.addEventListener('click', function (e) {
 document.addEventListener('click', (e) => {
   const clicked = e.target.closest('.image--link');
   if (clicked) {
-    e.preventDefault();
+    // e.preventDefault();
     const headerSectionCord = header.getBoundingClientRect();
 
     window.scrollTo({
@@ -434,7 +437,7 @@ const observer = new IntersectionObserver(
   headerObserverCallback,
   headerObserverOptions
 );
-observer.observe(hero);
+hero && observer.observe(hero);
 
 //
 
@@ -446,7 +449,7 @@ const scrollOnPage = function () {
 
   if (!pageContainer) return;
 
-  pageContainer.addEventListener('click', (e) => {
+  pageContainer && pageContainer.addEventListener('click', (e) => {
     const pageButton = e.target.closest('.page--link');
     if (pageButton) {
       rectangle.pageClicked = true;

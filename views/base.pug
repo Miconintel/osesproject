@@ -32,8 +32,10 @@ html(lang='en')
     link(rel='icon', type='image/png', sizes='16x16', href='/img/fav/osesfav-18.png')
     |     
     link(rel='manifest', href='/img/fav/site.webmanifest')
-    |     
-    link(rel='stylesheet', href='/css/style.css')
+    |
+    block head 
+      |
+      link(rel='stylesheet', href='/css/style.css')
     |     
     script(src='https://unpkg.com/feather-icons')
     |     
@@ -41,7 +43,7 @@ html(lang='en')
     |     
     script( defer src='/js/bundle.js')
     |     
-    title Oses home Page
+    title=`${title[0]} | ${title[1]}`
   |   
   body
     // HEADER

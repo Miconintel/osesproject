@@ -47,7 +47,7 @@ block content
                     a.link(href='#')=food.category
                   |                   
                   p.paragraph.product-name
-                    a.link.link--product--name(href='#')=food.productName
+                    a.link.link--product--name(href=`/productname/${food.slug}`)=food.productName
                   |                   
                   p.paragraph.weight
                     span.weight-effect Weight

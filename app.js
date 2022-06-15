@@ -56,9 +56,9 @@ app.use('/api', helmet());
 //
 console.log(process.env.SENDGRID_PASSWORD);
 // evelopment loggig
-if (process.env.NODE_ENV === 'development') {
-  app.use(morgan('dev'));
-}
+// if (process.env.NODE_ENV === 'development') {
+//   app.use(morgan('dev'));
+// }
 
 //rate limiing
 const limiter = rateLimit({

@@ -1,5 +1,6 @@
 const express = require('express');
 const {
+  getProduct,
   base,
   getOverview,
   getTour,
@@ -23,6 +24,7 @@ const router = express.Router({ mergeParams: true });
 // router.get('/base', base);
 // not useful
 router.get('/', base);
+router.get('/productname/:name', getProduct);
 // router.get('/tour/:slug', isLoggedIn, getTour);
 // router.get('/login', isLoggedIn, login);
 // router.get('/me', protect, getAccount);

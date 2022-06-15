@@ -976,3 +976,44 @@ FOOTER SECTION
     grid-template-columns: repeat(2, 1fr);
   }
 }
+
+
+/* ghghghghghghg */
+ /* GENERAL */
+ /* .full--description--section {
+  padding: 9.6rem 0;
+}
+.full--description--grid {
+  display: grid;
+}
+.grid--2--columns {
+  grid-template-columns: repeat(2, 1fr);
+}
+.full--description--header {
+  text-align: center;
+}
+.full--description--header {
+  text-align: center;
+}
+.product--full--description--image {
+  height: 50rem;
+}
+.full--product--description {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  align-items: center;
+}
+.scale--up {
+  transform: scale(1.2);
+}
+.cart--container {
+  justify-content: flex-start;
+  gap: 4rem;
+}
+.checkout--button {
+  color: #fff;
+  background-color: var(--primary-color);
+  padding: 2rem 3.6rem;
+  border-radius: 1.6rem;
+} */

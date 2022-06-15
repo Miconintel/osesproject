@@ -31,34 +31,19 @@ exports.base = catchAsync(async (request, response, next) => {
     title: 'Home page',
   });
 });
-// base not useful
-exports.getOverview = catchAsync(async (requsest, response, next) => {
-  // get tours=
 
-  const tours = await Tour.find();
-  response.status(200).render('mainOverview', {
-    title: 'All tours',
-    tours,
+exports.getProduct =catchAsync( async(request, response,next)=>{
+  let p = request.params.name
+  
+  console.log(p)
+ const [food] =  await Food.find({slug:p})
+ console.log(food)
+  response.status(200).render('product', {
+    food,
+    title: [food.category, food.slug]
   });
-});
-exports.getTour = catchAsync(async (request, response, next) => {
-  // get the dta for the requested tour
 
-  const tour = await Tour.findOne({ slug: request.params.slug }).populate({
-    path: 'reviews',
-  });
-  if (!tour) {
-    return next(
-      new AppError('sorry this tour doesnt not exist at all', 404)
-    );
-  }
-
-  response.status(200).render('tour', {
-    title: `${tour.name} Tour`,
-    tour,
-  });
-});
-
+})
 exports.login = (request, response, next) => {
   response.status(200).render('login', {
     title: 'login',
@@ -89,19 +74,7 @@ exports.updateUserData = async (request, response) => {
 };
 
 exports.getMyTours = catchAsync(async (request, response, next) => {
-  // TEACHER LOGIC
-  // get booking based on tour
-  // const bookings = await Booking.find({
-  //   parentUser: request.user.id,
-  // });
-  // // find tours with the returned IDs
-  // const tourIds = bookings.map((el) => el.parentTour.id);
-  // const tours = await Tour.find({ _id: { $in: tourIds } });
-  // response.status(200).render('mainOverview', {
-  //   title: 'My tours',
-  //   tours,
-  // });
-  // MY LOGIC
+
   const user = await User.findById(request.user.id).populate('bookings');
   const tours = user.bookings.map((book) => book.parentTour);
   // remove duplicatetours
@@ -118,3 +91,31 @@ exports.alerts = (request, response, next) => {
     response.locals.alert = 'your booking was succesful';
   next();
 };
+
+// base not useful
+// exports.getOverview = catchAsync(async (requsest, response, next) => {
+//   // get tours=
+
+//   const tours = await Tour.find();
+//   response.status(200).render('mainOverview', {
+//     title: 'All tours',
+//     tours,
+//   });
+// });
+// exports.getTour = catchAsync(async (request, response, next) => {
+//   // get the dta for the requested tour
+
+//   const tour = await Tour.findOne({ slug: request.params.slug }).populate({
+//     path: 'reviews',
+//   });
+//   if (!tour) {
+//     return next(
+//       new AppError('sorry this tour doesnt not exist at all', 404)
+//     );
+//   }
+
+//   response.status(200).render('tour', {
+//     title: `${tour.name} Tour`,
+//     tour,
+//   });
+// });

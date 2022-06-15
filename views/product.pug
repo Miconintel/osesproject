@@ -1,0 +1,38 @@
+extends base
+
+append head 
+    link(rel='stylesheet', href='/css/product.css')
+block content
+    main
+        section.full--description--section
+            .content
+                .container.full--description--grid.grid--2--columns
+                    .product--description--image--container
+                        img.product--full--description--image(src=`/img/product-images/${food.image}`, alt=`${food.slug}--image`)
+                    .full--product--description
+                        h2.secondary--header.full--description--header
+                            | Product Description
+                        p.paragraph.full--description--text
+                            | this is a full description text of this product
+                        p.paragraph.category
+                            a.link(href='#')=food.category
+                        p.paragraph.product-name
+                            a.link.link--product--name(href='#')=food.productName
+                        p.paragraph.weight
+                            span.weight-effect Weight
+                            - const foodWeight = food.weight ? food.weight :'N/a'
+                                | : #{foodWeight}
+                        p.paragraph.price
+                            | $
+                            span.price--effect=food.price
+                        .flex.cart--container
+                            .input--container
+                                button.button.button--icon.button-plus-minus.button--minus
+                                    i.icon.icon--minus.icon-plus-minus(data-feather='minus')
+                                input.input.product--unit--quantity(type='text', name='product-unit', value='1')
+                                button.button.button--icon.button-plus-minus.button--plus
+                                    i.icon.icon--plus.icon-plus-minus(data-feather='plus')
+                            button.button.button--icon.button--cart(href='#')
+                                i.icon.icon--cart(data-feather='shopping-cart')
+                        button.button.checkout--button.paragraph
+                            strong CHECKOUT
