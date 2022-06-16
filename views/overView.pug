@@ -2,7 +2,8 @@ extends base
 
 block content
   main
-    include _hero
+    - if(currentPage===1 && !pageThatControlsHero)
+      include _hero
     
     // PRODUCT SECTION
     section#products--id.products
@@ -13,28 +14,28 @@ block content
             |               
             .category--list-container
               h3.tertiary--header
-                a.link.link--category.active(href='#') All Products
+                a.link.link--category.active(href=`/${currentPage?`?page=1`:''}`) All Products
               |                 
               h3.tertiary--header
-                a.link.link--category(href='#') Provisions
+                a.link.link--category(href=`/?category=Provisions${currentPage?`&page=1`:''}`) Provisions
               |                 
               h3.tertiary--header
-                a.link.link--category(href='#') Grains
+                a.link.link--category(href=`/?category=Grains${currentPage?`&page=1`:''}`) Grains
               |                 
               h3.tertiary--header
-                a.link.link--category(href='#') Flours
+                a.link.link--category(href=`/?category=Flour${currentPage?`&page=1`:''}`) Flour
               |                 
               h3.tertiary--header
-                a.link.link--category(href='#') Spices
+                a.link.link--category(href=`/?category=Spices${currentPage?`&page=1`:''}`) Spices
               |                 
               h3.tertiary--header
-                a.link.link--category(href='#') Animal protein
+                a.link.link--category(href=`/?category=Animal Protein${currentPage?`&page=1`:''}`) Animal protein
               |                 
               h3.tertiary--header
-                a.link.link--category(href='#') Oil
+                a.link.link--category(href=`/?category=Oil${currentPage?`&page=1`:''}`) Oil
               |                 
               h3.tertiary--header
-                a.link.link--category(href='#') Others
+                a.link.link--category(href=`/?category=Others${currentPage?`&page=1`:''}`) Others
           |   
           each food in foods          
             .product--jacket
@@ -44,7 +45,7 @@ block content
                 |                 
                 .product--description--container
                   p.paragraph.category
-                    a.link(href='#')=food.category
+                    a.link(href=`/?category=${food.category}${currentPage?`&page=1`:''}`)=food.category
                   |                   
                   p.paragraph.product-name
                     a.link.link--product--name(href=`/productname/${food.slug}`)=food.productName

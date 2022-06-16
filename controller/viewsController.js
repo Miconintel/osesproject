@@ -7,21 +7,30 @@ const User = require('../models/userModel');
 const Food = require('../models/foodModel');
 
 exports.base = catchAsync(async (request, response, next) => {
-  const rpage = request.query.page * 1;
-  const page = rpage || 1;
-  const limit = 10;
-  const skip = (page - 1) * limit;
-  // console.log(Number(page));
-  // console.log(limit * 1);
-  console.log(skip);
+ const pageThatControlsHero=request.query.page
+ const category = request.query.category 
+ const rpage = request.query.page * 1;
+ const page = rpage || 1;
+ const limit = 10;
+ const skip = (page - 1) * limit;
 
-  const allFoods = await Food.find();
-  console.log(allFoods.length);
-  // console.log(allFoods.length * 1);
+  const allFoods = category ? await Food.find({category:category}): await Food.find()
+  
+  let foodPage =category?  Food.find({category:category}):Food.find()
+  foodPage= await foodPage.skip(skip).limit(limit);
+  // let foodPage = await Food.find().skip(skip).limit(limit);
 
-  // get the pages
-  let foodPage = await Food.find().skip(skip).limit(limit);
-
+  // if (request.query.page){
+  //   response.status(200).render('overView', {
+  //     currentPage: page,
+  //     pageLimit: limit,
+  //     foodsLength: allFoods.length,
+  //     pageLength: foodPage.length,
+  //     foods: foodPage,
+  //     title: 'Home page',
+  //     category,
+  //   });
+  // }
   response.status(200).render('overView', {
     currentPage: page,
     pageLimit: limit,
@@ -29,6 +38,8 @@ exports.base = catchAsync(async (request, response, next) => {
     pageLength: foodPage.length,
     foods: foodPage,
     title: 'Home page',
+    category,
+    pageThatControlsHero,
   });
 });
 
@@ -79,7 +90,7 @@ exports.getMyTours = catchAsync(async (request, response, next) => {
   const tours = user.bookings.map((book) => book.parentTour);
   // remove duplicatetours
   const setTours = [...new Set(tours)];
-  // console.log(setTours);
+  
   response.status(200).render('mainOverview', {
     title: 'My tours',
     tours: setTours,

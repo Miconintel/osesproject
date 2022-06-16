@@ -1,6 +1,6 @@
 .container.page--container
   if currentPage == 1
-    a.page--link.button.button--icon.button--chevron.button--chevron__right(href=`/?page=${currentPage+1}`)
+    a.page--link.button.button--icon.button--chevron.button--chevron__right(href=`/?page=${currentPage+1}${category?`&category=${category}`:''}`)
       p.paragraph
         | Page 
         span.page--number= `${currentPage+1}`
@@ -24,7 +24,7 @@
 
   //- else if pageLength<limit && page!==1
   else if currentPage*pageLimit>foodsLength && currentPage!==1
-     a.page--link.button.button--icon.button--chevron.button--chevron__left(href=`/?page=${currentPage-1}`)
+     a.page--link.button.button--icon.button--chevron.button--chevron__left(href=`/?page=${currentPage-1}${category?`&category=${category}`:''}`)
       p.paragraph
         | Page 
         span.page--number= `${currentPage-1}`
@@ -32,14 +32,14 @@
       i.icon.icon--chevron(data-feather='chevron-left')
   
   else   
-    a.page--link.button.button--icon.button--chevron.button--chevron__left(href=`/?page=${currentPage-1}`)
+    a.page--link.button.button--icon.button--chevron.button--chevron__left(href=`/?page=${currentPage-1}${category?`&category=${category}`:''}`)
       p.paragraph
         | Page 
         span.page--number= `${currentPage-1}`
       |               
       i.icon.icon--chevron(data-feather='chevron-left')
     |             
-    a.page--link.button.button--icon.button--chevron.button--chevron__right(href=`/?page=${currentPage+1}`)
+    a.page--link.button.button--icon.button--chevron.button--chevron__right(href=`/?page=${currentPage+1}${category?`&category=${category}`:''}`)
       p.paragraph
         | Page 
         span.page--number= `${currentPage+1}`

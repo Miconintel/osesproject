@@ -1,5 +1,5 @@
 // 'use strict';
-import "regenerator-runtime"
+
 feather.replace();
 
 
@@ -20,6 +20,7 @@ const mobileContainer = document.querySelector(
 );
 const cartNumber = document.querySelector('.cart--number');
 const pageLink = document.querySelector('.page--link');
+const categoryHeader = document.querySelector('.category--header')
 
 //
 //
@@ -370,7 +371,7 @@ const moveWithDots = function (e) {
 };
 buttonLeft && buttonLeft.addEventListener('click', moveLeft);
 buttonRight && buttonRight.addEventListener('click', moveRight);
-buttonRight && dotContainer.addEventListener('click', moveWithDots);
+dotContainer && dotContainer.addEventListener('click', moveWithDots);
 
 // SMOOTH SCROLL WITH EVENT DELEGATION
 //
@@ -443,39 +444,86 @@ hero && observer.observe(hero);
 
 //
 // PAGINATION SCROLL
-const scrollOnPage = function () {
-  const rectangle = { pageClicked: false };
-  const pageContainer = document.querySelector('.page--container');
+// const scrollOnPage = function () {
+//   const rectangle = { pageClicked: false };
+//   const pageContainer = document.querySelector('.page--container');
 
-  if (!pageContainer) return;
+//   if (!pageContainer) return;
 
-  pageContainer && pageContainer.addEventListener('click', (e) => {
-    const pageButton = e.target.closest('.page--link');
-    if (pageButton) {
-      rectangle.pageClicked = true;
-      const b = pageContainer.getBoundingClientRect();
-      rectangle.top = b.top;
-      rectangle.left = b.left;
-      window.localStorage.setItem('rectangle', JSON.stringify(rectangle));
+//   pageContainer && pageContainer.addEventListener('click', (e) => {
+//     const pageButton = e.target.closest('.page--link');
+//     if (pageButton) {
+//       rectangle.pageClicked = true;
+//       const b = pageContainer.getBoundingClientRect();
+//       rectangle.top = b.top;
+//       rectangle.left = b.left;
+//       window.localStorage.setItem('rectangle', JSON.stringify(rectangle));
+//     }
+//   });
+
+//   const useRect = JSON.parse(window.localStorage.getItem('rectangle'));
+//   if (useRect && useRect.pageClicked) {
+//     // console.log(useRect.pageClicked);
+//     window.scrollTo({
+//       left: useRect.left + window.pageXOffset,
+//       top: useRect.top + window.pageXOffset,
+//       behavior: 'smooth',
+//     });
+//   }
+// };
+// scrollOnPage();
+
+//   ADDING ACTIVE BUTTON TO RHE CATEGORIES
+const addActive= e=>{
+  
+  // e.preventDefault()
+  const clicked = e.target.closest('.tertiary--header')
+ 
+  if (!clicked) return
+ const allChildren = clicked.parentElement.children
+ const siblings = [...allChildren].filter(el=>{
+  return el!==clicked
+ })
+  
+  
+  siblings.forEach(e=>{ 
+    const targetEl = e.firstChild
+    targetEl.classList.remove('active')
+    
+    
+})
+
+   clicked.firstChild.classList.add('active')
+   window.localStorage.setItem('isClicked', JSON.stringify(clicked.firstChild.textContent));
+
+}
+
+
+const lit = JSON.parse(window.localStorage.getItem('isClicked'))
+const linkCategories = [...document.querySelectorAll('.link--category')]
+
+
+// using window.location.search to confirm home page
+if(lit && (window.location.search.length!==0)){
+  const linkPreserveActive= linkCategories.filter(el=>{
+    if(el.textContent===lit) {el.classList.add('active')}else{
+      el.classList.remove('active')
     }
-  });
+   return el.textContent===lit
+    
+  })
+  console.log(linkPreserveActive)
+}
 
-  const useRect = JSON.parse(window.localStorage.getItem('rectangle'));
-  if (useRect && useRect.pageClicked) {
-    // console.log(useRect.pageClicked);
-    window.scrollTo({
-      left: useRect.left + window.pageXOffset,
-      top: useRect.top + window.pageXOffset,
-      behavior: 'smooth',
-    });
-  }
-};
-scrollOnPage();
 
-// const b = [1, 5, 8, 9];
+categoryHeader.addEventListener('click',addActive)
 
-// const l = b.some((el) => {
-//   return el === 5;
-// });
+parentCartContainer.addEventListener('click',e=>{
+  const clicked = e.target.closest('.category')
+  if (clicked)
+  window.localStorage.setItem('isClicked', JSON.stringify(clicked.firstChild.textContent));
+  
+})
 
-// console.log(l);
+https://www.facebook.com/
+console.log(`${window.location.protocol}//${window.location.host}`)
