@@ -5,18 +5,29 @@ const Booking = require('../models/bookingModel');
 const catchAsync = require('../utilities/catchAsync');
 const User = require('../models/userModel');
 const Food = require('../models/foodModel');
+const { filter } = require('compression');
 
 exports.base = catchAsync(async (request, response, next) => {
  const pageThatControlsHero=request.query.page
- const category = request.query.category 
+ const category = request.query.category
+ const product = request.query.productName
+ 
+ const filterObj = ['page']
+ const queryObj = {...request.query}
+ filterObj.forEach(element => {
+
+  delete queryObj[element]
+ });
+ console.log(queryObj)
  const rpage = request.query.page * 1;
  const page = rpage || 1;
  const limit = 10;
  const skip = (page - 1) * limit;
 
-  const allFoods = category ? await Food.find({category:category}): await Food.find()
+  const allFoods = category || product ? await Food.find(queryObj): await Food.find()
+  // const allFoods = category || product ? await Food.find({category:category}): await Food.find()
   
-  let foodPage =category?  Food.find({category:category}):Food.find()
+  let foodPage =category || product ?  Food.find(queryObj):Food.find()
   foodPage= await foodPage.skip(skip).limit(limit);
   // let foodPage = await Food.find().skip(skip).limit(limit);
 
@@ -31,13 +42,16 @@ exports.base = catchAsync(async (request, response, next) => {
   //     category,
   //   });
   // }
+  const allP =request.query.product
+  const checkCategory = category || allP
+  const title = checkCategory? checkCategory:'Home Page'
   response.status(200).render('overView', {
     currentPage: page,
     pageLimit: limit,
     foodsLength: allFoods.length,
     pageLength: foodPage.length,
     foods: foodPage,
-    title: 'Home page',
+    title,
     category,
     pageThatControlsHero,
   });
@@ -45,8 +59,6 @@ exports.base = catchAsync(async (request, response, next) => {
 
 exports.getProduct =catchAsync( async(request, response,next)=>{
   let p = request.params.name
-  
-  console.log(p)
  const [food] =  await Food.find({slug:p})
  console.log(food)
   response.status(200).render('product', {

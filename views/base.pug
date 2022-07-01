@@ -41,9 +41,9 @@ html(lang='en')
     |     
     script(src='https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js')
     |     
-    script( defer src='/js/index.js')
+    script(defer src='/js/bundle.js')
     |     
-    title=`${title[0]} | ${title[1]}`
+    title=`${Array.isArray(title)?`${title[0]} | ${title[1]}`: title}`
   |   
   body
     // HEADER
@@ -54,3 +54,4 @@ html(lang='en')
     
     // FOOTER
     include _footer
+    //- script(type="module" defer src='/js/index.js')

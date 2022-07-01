@@ -1,7 +1,12 @@
 // 'use strict';
+import 'regenerator-runtime'
+import '@babel/polyfill'
+import {searchFood} from './search'
+
+
+
 
 feather.replace();
-
 
 // SELECT ITEMS
 const dotContainer = document.querySelector('.dots--container');
@@ -22,12 +27,31 @@ const cartNumber = document.querySelector('.cart--number');
 const pageLink = document.querySelector('.page--link');
 const categoryHeader = document.querySelector('.category--header')
 
-//
-//
-//
-//
-//
+const searchInput = document.querySelector('.search--input')
+const ButtonSearch = document.querySelector('.button--search')
+console.log(searchInput)
+console.log(ButtonSearch)
 
+
+// SEARCH BAR
+console.log('even')
+searchFood('Provisions')
+ButtonSearch.addEventListener('click', e=>{
+  // console.log(searchInput.value)
+//   const df = setInterval(e=>{console.log('remain')
+// clearInterval(df)},100)
+ const productCategory = searchInput.value
+ if(!productCategory)return console.log('please input something')
+  ButtonSearch.setAttribute('href',`/?productName=${productCategory}&page=1`)
+  window.localStorage.setItem('isClicked', JSON.stringify(productCategory));
+  // searchFood(searchInput)
+
+})
+
+
+//
+//
+//
 // MOBILE NAV
 
 if (mobileContainer) {
@@ -77,8 +101,8 @@ const increaseCart = (e) => {
 
 // // add to cart
 
-const loadNewbookmarked = function (par) {
-  const html = `<div class="add-to-cart-container"><p class="added--to--cart">Added to cart</p>
+const loadNewbookmarked = function (par,itemNo,itemName) {
+  const html = `<div class="add-to-cart-container"><p class="added--to--cart">Added ${itemNo?itemNo:''} ${itemName?itemName:''} to cart</p>
   <button class="button button--remove--cart">
 remove
 </button></div>
@@ -390,7 +414,10 @@ dotContainer && dotContainer.addEventListener('click', moveWithDots);
 //
 //
 //
+
 document.addEventListener('click', (e) => {
+  const logoForProduct = e.target.closest('.header--logo__container')
+  if (logoForProduct) window.localStorage.setItem('isClicked', JSON.stringify('All Products'));
   const clicked = e.target.closest('.image--link');
   if (clicked) {
     // e.preventDefault();
@@ -476,7 +503,6 @@ hero && observer.observe(hero);
 //   ADDING ACTIVE BUTTON TO RHE CATEGORIES
 const addActive= e=>{
   
-  // e.preventDefault()
   const clicked = e.target.closest('.tertiary--header')
  
   if (!clicked) return
@@ -484,12 +510,10 @@ const addActive= e=>{
  const siblings = [...allChildren].filter(el=>{
   return el!==clicked
  })
-  
-  
+   
   siblings.forEach(e=>{ 
     const targetEl = e.firstChild
     targetEl.classList.remove('active')
-    
     
 })
 
@@ -503,8 +527,10 @@ const lit = JSON.parse(window.localStorage.getItem('isClicked'))
 const linkCategories = [...document.querySelectorAll('.link--category')]
 
 
-// using window.location.search to confirm home page
-if(lit && (window.location.search.length!==0)){
+// using window.location.search to confirm home page (window.location.search.length!==0)
+
+
+if(lit && window.location.search.length!==0){
   const linkPreserveActive= linkCategories.filter(el=>{
     if(el.textContent===lit) {el.classList.add('active')}else{
       el.classList.remove('active')
@@ -515,15 +541,93 @@ if(lit && (window.location.search.length!==0)){
   console.log(linkPreserveActive)
 }
 
+categoryHeader && categoryHeader.addEventListener('click',addActive)
 
-categoryHeader.addEventListener('click',addActive)
 
-parentCartContainer.addEventListener('click',e=>{
+// CATEGORIES FROM THE CARDS
+
+parentCartContainer && parentCartContainer.addEventListener('click',e=>{
   const clicked = e.target.closest('.category')
   if (clicked)
   window.localStorage.setItem('isClicked', JSON.stringify(clicked.firstChild.textContent));
   
 })
 
-https://www.facebook.com/
-console.log(`${window.location.protocol}//${window.location.host}`)
+
+const fullDescription = document.querySelector('.full--product--description')
+
+const addToCartProduct = e=>{
+  const clicked = e.target.closest('.button--cart');
+  if(!clicked)return
+      const parentOuter = clicked.closest(
+      '.inner--container__product'
+    )
+    const bookmarkItem = parentOuter.children[3].textContent;
+    allState.bookmarkItems.push(bookmarkItem);
+
+    const parentInner = clicked.parentElement;
+    parentInner.classList.add('hide--again');
+      loadNewbookmarked(parentOuter);
+
+    allState.cartCount++;
+    assignCartNumber();
+        window.localStorage.setItem('state', JSON.stringify(allState));
+
+ 
+}
+
+fullDescription && fullDescription.addEventListener('click',addToCartProduct)
+
+// AUTOMATED RELOAD FOR PRODUCT PAGE
+const reloadButton = function(state){
+  if(!window.location.pathname.includes('product')) return
+
+  const product = document.querySelector('.product-name');
+  const parent = product.parentElement
+  const cartButton = parent.children[parent.children.length-1]
+  
+  if (
+    state.bookmarkItems.some((eli) => {
+      return eli === product.textContent;
+    })
+  ) {
+    cartButton.classList.add('hide--again');
+    loadNewbookmarked(parent)
+  }
+
+  }
+  reloadButton(allState)
+
+
+  const removeCartProduct = function (e) {
+    // console.log(e.target);
+    const clicked = e.target.classList.contains('button--remove--cart');
+    if (clicked) {
+     
+      // remove item from cart
+      const productParent = e.target.closest('.inner--container__product'); 
+     allState.bookmarkItems= allState.bookmarkItems.filter(el=>{
+  
+      return el !==productParent.children[3].textContent
+     })
+      // return the cart btton
+    allState.cartCount--
+    assignCartNumber();
+    window.localStorage.setItem('state', JSON.stringify(allState));
+    const cartB =   productParent.children[productParent.children.length-2]
+    cartB.classList.remove('hide--again')
+    const childPull =  productParent.children[productParent.children.length-1]
+    productParent.removeChild(childPull)
+      
+      // persist crt
+     
+    }
+  };
+
+  fullDescription && fullDescription.addEventListener('click',removeCartProduct)
+
+  console.log(!window.location.pathname.includes('product'))
+  console.log('window.location.search')
+
+ 
+
