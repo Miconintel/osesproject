@@ -81,6 +81,12 @@ body {
   gap: 2rem;
   align-items: center;
 }
+.inner--container__product{
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  align-items: center;
+}
 .scale--up {
   transform: scale(1.2);
 }
