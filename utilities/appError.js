@@ -8,3 +8,5 @@ class AppError extends Error {
   }
 }
 module.exports = AppError;
+
+// operational errors are errors that we cretaed ourselves incasae of a user's problem, why the other ones that are caught at the catch async are not operational, they might be errors ffrom mingoose

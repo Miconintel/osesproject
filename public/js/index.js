@@ -26,26 +26,37 @@ const mobileContainer = document.querySelector(
 const cartNumber = document.querySelector('.cart--number');
 const pageLink = document.querySelector('.page--link');
 const categoryHeader = document.querySelector('.category--header')
-
 const searchInput = document.querySelector('.search--input')
 const ButtonSearch = document.querySelector('.button--search')
-console.log(searchInput)
-console.log(ButtonSearch)
+
 
 
 // SEARCH BAR
-searchFood('Provisions')
-ButtonSearch.addEventListener('click', e=>{
-  // console.log(searchInput.value)
-//   const df = setInterval(e=>{console.log('remain')
-// clearInterval(df)},100)
- const productCategory = searchInput.value
- if(!productCategory)return console.log('please input something')
-  ButtonSearch.setAttribute('href',`/?productName=${productCategory}&page=1`)
-  window.localStorage.setItem('isClicked', JSON.stringify(productCategory));
-  // searchFood(searchInput)
 
-})
+searchFood('Provisions')
+let allCat= document.querySelectorAll('.link--category')
+allCat=[...allCat]
+const catName = allCat.map(e=>e.textContent)
+
+let queryHead;
+const searchFunction= e=>{
+  // e.preventDefault()
+  
+  let productCategory = searchInput.value
+  if(catName.some(e=>e===productCategory)){
+    queryHead='category'
+  }else{
+    queryHead='productName'
+  }
+
+window.localStorage.setItem('qhead', queryHead);
+  productCategory=productCategory.slice(0,1).toUpperCase().concat(productCategory.slice(1))
+  if(!productCategory)return console.log('please input something')
+   ButtonSearch.setAttribute('href',`/?${queryHead}=${productCategory}&page=1`)
+   window.localStorage.setItem('isClicked', JSON.stringify(productCategory));
+  
+ }
+ButtonSearch.addEventListener('click',searchFunction)
 
 
 //
@@ -72,8 +83,6 @@ if (mobileContainer) {
 //
 //
 //
-
-
 const increaseCart = (e) => {
   const clicked = e.target.closest('.button-plus-minus');
   if (clicked) {
@@ -197,7 +206,7 @@ allProducts.forEach((el) => {
 
   //   parent.classList.add('hide--again');
   //   loadNewbookmarked(el.children[1]);
-  // }
+  // } 
 });
 }
 reloadButtons(allState)
@@ -624,9 +633,12 @@ const reloadButton = function(state){
   };
 
   fullDescription && fullDescription.addEventListener('click',removeCartProduct)
+// const jk = 'udara'
+// console.log(jk.slice(0,1).toUpperCase().concat(jk.slice(1)))
+// console.log(jk[0].toUpperCase().concat(jk.slice(1)))
 
-  console.log(!window.location.pathname.includes('product'))
-  console.log('window.location.search')
+//  const ura = jk.split('')
+//  console.log(ura)
+// console.log(ura.splice(1,1,'z'))
 
- 
-
+// console.log(ura.join(''))
