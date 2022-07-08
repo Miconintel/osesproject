@@ -18,7 +18,7 @@ block content
                             p.paragraph.category
                                 a.link(href=`/?category=${food.category}&page=1`)=food.category
                             p.paragraph.product-name
-                                a.link.link--product--name(href='#')=food.productName
+                                a.link.link--product--name(href=`/productname/${food.slug}`)=food.productName
                             p.paragraph.weight
                                 span.weight-effect Weight
                                 - const foodWeight = food.weight ? food.weight :'N/a'
