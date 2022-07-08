@@ -11,13 +11,13 @@ exports.base = catchAsync(async (request, response, next) => {
  const pageThatControlsHero=request.query.page
  const category = request.query.category
  const product = request.query.productName
- 
  const filterObj = ['page']
  const queryObj = {...request.query}
  filterObj.forEach(element => {
+
   delete queryObj[element]
  });
-
+ console.log(queryObj)
  const rpage = request.query.page * 1;
  const page = rpage || 1;
  const limit = 10;

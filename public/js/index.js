@@ -37,12 +37,25 @@ searchFood('Provisions')
 let allCat= document.querySelectorAll('.link--category')
 allCat=[...allCat]
 const catName = allCat.map(e=>e.textContent)
+console.log(catName)
+console.log(allCat)
+const speak = catName.some(e=>e==='Provisions')
+console.log(speak)
+
+console.log('grai'.slice(0,1).toUpperCase().concat('grai'.slice(1,)))
+
+const n = 'g'.slice(0,1).toUpperCase().concat('grai'.slice(1,)).startsWith('Grains'.slice(0,2))
+const cif = catName.filter(el=>'gr'.slice(0,1).toUpperCase().concat('gr'.slice(1)).startsWith(el.slice(0,2)))
+
+console.log(cif)
 
 let queryHead;
 const searchFunction= e=>{
   // e.preventDefault()
   
-  let productCategory = searchInput.value
+  let productCategory = searchInput.value 
+  const cif = catName.filter(el=>productCategory.slice(0,1).toUpperCase().concat(productCategory.slice(1)).startsWith(el.slice(0,2)))
+  productCategory = cif.join('') || productCategory.slice(0,1).toUpperCase().concat(productCategory.slice(1))
   if(catName.some(e=>e===productCategory)){
     queryHead='category'
   }else{
@@ -50,15 +63,12 @@ const searchFunction= e=>{
   }
 
 window.localStorage.setItem('qhead', queryHead);
-  productCategory=productCategory.slice(0,1).toUpperCase().concat(productCategory.slice(1))
   if(!productCategory)return console.log('please input something')
    ButtonSearch.setAttribute('href',`/?${queryHead}=${productCategory}&page=1`)
    window.localStorage.setItem('isClicked', JSON.stringify(productCategory));
   
  }
 ButtonSearch.addEventListener('click',searchFunction)
-
-
 //
 //
 //

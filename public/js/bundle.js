@@ -9136,11 +9136,27 @@ allCat = _toConsumableArray(allCat);
 var catName = allCat.map(function (e) {
   return e.textContent;
 });
+console.log(catName);
+console.log(allCat);
+var speak = catName.some(function (e) {
+  return e === 'Provisions';
+});
+console.log(speak);
+console.log('grai'.slice(0, 1).toUpperCase().concat('grai'.slice(1)));
+var n = 'g'.slice(0, 1).toUpperCase().concat('grai'.slice(1)).startsWith('Grains'.slice(0, 2));
+var cif = catName.filter(function (el) {
+  return 'gr'.slice(0, 1).toUpperCase().concat('gr'.slice(1)).startsWith(el.slice(0, 2));
+});
+console.log(cif);
 var queryHead;
 
 var searchFunction = function searchFunction(e) {
   // e.preventDefault()
   var productCategory = searchInput.value;
+  var cif = catName.filter(function (el) {
+    return productCategory.slice(0, 1).toUpperCase().concat(productCategory.slice(1)).startsWith(el.slice(0, 2));
+  });
+  productCategory = cif.join('') || productCategory.slice(0, 1).toUpperCase().concat(productCategory.slice(1));
 
   if (catName.some(function (e) {
     return e === productCategory;
@@ -9151,7 +9167,6 @@ var searchFunction = function searchFunction(e) {
   }
 
   window.localStorage.setItem('qhead', queryHead);
-  productCategory = productCategory.slice(0, 1).toUpperCase().concat(productCategory.slice(1));
   if (!productCategory) return console.log('please input something');
   ButtonSearch.setAttribute('href', "/?".concat(queryHead, "=").concat(productCategory, "&page=1"));
   window.localStorage.setItem('isClicked', JSON.stringify(productCategory));
@@ -9680,7 +9695,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56287" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52597" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

@@ -16,7 +16,7 @@ block content
                             p.paragraph.full--description--text
                                 | this is a full description text of this product
                             p.paragraph.category
-                                a.link(href='#')=food.category
+                                a.link(href=`/?category=${food.category}&page=1`)=food.category
                             p.paragraph.product-name
                                 a.link.link--product--name(href='#')=food.productName
                             p.paragraph.weight
