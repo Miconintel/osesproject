@@ -32,7 +32,6 @@ const ButtonSearch = document.querySelector('.button--search')
 
 
 // SEARCH BAR
-
 searchFood('Provisions')
 let allCat= document.querySelectorAll('.link--category')
 allCat=[...allCat]

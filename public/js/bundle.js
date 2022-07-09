@@ -9130,6 +9130,7 @@ var categoryHeader = document.querySelector('.category--header');
 var searchInput = document.querySelector('.search--input');
 var ButtonSearch = document.querySelector('.button--search'); // SEARCH BAR
 
+console.log('even');
 (0, _search.searchFood)('Provisions');
 var allCat = document.querySelectorAll('.link--category');
 allCat = _toConsumableArray(allCat);
@@ -9708,7 +9709,11 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
+<<<<<<< HEAD
   var ws = new WebSocket(protocol + '://' + hostname + ':' + "62234" + '/');
+=======
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60319" + '/');
+>>>>>>> de6f3a7219b221ad4124f3c9c0c803c14472c6e3
 
   ws.onmessage = function (event) {
     checkedAssets = {};
