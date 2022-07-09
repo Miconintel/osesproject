@@ -11,6 +11,7 @@ class APIfeatures {
 
     // queryadvanced
     let queryString = JSON.stringify(queryObj);
+    // the second argument on replace is a callback function that has access to the matched stsring found, and whatever the function returns is used to replace what is oud
     queryString = queryString.replace(
       /\b(gte|gt|lte|lt)\b/g,
       (match) => `$${match}`
