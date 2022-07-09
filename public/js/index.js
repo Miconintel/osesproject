@@ -223,7 +223,7 @@ reloadButtons(allState)
 
 // REMOVE FROM CART
 
-const removeCart = function (e) {
+const removeCart = function (e) { 
   // console.log(e.target);
   const clicked = e.target.classList.contains('button--remove--cart');
   if (clicked) {
@@ -563,6 +563,23 @@ categoryHeader && categoryHeader.addEventListener('click',addActive)
 
 
 // CATEGORIES FROM THE CARDS
+
+parentCartContainer && parentCartContainer.addEventListener('click',e=>{
+  const clicked = e.target.closest('.category')
+  if (clicked)
+  window.localStorage.setItem('isClicked', JSON.stringify(clicked.firstChild.textContent));
+  
+})
+
+// CATEGORIES FROM PRODUCT DETAILS
+const productInnerContainer = document.querySelector('.inner--container__product')
+
+productInnerContainer && productInnerContainer.addEventListener('click',e=>{
+  const clicked =e.target.closest('.category')
+  if(clicked){
+    window.localStorage.setItem('isClicked', JSON.stringify(clicked.firstChild.textContent));
+  }
+})
 
 parentCartContainer && parentCartContainer.addEventListener('click',e=>{
   const clicked = e.target.closest('.category')

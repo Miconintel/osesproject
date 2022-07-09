@@ -9604,6 +9604,19 @@ categoryHeader && categoryHeader.addEventListener('click', addActive); // CATEGO
 parentCartContainer && parentCartContainer.addEventListener('click', function (e) {
   var clicked = e.target.closest('.category');
   if (clicked) window.localStorage.setItem('isClicked', JSON.stringify(clicked.firstChild.textContent));
+}); // CATEGORIES FROM PRODUCT DETAILS
+
+var productInnerContainer = document.querySelector('.inner--container__product');
+productInnerContainer && productInnerContainer.addEventListener('click', function (e) {
+  var clicked = e.target.closest('.category');
+
+  if (clicked) {
+    window.localStorage.setItem('isClicked', JSON.stringify(clicked.firstChild.textContent));
+  }
+});
+parentCartContainer && parentCartContainer.addEventListener('click', function (e) {
+  var clicked = e.target.closest('.category');
+  if (clicked) window.localStorage.setItem('isClicked', JSON.stringify(clicked.firstChild.textContent));
 });
 var fullDescription = document.querySelector('.full--product--description');
 
@@ -9695,7 +9708,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52597" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62234" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
