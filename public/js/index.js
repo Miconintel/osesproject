@@ -581,12 +581,12 @@ productInnerContainer && productInnerContainer.addEventListener('click',e=>{
   }
 })
 
-parentCartContainer && parentCartContainer.addEventListener('click',e=>{
-  const clicked = e.target.closest('.category')
-  if (clicked)
-  window.localStorage.setItem('isClicked', JSON.stringify(clicked.firstChild.textContent));
+// parentCartContainer && parentCartContainer.addEventListener('click',e=>{
+//   const clicked = e.target.closest('.category')
+//   if (clicked)
+//   window.localStorage.setItem('isClicked', JSON.stringify(clicked.firstChild.textContent));
   
-})
+// })
 
 
 const fullDescription = document.querySelector('.full--product--description')
@@ -660,12 +660,28 @@ const reloadButton = function(state){
   };
 
   fullDescription && fullDescription.addEventListener('click',removeCartProduct)
-// const jk = 'udara'
-// console.log(jk.slice(0,1).toUpperCase().concat(jk.slice(1)))
-// console.log(jk[0].toUpperCase().concat(jk.slice(1)))
 
-//  const ura = jk.split('')
-//  console.log(ura)
-// console.log(ura.splice(1,1,'z'))
+  const increaseCartProductDetails = (e) => {
+    const clicked = e.target.closest('.button-plus-minus');
+    if (clicked) {
+      
+      console.log('clicked')
+      // e.preventDefault();
+      let cartNum;
+      if (clicked.firstElementChild.classList.contains('feather-plus')) {
+        cartNum = clicked.previousElementSibling.value * 1;
+        cartNum++;
+        console.log(cartNum);
+        clicked.previousElementSibling.value = cartNum;
+      } else if (
+        clicked.firstElementChild.classList.contains('feather-minus')
+      ) {
+        cartNum = clicked.nextElementSibling.value * 1;
+        if (cartNum !== 1) cartNum--;
+  
+        clicked.nextElementSibling.value = cartNum;
+      }
+    }
+  };
 
-// console.log(ura.join(''))
+  productInnerContainer && productInnerContainer.addEventListener('click',increaseCartProductDetails)
