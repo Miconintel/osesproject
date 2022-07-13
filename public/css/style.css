@@ -360,6 +360,10 @@ STARTS HERE  */
   overflow: hidden;
 }
 
+.none{
+  transition: none;
+}
+
 .slide {
   position: absolute;
   left: 0;
@@ -679,6 +683,12 @@ STARTS HERE  */
 .page--link {
   text-decoration: none;
 }
+.page--link:hover,
+.page--link:active {
+background-color: var(--primary-color--darker);
+}
+
+
 
 /* 
 

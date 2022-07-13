@@ -2,6 +2,8 @@
 import 'regenerator-runtime'
 import '@babel/polyfill'
 import {searchFood} from './search'
+import {getCartItem} from './carts'
+
 
 
 
@@ -36,17 +38,13 @@ searchFood('Provisions')
 let allCat= document.querySelectorAll('.link--category')
 allCat=[...allCat]
 const catName = allCat.map(e=>e.textContent)
-console.log(catName)
-console.log(allCat)
-const speak = catName.some(e=>e==='Provisions')
-console.log(speak)
 
-console.log('grai'.slice(0,1).toUpperCase().concat('grai'.slice(1,)))
+const speak = catName.some(e=>e==='Provisions')
+
 
 const n = 'g'.slice(0,1).toUpperCase().concat('grai'.slice(1,)).startsWith('Grains'.slice(0,2))
 const cif = catName.filter(el=>'gr'.slice(0,1).toUpperCase().concat('gr'.slice(1)).startsWith(el.slice(0,2)))
 
-console.log(cif)
 
 let queryHead;
 const searchFunction= e=>{
@@ -80,7 +78,7 @@ if (mobileContainer) {
     if (clicked) {
       e.preventDefault();
       if (clicked.classList.contains('mobile--menu')) {
-        console.log(clicked);
+        
         header.classList.add('open');
       } else if (clicked.classList.contains('mobile--close'))
         header.classList.remove('open');
@@ -101,7 +99,7 @@ const increaseCart = (e) => {
     if (clicked.firstElementChild.classList.contains('feather-plus')) {
       cartNum = clicked.previousElementSibling.value * 1;
       cartNum++;
-      console.log(cartNum);
+  
       clicked.previousElementSibling.value = cartNum;
     } else if (
       clicked.firstElementChild.classList.contains('feather-minus')
@@ -127,23 +125,43 @@ remove
   par.insertAdjacentHTML('beforeend', html);
 };
 let allState = {
+  proCount:0,
   cartCount: 0,
   bookmarkItems: [],
+  bookmarkPro :[]
 };
 
 
 
 // let cartCount = 0;
-const assignCartNumber = function () {
-  cartNumber.textContent = allState.cartCount;
+const assignCartNumber = function (state) {
+  cartNumber.textContent = state.cartCount;
 };
 
 // HANDLER FUNCTION
 
-const addtoCart = function (e) {
+
+const addToCartPro = async function(clickedProduct,noOfItems){
+
+  const bookmarkPro = await getCartItem(clickedProduct.id)
+  const {data} = bookmarkPro
+  const allData = [data, noOfItems ]
+  allState.bookmarkPro.push(allData);
+  allState.proCount++
+  console.log(allState.bookmarkPro)
+
+}
+
+
+const addtoCart =  function (e) {
   const clicked = e.target.closest('.button--cart');
   if (clicked) {
+
     // mark bookmark true
+
+    const numberofProducts = clicked.previousElementSibling.children[1].value
+    addToCartPro(clicked,numberofProducts*1)
+  
     const productParent = clicked.closest('.product');
     productParent.setAttribute('data-page', true);
 
@@ -160,24 +178,80 @@ const addtoCart = function (e) {
     parentInner.classList.add('hide--again');
 
     // show already bookmarked button
-    loadNewbookmarked(parentOuter);
+    loadNewbookmarked(parentOuter,numberofProducts,bookmarkItem);
 
     // increase counter
 
     allState.cartCount++;
-    assignCartNumber();
+    assignCartNumber(allState);
     window.localStorage.setItem('state', JSON.stringify(allState));
   }
 };
 
 parentCartContainer&&addEventListener('click', addtoCart);
 
+
+// REMOVE FROM CART
+
+const removeCartPro = function(parentEl){
+  allState.bookmarkPro=allState.bookmarkPro.filter(el=>{
+    return el[0].productName !== parentEl.children[1].children[1].textContent
+   })
+
+   allState.proCount--
+}
+
+const removeCart = function (e) { 
+  // console.log(e.target);
+  const clicked = e.target.classList.contains('button--remove--cart');
+  if (clicked) {
+   
+    // remove item from cart
+    const productParent = e.target.closest('.product');
+    productParent.setAttribute('data-page', false);
+   allState.bookmarkItems= allState.bookmarkItems.filter(el=>{
+
+    return el !==productParent.children[1].children[1].textContent
+   })
+
+   removeCartPro(productParent)
+    // return the cart btton
+   
+
+   allState.cartCount--
+
+  
+   
+   assignCartNumber(allState);
+  window.localStorage.setItem('state', JSON.stringify(allState));
+    // reloadButtons(allState)
+    productParent.children[1].children[4].classList.remove('hide--again')
+    const parentPull = productParent.children[1]
+    const childPull = parentPull.children[5]
+    parentPull.removeChild(childPull)
+    
+    // persist crt
+
+  }
+};
+
+parentCartContainer && parentCartContainer.addEventListener('click', removeCart);
+
+
+// GET LOCAL STATE
+
 const localState = JSON.parse(window.localStorage.getItem('state'));
 if (localState) {
-  allState = localState;
-  allState.cartCount=allState.bookmarkItems.length
-  assignCartNumber();
+  // allState = localState;
+  allState.cartCount = localState.cartCount
+  // should havebeen allState.cartcount = localState.bookmarkItems.length
+  localState.cartCount=localState.bookmarkItems.length
+  assignCartNumber(localState);
+
 }
+
+
+// RELOAD BUTTONS 
 
 const reloadButtons = function(state){
 // persist cart
@@ -218,39 +292,7 @@ allProducts.forEach((el) => {
   // } 
 });
 }
-reloadButtons(allState)
-
-// REMOVE FROM CART
-
-const removeCart = function (e) { 
-  // console.log(e.target);
-  const clicked = e.target.classList.contains('button--remove--cart');
-  if (clicked) {
-   
-    // remove item from cart
-    const productParent = e.target.closest('.product');
-    productParent.setAttribute('data-page', false);
-   allState.bookmarkItems= allState.bookmarkItems.filter(el=>{
-
-    return el !==productParent.children[1].children[1].textContent
-   })
-    // return the cart btton
-   allState.cartCount--
-   
-   assignCartNumber();
-    window.localStorage.setItem('state', JSON.stringify(allState));
-    // reloadButtons(allState)
-    productParent.children[1].children[4].classList.remove('hide--again')
-    const parentPull = productParent.children[1]
-    const childPull = parentPull.children[5]
-    parentPull.removeChild(childPull)
-    
-    // persist crt
-   
-  }
-};
-
-parentCartContainer && parentCartContainer.addEventListener('click', removeCart);
+reloadButtons(localState)
 
 
 /// SET HERO HEIGHT
@@ -293,13 +335,34 @@ const createDot = function () {
 // let dots;
 
 // SLIDE POSITION
+//  arranging a promise to controltime
+// slides.forEach(e=>e.classList.add('none'))
+// const b = new Promise((resolve,reject)=>{
+//   setTimeout(()=>{
+//     resolve('learn')
+//   },3000)
+// })
+// const c = new Promise((resolve,reject)=>{
+//   setTimeout(resolve,10000)
+// })
+
+
+
+// window.addEventListener('load',()=>{
+//   b.then(e=>{
+//     slides.forEach(e=>e.classList.remove('none'))
+//     })
+// })
+
+// SLIDER COUNT
+
 
 const pos = function (count) {
   slides.forEach((s, i) => {
     const newP = (i - count) * 100;
-
     s.style.transform = `translateX(${newP}%)`;
-  });
+   
+  }); 
 
   const fg = function (c) {
     dots.forEach(function (dot, i, arr) {
@@ -555,7 +618,6 @@ if(lit && window.location.search.length!==0){
    return el.textContent===lit
     
   })
-  console.log(linkPreserveActive)
 }
 
 categoryHeader && categoryHeader.addEventListener('click',addActive)
@@ -604,7 +666,7 @@ const addToCartProduct = e=>{
       loadNewbookmarked(parentOuter);
 
     allState.cartCount++;
-    assignCartNumber();
+    assignCartNumber(allState);
         window.localStorage.setItem('state', JSON.stringify(allState));
 
  
@@ -630,7 +692,7 @@ const reloadButton = function(state){
   }
 
   }
-  reloadButton(allState)
+  reloadButton(localState)
 
 
   const removeCartProduct = function (e) {
@@ -646,7 +708,7 @@ const reloadButton = function(state){
      })
       // return the cart btton
     allState.cartCount--
-    assignCartNumber();
+    assignCartNumber(allState);
     window.localStorage.setItem('state', JSON.stringify(allState));
     const cartB =   productParent.children[productParent.children.length-2]
     cartB.classList.remove('hide--again')
@@ -664,13 +726,12 @@ const reloadButton = function(state){
     const clicked = e.target.closest('.button-plus-minus');
     if (clicked) {
       
-      console.log('clicked')
       // e.preventDefault();
       let cartNum;
       if (clicked.firstElementChild.classList.contains('feather-plus')) {
         cartNum = clicked.previousElementSibling.value * 1;
         cartNum++;
-        console.log(cartNum);
+       
         clicked.previousElementSibling.value = cartNum;
       } else if (
         clicked.firstElementChild.classList.contains('feather-minus')
