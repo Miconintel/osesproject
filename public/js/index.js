@@ -288,7 +288,7 @@ allProducts.forEach((el) => {
   // } 
 });
 }
-reloadButtons(localState)
+reloadButtons(allState)
 
 
 /// SET HERO HEIGHT
