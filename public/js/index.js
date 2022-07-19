@@ -147,8 +147,9 @@ const addToCartPro = async function(clickedProduct,noOfItems){
   const {data} = bookmarkPro
   const allData = [data, noOfItems ]
   allState.bookmarkPro.push(allData);
+  window.localStorage.setItem('state', JSON.stringify(allState));
   allState.proCount++
-  console.log(allState.bookmarkPro)
+ 
 
 }
 
@@ -156,9 +157,8 @@ const addToCartPro = async function(clickedProduct,noOfItems){
 const addtoCart =  function (e) {
   const clicked = e.target.closest('.button--cart');
   if (clicked) {
-
     // mark bookmark true
-
+    console.log('clicked')
     const numberofProducts = clicked.previousElementSibling.children[1].value
     addToCartPro(clicked,numberofProducts*1)
   
@@ -181,15 +181,13 @@ const addtoCart =  function (e) {
     loadNewbookmarked(parentOuter,numberofProducts,bookmarkItem);
 
     // increase counter
-
     allState.cartCount++;
     assignCartNumber(allState);
     window.localStorage.setItem('state', JSON.stringify(allState));
   }
 };
 
-parentCartContainer&&addEventListener('click', addtoCart);
-
+parentCartContainer&&parentCartContainer.addEventListener('click', addtoCart);
 
 // REMOVE FROM CART
 
@@ -205,11 +203,11 @@ const removeCart = function (e) {
   // console.log(e.target);
   const clicked = e.target.classList.contains('button--remove--cart');
   if (clicked) {
-   
+    console.log('clicked')
     // remove item from cart
     const productParent = e.target.closest('.product');
     productParent.setAttribute('data-page', false);
-   allState.bookmarkItems= allState.bookmarkItems.filter(el=>{
+    allState.bookmarkItems= allState.bookmarkItems.filter(el=>{
 
     return el !==productParent.children[1].children[1].textContent
    })
@@ -217,21 +215,15 @@ const removeCart = function (e) {
    removeCartPro(productParent)
     // return the cart btton
    
-
-   allState.cartCount--
-
-  
-   
+   allState.cartCount-- 
    assignCartNumber(allState);
-  window.localStorage.setItem('state', JSON.stringify(allState));
+   window.localStorage.setItem('state', JSON.stringify(allState));
     // reloadButtons(allState)
     productParent.children[1].children[4].classList.remove('hide--again')
     const parentPull = productParent.children[1]
     const childPull = parentPull.children[5]
     parentPull.removeChild(childPull)
-    
     // persist crt
-
   }
 };
 
@@ -242,11 +234,15 @@ parentCartContainer && parentCartContainer.addEventListener('click', removeCart)
 
 const localState = JSON.parse(window.localStorage.getItem('state'));
 if (localState) {
+ 
+  console.log(localState.bookmarkPro)
   // allState = localState;
-  allState.cartCount = localState.cartCount
+  // allState.cartCount = localState.cartCount
   // should havebeen allState.cartcount = localState.bookmarkItems.length
-  localState.cartCount=localState.bookmarkItems.length
-  assignCartNumber(localState);
+  localState.cartCount=localState.proCount=localState.bookmarkItems.length
+  allState.cartCount=localState.bookmarkItems.length
+  allState = localState
+  assignCartNumber(allState);
 
 }
 
@@ -669,7 +665,6 @@ const addToCartProduct = e=>{
     assignCartNumber(allState);
         window.localStorage.setItem('state', JSON.stringify(allState));
 
- 
 }
 
 fullDescription && fullDescription.addEventListener('click',addToCartProduct)
@@ -714,9 +709,7 @@ const reloadButton = function(state){
     cartB.classList.remove('hide--again')
     const childPull =  productParent.children[productParent.children.length-1]
     productParent.removeChild(childPull)
-      
       // persist crt
-     
     }
   };
 
@@ -725,7 +718,6 @@ const reloadButton = function(state){
   const increaseCartProductDetails = (e) => {
     const clicked = e.target.closest('.button-plus-minus');
     if (clicked) {
-      
       // e.preventDefault();
       let cartNum;
       if (clicked.firstElementChild.classList.contains('feather-plus')) {
@@ -738,10 +730,50 @@ const reloadButton = function(state){
       ) {
         cartNum = clicked.nextElementSibling.value * 1;
         if (cartNum !== 1) cartNum--;
-  
         clicked.nextElementSibling.value = cartNum;
       }
     }
   };
 
   productInnerContainer && productInnerContainer.addEventListener('click',increaseCartProductDetails)
+
+
+  // DISPLAY CART
+  const cartDisplay = document.querySelector('#cart--display')
+  const main = document.querySelector('main')  
+  const headerH = document.querySelector('.header--nav')
+  const mainMain = body.children[1]
+  const sections = [...document.querySelectorAll('section')]
+  const closeCart = document.querySelector('.close--cart')
+  const closeContainer = document.querySelector('.close--cart--container')
+  console.log(closeContainer)
+
+  // handlerfunction
+
+const loadEmptyCart = function(){
+  const html = `<div class="close--cart--container"><p class="paragraph cart--is--empty">your cart is empty, kindly add an item to view cart <p> <p class="close--cart button">close<p><div>`
+  cartDisplay.insertAdjacentHTML('beforeend', html)
+}
+
+  const showCarts = e=>{
+    const clicked = e.target.closest('.button--cart')
+    if(clicked){
+      if(allState.bookmarkPro.length === 0)return loadEmptyCart()
+      
+      sections.forEach(el=>main.removeChild(el))
+      console.log(sections)
+
+    }
+  }
+
+headerH.addEventListener('click',showCarts)
+
+cartDisplay.addEventListener('click', e=>{
+  
+ const clicked= e.target.closest('.close--cart--container')
+ if (!clicked)return
+ const toClose = clicked.closest('.close--cart--container')
+ cartDisplay.removeChild(toClose)
+
+})
+ 
