@@ -761,8 +761,7 @@ const loadEmptyCart = function(){
       if(allState.bookmarkPro.length === 0)return loadEmptyCart()
       
       sections.forEach(el=>main.removeChild(el))
-      console.log(sections)
-
+      
     }
   }
 
