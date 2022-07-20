@@ -77,6 +77,7 @@ https://www.cssportal.com/html-to-pug/
 
 html {
   font-size: 65%;
+  overflow-x: hidden;
 }
 body {
   font-family: 'PT Sans', 'Open Sans', 'Poppins', sans-serif;
@@ -84,7 +85,9 @@ body {
   font-weight: 400;
   line-height: 1.5;
   color: #444;
+  width: 100%;
   overflow-x: hidden;
+ 
 }
 
 /* GENERAL */
@@ -768,9 +771,15 @@ FOOTER SECTION
   .header--container {
     padding: 0rem 4rem;
     justify-content: space-between;
+
+    /* u have to make it position relative so overflow x hidden can work */
+    position: relative;
   }
 
   .nav--container {
+     /* display: flex;
+    justify-content: center;
+    align-items: center; */
     position: absolute;
     top: 0%;
     /* is advised to change the left, so the actual position is not reached again when scroed down, i found this bug as the reason why the position from left is prefereeed and not fromtop */
@@ -778,12 +787,18 @@ FOOTER SECTION
     background: #04380a;
     width: 100%;
     z-index: 100;
-    /* display: flex;
-    justify-content: center;
-    align-items: center; */
-    height: 100vh;
+/* the concept of using opacity to hide element is to allow for animation as display none doesnt allow it, but then to have the same effect like display none
+and make it appear like the elelemnt is really not on the screen follow the next steo properties like poinnter events and visibility
+to completely prevent any detetction of the elelemnt whose opacity is set to zeo and might have been detetcted ordinarily */
+
     opacity: 0;
-    transition: all 1.5s;
+    /* visibility id to prvent screnn reaad*/
+    visibility: hidden;
+    /* unnacessible to mouse and keyboard */
+    pointer-events: none;
+    height: 100vh;
+    
+    transition: all 1.5s ease-in-out;
   }
 
   .header--nav {
@@ -808,6 +823,10 @@ FOOTER SECTION
 
   .open .nav--container {
     opacity: 93%;
+      /* visibility id to prvent screnn reaad*/
+      visibility: visible;
+      /* unnacessible to mouse and keyboard */
+      pointer-events:auto;
     left: 0%;
     backdrop-filter: blur(4rem);
   }

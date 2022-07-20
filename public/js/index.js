@@ -746,22 +746,34 @@ const reloadButton = function(state){
   const sections = [...document.querySelectorAll('section')]
   const closeCart = document.querySelector('.close--cart')
   const closeContainer = document.querySelector('.close--cart--container')
-  console.log(closeContainer)
-
+  
   // handlerfunction
 
-const loadEmptyCart = function(){
+const loadEmptyCart = function(check){
+
   const html = `<div class="close--cart--container"><p class="paragraph cart--is--empty">your cart is empty, kindly add an item to view cart <p> <p class="close--cart button">close<p><div>`
+  if(check)return
   cartDisplay.insertAdjacentHTML('beforeend', html)
+
+// 
+
+   const timeTake = document.querySelector('.close--cart--container')
+    setTimeout(()=>{
+    console.log(timeTake)
+    cartDisplay.removeChild(timeTake)
+  },5000)
+
+  
 }
 
   const showCarts = e=>{
     const clicked = e.target.closest('.button--cart')
     if(clicked){
-      if(allState.bookmarkPro.length === 0)return loadEmptyCart()
+      const alreadyOpenedLoaded = document.querySelector('.close--cart--container')
+
+      if(allState.bookmarkPro.length === 0)return loadEmptyCart(alreadyOpenedLoaded)
       
       sections.forEach(el=>main.removeChild(el))
-      
     }
   }
 

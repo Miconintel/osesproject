@@ -9823,19 +9823,26 @@ var mainMain = body.children[1];
 var sections = _toConsumableArray(document.querySelectorAll('section'));
 
 var closeCart = document.querySelector('.close--cart');
-var closeContainer = document.querySelector('.close--cart--container');
-console.log(closeContainer); // handlerfunction
+var closeContainer = document.querySelector('.close--cart--container'); // handlerfunction
 
-var loadEmptyCart = function loadEmptyCart() {
+var loadEmptyCart = function loadEmptyCart(check) {
   var html = "<div class=\"close--cart--container\"><p class=\"paragraph cart--is--empty\">your cart is empty, kindly add an item to view cart <p> <p class=\"close--cart button\">close<p><div>";
-  cartDisplay.insertAdjacentHTML('beforeend', html);
+  if (check) return;
+  cartDisplay.insertAdjacentHTML('beforeend', html); // 
+
+  var timeTake = document.querySelector('.close--cart--container');
+  setTimeout(function () {
+    console.log(timeTake);
+    cartDisplay.removeChild(timeTake);
+  }, 5000);
 };
 
 var showCarts = function showCarts(e) {
   var clicked = e.target.closest('.button--cart');
 
   if (clicked) {
-    if (allState.bookmarkPro.length === 0) return loadEmptyCart();
+    var alreadyOpenedLoaded = document.querySelector('.close--cart--container');
+    if (allState.bookmarkPro.length === 0) return loadEmptyCart(alreadyOpenedLoaded);
     sections.forEach(function (el) {
       return main.removeChild(el);
     });
@@ -9877,7 +9884,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57489" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62193" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
