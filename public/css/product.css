@@ -100,3 +100,21 @@ body {
   padding: 2rem 3.6rem;
   border-radius: 1.6rem;
 }
+
+/* MEDIA SCREEN FOR PRODUCT */
+
+@media (max-width: 30em) {
+  *:focus {
+    padding: 0.24rem 0.8rem;
+  }
+
+  html {
+    font-size: 50%;
+  }
+
+  .full--description--grid {
+  
+    grid-template-columns: repeat(1, 1fr);
+  }
+
+}

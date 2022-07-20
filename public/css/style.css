@@ -639,7 +639,9 @@ STARTS HERE  */
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   gap: 3.6rem;
+  
 }
 .secondary--header {
   color: var(--primary-color);
@@ -651,11 +653,13 @@ STARTS HERE  */
   display: flex;
   gap: 2.4rem;
   align-items: center;
+  /* padding:0 2rem;
+  padding-bottom: 2rem; */
 }
-.tertiary--header {
+/* .tertiary--header {
   color: var(--secondary-color);
   font-size: 1.6rem;
-}
+} */
 .link--category:link,
 .link--category:visited {
   color: var(--secondary-color);
@@ -863,13 +867,18 @@ to completely prevent any detetction of the elelemnt whose opacity is set to zeo
 
   .container {
     max-width: 90%;
+    max-width: 100%;
+    padding-left: 0;
+    padding-right: 0;
+    
   }
   .header--container {
     max-width: 100%;
     padding: 0 1.2rem;
   }
   .active {
-    padding: 0.8em 1.8rem;
+    background-color: #fff;
+    padding: 0.2em 1.2rem;
   }
 
   .slider {
@@ -901,43 +910,24 @@ to completely prevent any detetction of the elelemnt whose opacity is set to zeo
   .product {
     display: flex;
     flex-direction: row;
+    border-radius: 0;
   }
-
-  /* .product--jacket {
-    position: relative;
-    z-index: 20;
-  } */
-
-  /* .product--jacket::before {
-    content: '';
-    position: absolute;
-   
-    padding: 16rem;
-    text-align: center;
-    background-color: var(--primary-color--mid);
-    border-radius: 50%;
-    top: 20%;
-    left: -16%;
-    z-index: -1;
-  } */
-  /* .product--jacket::before {
-    content: '';
-    position: absolute;
-   
-    padding: rem;
-    text-align: center;
-    border: 1rem solid var(--secondary-color);
-    border-radius: 50%;
-    top: 20%;
-    left: -18%;
-    z-index: -1;
-  } */
 
   .category--list-container {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     justify-items: center;
     align-items: center;
+    padding:0 2rem;
+    padding-bottom: 2rem;
+    gap:1.2rem;
+  }
+
+  .category--header{
+    background-color: #04380a;
+    gap:2rem;
+    margin-bottom: 1.2rem;
+    padding-top: 1.2rem;
   }
 
   .header--nav {
@@ -952,23 +942,16 @@ to completely prevent any detetction of the elelemnt whose opacity is set to zeo
   }
 
   .secondary--header {
-    font-size: 3rem;
+    color: #fff;
+    font-size: 2.4rem;
   }
 
-  /* .product--description--container {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    justify-items: center;
-  } */
-
-  /*.cart--container {
-    always know when a flex container is inside a another grid or flex container with horizontal justify cintent set to center, the size reduces to fir the exact size of its content, to get a full width, explicitly define the width as done below 
-    width: 100%;
-    grid-column: 1/-1;
-    justify-content: flex-start;
-    gap: 6.4rem;
-     this is to cancel justify in main css
-  }*/
+  .link--category:link,
+  .link--category:visited {
+  color: var(--primary-color);
+  font-size: 1.4rem;
+}
+  
   .cart--container {
     grid-column: 1/-1;
     justify-content: flex-start;
@@ -1005,44 +988,3 @@ to completely prevent any detetction of the elelemnt whose opacity is set to zeo
     grid-template-columns: repeat(2, 1fr);
   }
 }
-
-
-/* ghghghghghghg */
- /* GENERAL */
- /* .full--description--section {
-  padding: 9.6rem 0;
-}
-.full--description--grid {
-  display: grid;
-}
-.grid--2--columns {
-  grid-template-columns: repeat(2, 1fr);
-}
-.full--description--header {
-  text-align: center;
-}
-.full--description--header {
-  text-align: center;
-}
-.product--full--description--image {
-  height: 50rem;
-}
-.full--product--description {
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-  align-items: center;
-}
-.scale--up {
-  transform: scale(1.2);
-}
-.cart--container {
-  justify-content: flex-start;
-  gap: 4rem;
-}
-.checkout--button {
-  color: #fff;
-  background-color: var(--primary-color);
-  padding: 2rem 3.6rem;
-  border-radius: 1.6rem;
-} */
