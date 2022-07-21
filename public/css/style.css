@@ -951,6 +951,11 @@ to completely prevent any detetction of the elelemnt whose opacity is set to zeo
 
   .address{
     justify-self: unset;
+    padding-right: 2rem;
+  }
+
+  .other--links{
+    padding-left: 2rem;
   }
 }
 
@@ -976,12 +981,29 @@ to completely prevent any detetction of the elelemnt whose opacity is set to zeo
 
 .logo{
   max-width: 12rem;
-}
-.brand{
-  padding: 0 2rem;
-}
-.footer--container{
-  align-items: flex-start;
+  /* height: 6rem; */
 }
 
+.footer{
+  padding: 4.8rem 0;
+}
+
+.footer--container{
+  align-items: flex-start;
+  grid-template-columns:repeat(3,1fr)
+}
+.brand{
+  grid-column: 1/-1;
+  padding: 0 2rem;
+  gap:1.2rem;
+}
+
+.footer--header{
+  font-size: 1.6rem;
+}
+
+.footer .image--link{
+  display: inline-block;
+  height: fit-content;
+}
 }
