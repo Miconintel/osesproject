@@ -945,6 +945,12 @@ to completely prevent any detetction of the elelemnt whose opacity is set to zeo
 
   .footer--container {
     grid-template-columns: repeat(2, 1fr);
+    align-items: center;
+    row-gap: 4rem;
+  }
+
+  .address{
+    justify-self: unset;
   }
 }
 
@@ -965,6 +971,17 @@ to completely prevent any detetction of the elelemnt whose opacity is set to zeo
 
 .cart--container {
   gap: 1.6rem;
+}
+
+
+.logo{
+  max-width: 12rem;
+}
+.brand{
+  padding: 0 2rem;
+}
+.footer--container{
+  align-items: flex-start;
 }
 
 }
