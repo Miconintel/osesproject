@@ -3,6 +3,7 @@ import 'regenerator-runtime'
 import '@babel/polyfill'
 import {searchFood} from './search'
 import {getCartItem} from './carts'
+import loadFullcart from './loadFullCart'
 
 
 
@@ -519,14 +520,15 @@ const width = window.getComputedStyle(header).width;
 
 const headerObserverCallback = (entries, observer) => {
   const [entry] = entries;
-
   if (!entry.isIntersecting) {
     header.classList.add('fixed');
-    // observer.unobserve(header);
+    
   } else {
     header.classList.remove('fixed');
-    // observer.observe(header);
-  }
+  }  
+  
+  
+  
 
   // the second argument is the same observer objet u can use to call the unobserve option and oass in the element u want to unobserve
 };
@@ -544,6 +546,31 @@ const observer = new IntersectionObserver(
 hero && observer.observe(hero);
 
 //
+// ADD STICKY NAV TO OTHER 
+const otherPageCallback=function(entries,observer){
+  
+  const [entry] = entries;
+  console.log(entry)
+
+  if (!entry.isIntersecting) {
+    // observer.unobserve(header);
+    header.classList.remove('fixed');
+  } else {
+    header.classList.add('fixed');
+    // observer.observe(header);
+  } 
+  
+}
+
+const otherPageOptions = {
+  root: null,
+  threshold: 0,
+  rootMargin: `${headerHeight * 20}px`,
+};
+
+const observerOtherPage = new IntersectionObserver(otherPageCallback,otherPageOptions)
+parentCartContainer && observerOtherPage.observe(parentCartContainer)
+
 
 //
 // PAGINATION SCROLL
@@ -747,6 +774,8 @@ const reloadButton = function(state){
   const closeCart = document.querySelector('.close--cart')
   const closeContainer = document.querySelector('.close--cart--container')
   
+
+  
   // handlerfunction
 
 const loadEmptyCart = function(check){
@@ -756,15 +785,15 @@ const loadEmptyCart = function(check){
   cartDisplay.insertAdjacentHTML('beforeend', html)
 
 // 
-
    const timeTake = document.querySelector('.close--cart--container')
     setTimeout(()=>{
     console.log(timeTake)
     cartDisplay.removeChild(timeTake)
   },5000)
-
   
 }
+
+
 
   const showCarts = e=>{
     const clicked = e.target.closest('.button--cart')
@@ -774,13 +803,16 @@ const loadEmptyCart = function(check){
       if(allState.bookmarkPro.length === 0)return loadEmptyCart(alreadyOpenedLoaded)
       
       sections.forEach(el=>main.removeChild(el))
+      loadFullcart(localState,main)
+      
     }
   }
 
 headerH.addEventListener('click',showCarts)
 
+// closing the display message
+
 cartDisplay.addEventListener('click', e=>{
-  
  const clicked= e.target.closest('.close--cart--container')
  if (!clicked)return
  const toClose = clicked.closest('.close--cart--container')
@@ -788,3 +820,67 @@ cartDisplay.addEventListener('click', e=>{
 
 })
  
+
+// adding the quamtity and price
+
+let newPrice;
+let newValue
+const addQtyPrice = e=>{
+  const clicked = e.target.closest('.cart--list__element')
+ if(!clicked || clicked.classList.contains('cart--list__header')) return
+ const checkButton = e.target.closest('.button-plus-minus')
+ const qtyIcons = clicked.children[3]
+ const priceElement=clicked.children[2].children[0].firstElementChild
+ const priceSpan = Number(priceElement.textContent)
+ const subTotalElement=clicked.children[4].children[0].firstElementChild
+ const  subPrice = Number(subTotalElement.textContent)
+ 
+ let currentValue = Number(qtyIcons.children[1].value)
+ 
+
+ console.log(priceSpan)
+ console.log(currentValue)
+ console.log(subPrice)
+ 
+ 
+ if(checkButton?.classList.contains('button--plus')){
+  currentValue++
+  newValue=currentValue
+  qtyIcons.children[1].value=currentValue
+  newPrice=currentValue*priceSpan
+  subTotalElement.textContent=newPrice.toFixed(2)
+  console.log(priceSpan,currentValue,subPrice)
+  
+ }
+ if(checkButton?.classList.contains('button--minus') && qtyIcons.children[1].value-1 !== 0){
+  console.log(priceSpan,currentValue,subPrice)
+  currentValue--
+  newValue=currentValue
+  qtyIcons.children[1].value=currentValue
+  newPrice=currentValue*priceSpan
+  subTotalElement.textContent= newPrice.toFixed(2)
+ }
+}
+document.addEventListener('click',addQtyPrice)
+
+
+document.addEventListener('change',e=>{
+  const clicked = e.target.closest('.product--unit--quantity')
+  if(!clicked)return
+  const value = Number(clicked.value)
+  const parentEl = clicked.closest('.cart--list__element')
+  console.log(parentEl,value)
+  const price = Number(parentEl.children[2].children[0].firstElementChild.textContent)
+  const subTotalElement= parentEl.children[4].children[0].firstElementChild
+  subTotalElement.textContent= value*price
+
+})
+
+const removeFromCartPAge=e=>{
+  const clicked = e.target.closest('.button--close')
+  if(!clicked) return
+  console.log(clicked)
+ 
+}
+
+document.addEventListener('click',removeFromCartPAge)

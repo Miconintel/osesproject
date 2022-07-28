@@ -41,8 +41,9 @@ block content
             .product--jacket
               figure.product
                 .product--image--container
-                  img.image.product--image(src=`img/product-images/${food.image}`, alt=`${food.slug}`)
-                |                 
+                  a.link(href=`/productname/${food.slug}`)
+                    img.image.product--image(src=`img/product-images/${food.image}`, alt=`${food.slug}`)
+                  |                 
                 .product--description--container
                   p.paragraph.category
                     a.link(href=`/?category=${food.category}${currentPage?`&page=1`:''}`)=food.category

@@ -25,6 +25,7 @@
     "express": "^4.17.3",
     "express-mongo-sanitize": "^2.2.0",
     "express-rate-limit": "^6.3.0",
+    "feather-icons": "^4.29.0",
     "helmet": "^5.0.2",
     "hpp": "^0.2.3",
     "html-to-text": "^8.2.0",

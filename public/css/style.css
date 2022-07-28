@@ -698,6 +698,11 @@ FOOTER SECTION
   display: none;
 }
 
+.footer .image--link{
+  display: inline-block;
+  height: fit-content;
+}
+
 /* MEDIA QUERY */
 
 /* tablet */
@@ -1006,4 +1011,14 @@ to completely prevent any detetction of the elelemnt whose opacity is set to zeo
   display: inline-block;
   height: fit-content;
 }
+}
+
+.feather {
+  width: 24px;
+  height: 24px;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  fill: none;
 }

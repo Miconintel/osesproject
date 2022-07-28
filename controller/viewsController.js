@@ -28,19 +28,6 @@ exports.base = catchAsync(async (request, response, next) => {
   
   let foodPage =category || product ?  Food.find(queryObj):Food.find()
   foodPage= await foodPage.skip(skip).limit(limit);
-  // let foodPage = await Food.find().skip(skip).limit(limit);
-
-  // if (request.query.page){
-  //   response.status(200).render('overView', {
-  //     currentPage: page,
-  //     pageLimit: limit,
-  //     foodsLength: allFoods.length,
-  //     pageLength: foodPage.length,
-  //     foods: foodPage,
-  //     title: 'Home page',
-  //     category,
-  //   });
-  // }
   const allP =request.query.product
   const checkCategory = category || allP
   const title = checkCategory? checkCategory:'Home Page'
@@ -88,6 +75,7 @@ exports.updateUserData = async (request, response) => {
       runValidators: true,
     }
   );
+  // this new is to return new user after update
 
   response.status(200).render('account', {
     title: 'your Account',
