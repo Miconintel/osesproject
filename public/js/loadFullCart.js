@@ -39,7 +39,7 @@ const loadFullcart = function(state,parentCont){
     
       const html = `<section class="cart--section">
       <div class="content">
-          <div class="grid grid--2--columns container">
+          <div class="grid grid--2--columns cart--list--container container">
             <div class="cart--lists">
               <div class="cart--list__header cart--list__element flex">
                   <h3 class="tertiary--header">Item</h3>
@@ -72,6 +72,9 @@ const loadFullcart = function(state,parentCont){
                 </div> 
     
                </div>
+               <button class="button checkout--button paragraph">
+                <strong>CHECKOUT</strong>
+              </button>
             </div>
               
           </div>

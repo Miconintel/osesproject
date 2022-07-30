@@ -267,6 +267,13 @@ body {
   display: flex;
   align-items: center;
   gap: 1.2rem;
+  justify-content: space-between;
+}
+
+.all--buttons{
+  display: flex;
+  gap:1.6rem;
+  align-items: center;
 }
 
 .list--cta .button--cart {
@@ -579,6 +586,7 @@ body {
   font-size: 2.4rem;
   letter-spacing: 0.1;
   font-style: italic;
+  transition: all 15s;
 }
 
 .category--header {
@@ -771,10 +779,10 @@ to completely prevent any detetction of the elelemnt whose opacity is set to zeo
     gap: 3rem;
   }
 
-  .list--cta {
+  /* .list--cta {
     flex-direction: column;
     gap: 3rem;
-  }
+  } */
 
   /* make sure all of them are inheriting the modifier class one time when manipulating the dom like this. */
 
@@ -902,7 +910,7 @@ to completely prevent any detetction of the elelemnt whose opacity is set to zeo
     gap: 3rem;
   }
   .list--cta {
-    gap: 3rem;
+    gap: 1.6rem;
   }
 
   .secondary--header {
@@ -1022,3 +1030,4 @@ to completely prevent any detetction of the elelemnt whose opacity is set to zeo
   stroke-linejoin: round;
   fill: none;
 }
+

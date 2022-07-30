@@ -103,7 +103,7 @@ body {
 
 /* MEDIA SCREEN FOR PRODUCT */
 
-@media (max-width: 30em) {
+@media (max-width: 40em) {
   *:focus {
     padding: 0.24rem 0.8rem;
   }
@@ -115,6 +115,13 @@ body {
   .full--description--grid {
   
     grid-template-columns: repeat(1, 1fr);
+  }
+  .add-to-cart-container{
+    gap:2rem
+  }
+
+  .product--description--image--container{
+    text-align: center;
   }
 
 }

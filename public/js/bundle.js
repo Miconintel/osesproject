@@ -8890,7 +8890,7 @@ var loadFullcart = function loadFullcart(state, parentCont) {
     }), "\n        </svg>\n      </button>\n    </figure>");
   }).join('');
   console.log(loadedCarts);
-  var html = "<section class=\"cart--section\">\n      <div class=\"content\">\n          <div class=\"grid grid--2--columns container\">\n            <div class=\"cart--lists\">\n              <div class=\"cart--list__header cart--list__element flex\">\n                  <h3 class=\"tertiary--header\">Item</h3>\n                  <h3 class=\"tertiary--header\">Product Name</h3>\n                  <h3 class=\"tertiary--header\">Product price</h3>\n                  <h3 class=\"tertiary--header\">quantity</h3>\n                  <h3 class=\"tertiary--header\">subtotal</h3>\n              </div>\n              ".concat(loadedCarts, "\n            </div>\n    \n            <div class=\"checkout--side\">\n    \n               <div class=\"checkout--side__element\">\n    \n                <h3 class=\"tertiary--header summary--header\">Summary</h3>\n    \n                <div class=\"summary--container grid grid--2--columns\">\n                  <p class=\"paragraph\">order total</p>\n                  <p class=\"paragraph\">$<span class=\"price--effect\">6</span></p>\n                  <p class=\"paragraph\">Discount</p>\n                  <p class=\"paragraph\">$<span class=\"price--effect\">6</span></p>\n                  <p class=\"paragraph\">shipping</p>\n                  <p class=\"paragraph\">$<span class=\"price--effect\">6</span></p>\n                </div>\n    \n                <div class=\"total\">\n                 <h3 class=\"tertiary--header paragraph\">Total:</h3>\n                 <p class=\"paragraph\">$<span class=\"price--effect\">6</span></p>\n                </div> \n    \n               </div>\n            </div>\n              \n          </div>\n      </div>\n    </section>");
+  var html = "<section class=\"cart--section\">\n      <div class=\"content\">\n          <div class=\"grid grid--2--columns cart--list--container container\">\n            <div class=\"cart--lists\">\n              <div class=\"cart--list__header cart--list__element flex\">\n                  <h3 class=\"tertiary--header\">Item</h3>\n                  <h3 class=\"tertiary--header\">Product Name</h3>\n                  <h3 class=\"tertiary--header\">Product price</h3>\n                  <h3 class=\"tertiary--header\">quantity</h3>\n                  <h3 class=\"tertiary--header\">subtotal</h3>\n              </div>\n              ".concat(loadedCarts, "\n            </div>\n    \n            <div class=\"checkout--side\">\n    \n               <div class=\"checkout--side__element\">\n    \n                <h3 class=\"tertiary--header summary--header\">Summary</h3>\n    \n                <div class=\"summary--container grid grid--2--columns\">\n                  <p class=\"paragraph\">order total</p>\n                  <p class=\"paragraph\">$<span class=\"price--effect\">6</span></p>\n                  <p class=\"paragraph\">Discount</p>\n                  <p class=\"paragraph\">$<span class=\"price--effect\">6</span></p>\n                  <p class=\"paragraph\">shipping</p>\n                  <p class=\"paragraph\">$<span class=\"price--effect\">6</span></p>\n                </div>\n    \n                <div class=\"total\">\n                 <h3 class=\"tertiary--header paragraph\">Total:</h3>\n                 <p class=\"paragraph\">$<span class=\"price--effect\">6</span></p>\n                </div> \n    \n               </div>\n               <button class=\"button checkout--button paragraph\">\n                <strong>CHECKOUT</strong>\n              </button>\n            </div>\n              \n          </div>\n      </div>\n    </section>");
   parentCont.insertAdjacentHTML('afterbegin', html);
 };
 
@@ -9351,7 +9351,6 @@ var addtoCart = function addtoCart(e) {
 
   if (clicked) {
     // mark bookmark true
-    console.log('clicked');
     var numberofProducts = clicked.previousElementSibling.children[1].value;
     addToCartPro(clicked, numberofProducts * 1);
     var productParent = clicked.closest('.product');
@@ -9386,8 +9385,7 @@ var removeCart = function removeCart(e) {
   var clicked = e.target.classList.contains('button--remove--cart');
 
   if (clicked) {
-    console.log('clicked'); // remove item from cart
-
+    // remove item from cart
     var productParent = e.target.closest('.product');
     productParent.setAttribute('data-page', false);
     allState.bookmarkItems = allState.bookmarkItems.filter(function (el) {
@@ -9397,8 +9395,7 @@ var removeCart = function removeCart(e) {
 
     allState.cartCount--;
     assignCartNumber(allState);
-    window.localStorage.setItem('state', JSON.stringify(allState)); // reloadButtons(allState)
-
+    window.localStorage.setItem('state', JSON.stringify(allState));
     productParent.children[1].children[4].classList.remove('hide--again');
     var parentPull = productParent.children[1];
     var childPull = parentPull.children[5];
@@ -9627,7 +9624,7 @@ dotContainer && dotContainer.addEventListener('click', moveWithDots); // SMOOTH 
 
 navContainer.addEventListener('click', function (e) {
   if (e.target.classList.contains('nav--link')) {
-    e.preventDefault();
+    // e.preventDefault();
     var idShowninHref = e.target.getAttribute('href');
     var elementOfEquivalentId = document.querySelector(idShowninHref);
     elementOfEquivalentId === null || elementOfEquivalentId === void 0 ? void 0 : elementOfEquivalentId.scrollIntoView({
@@ -9868,13 +9865,16 @@ productInnerContainer && productInnerContainer.addEventListener('click', increas
 
 var cartDisplay = document.querySelector('#cart--display');
 var main = document.querySelector('main');
-var headerH = document.querySelector('.header--nav');
+var headerH = document.querySelector('.header--container');
 var mainMain = body.children[1];
 
 var sections = _toConsumableArray(document.querySelectorAll('section'));
 
 var closeCart = document.querySelector('.close--cart');
-var closeContainer = document.querySelector('.close--cart--container'); // handlerfunction
+var closeContainer = document.querySelector('.close--cart--container');
+console.log(sections.some(function (el) {
+  return el.classList.contains('cart--section');
+})); // handlerfunction
 
 var loadEmptyCart = function loadEmptyCart(check) {
   var html = "<div class=\"close--cart--container\"><p class=\"paragraph cart--is--empty\">your cart is empty, kindly add an item to view cart <p> <p class=\"close--cart button\">close<p><div>";
@@ -9882,8 +9882,7 @@ var loadEmptyCart = function loadEmptyCart(check) {
   cartDisplay.insertAdjacentHTML('beforeend', html); // 
 
   var timeTake = document.querySelector('.close--cart--container');
-  setTimeout(function () {
-    console.log(timeTake);
+  var checkIf = setTimeout(function () {
     cartDisplay.removeChild(timeTake);
   }, 5000);
 };
@@ -9894,10 +9893,15 @@ var showCarts = function showCarts(e) {
   if (clicked) {
     var alreadyOpenedLoaded = document.querySelector('.close--cart--container');
     if (allState.bookmarkPro.length === 0) return loadEmptyCart(alreadyOpenedLoaded);
-    sections.forEach(function (el) {
-      return main.removeChild(el);
-    });
-    (0, _loadFullCart.default)(localState, main);
+    var secAvail = document.querySelector('.cart--lists');
+
+    if (!secAvail) {
+      console.log(secAvail);
+      sections.forEach(function (el) {
+        main.removeChild(el);
+      });
+      (0, _loadFullCart.default)(localState, main);
+    }
   }
 };
 
@@ -9923,9 +9927,6 @@ var addQtyPrice = function addQtyPrice(e) {
   var subTotalElement = clicked.children[4].children[0].firstElementChild;
   var subPrice = Number(subTotalElement.textContent);
   var currentValue = Number(qtyIcons.children[1].value);
-  console.log(priceSpan);
-  console.log(currentValue);
-  console.log(subPrice);
 
   if (checkButton !== null && checkButton !== void 0 && checkButton.classList.contains('button--plus')) {
     currentValue++;
@@ -9961,7 +9962,22 @@ document.addEventListener('change', function (e) {
 var removeFromCartPAge = function removeFromCartPAge(e) {
   var clicked = e.target.closest('.button--close');
   if (!clicked) return;
-  console.log(clicked);
+  var parentEl = clicked.closest('.cart--list__element');
+  var megaParent = clicked.closest('.cart--lists');
+  var itemName = parentEl.children[1].children[0].textContent;
+  allState.bookmarkItems = allState.bookmarkItems.filter(function (el) {
+    return el !== itemName;
+  });
+  allState.bookmarkPro = allState.bookmarkPro.filter(function (el) {
+    return el[0].productName !== itemName;
+  });
+  console.log(allState.bookmarkItems);
+  console.log(allState.bookmarkPro);
+  allState.cartCount--;
+  assignCartNumber(allState);
+  megaParent.removeChild(parentEl);
+  window.localStorage.setItem('state', JSON.stringify(allState));
+  if (megaParent.children.length == 1) location.reload();
 };
 
 document.addEventListener('click', removeFromCartPAge);

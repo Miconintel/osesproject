@@ -159,7 +159,7 @@ const addtoCart =  function (e) {
   const clicked = e.target.closest('.button--cart');
   if (clicked) {
     // mark bookmark true
-    console.log('clicked')
+  
     const numberofProducts = clicked.previousElementSibling.children[1].value
     addToCartPro(clicked,numberofProducts*1)
   
@@ -203,8 +203,7 @@ const removeCartPro = function(parentEl){
 const removeCart = function (e) { 
   // console.log(e.target);
   const clicked = e.target.classList.contains('button--remove--cart');
-  if (clicked) {
-    console.log('clicked')
+  if (clicked) {   
     // remove item from cart
     const productParent = e.target.closest('.product');
     productParent.setAttribute('data-page', false);
@@ -219,7 +218,7 @@ const removeCart = function (e) {
    allState.cartCount-- 
    assignCartNumber(allState);
    window.localStorage.setItem('state', JSON.stringify(allState));
-    // reloadButtons(allState)
+
     productParent.children[1].children[4].classList.remove('hide--again')
     const parentPull = productParent.children[1]
     const childPull = parentPull.children[5]
@@ -480,7 +479,7 @@ dotContainer && dotContainer.addEventListener('click', moveWithDots);
 
  navContainer.addEventListener('click', function (e) {
   if (e.target.classList.contains('nav--link')) {
-    e.preventDefault();
+    // e.preventDefault();
     const idShowninHref = e.target.getAttribute('href');
     const elementOfEquivalentId = document.querySelector(idShowninHref);
     elementOfEquivalentId?.scrollIntoView({ behavior: 'smooth' });
@@ -768,14 +767,14 @@ const reloadButton = function(state){
   // DISPLAY CART
   const cartDisplay = document.querySelector('#cart--display')
   const main = document.querySelector('main')  
-  const headerH = document.querySelector('.header--nav')
+  const headerH = document.querySelector('.header--container')
   const mainMain = body.children[1]
   const sections = [...document.querySelectorAll('section')]
   const closeCart = document.querySelector('.close--cart')
   const closeContainer = document.querySelector('.close--cart--container')
   
 
-  
+  console.log (sections.some(el=>el.classList.contains('cart--section')))
   // handlerfunction
 
 const loadEmptyCart = function(check){
@@ -786,8 +785,7 @@ const loadEmptyCart = function(check){
 
 // 
    const timeTake = document.querySelector('.close--cart--container')
-    setTimeout(()=>{
-    console.log(timeTake)
+    const checkIf= setTimeout(()=>{
     cartDisplay.removeChild(timeTake)
   },5000)
   
@@ -802,9 +800,13 @@ const loadEmptyCart = function(check){
 
       if(allState.bookmarkPro.length === 0)return loadEmptyCart(alreadyOpenedLoaded)
       
-      sections.forEach(el=>main.removeChild(el))
-      loadFullcart(localState,main)
-      
+        const secAvail = document.querySelector('.cart--lists')
+         if(!secAvail){
+          console.log(secAvail)
+          sections.forEach(el=>{
+            main.removeChild(el)})
+            loadFullcart(localState,main)
+         }
     }
   }
 
@@ -836,12 +838,6 @@ const addQtyPrice = e=>{
  const  subPrice = Number(subTotalElement.textContent)
  
  let currentValue = Number(qtyIcons.children[1].value)
- 
-
- console.log(priceSpan)
- console.log(currentValue)
- console.log(subPrice)
- 
  
  if(checkButton?.classList.contains('button--plus')){
   currentValue++
@@ -879,7 +875,24 @@ document.addEventListener('change',e=>{
 const removeFromCartPAge=e=>{
   const clicked = e.target.closest('.button--close')
   if(!clicked) return
-  console.log(clicked)
+  const parentEl = clicked.closest('.cart--list__element')
+  const megaParent = clicked.closest('.cart--lists')
+  const itemName= parentEl.children[1].children[0].textContent
+  allState.bookmarkItems= allState.bookmarkItems.filter(el=>{
+
+    return el !==itemName
+   })
+   allState.bookmarkPro=allState.bookmarkPro.filter(el=>{
+    return el[0].productName !== itemName
+   })
+
+   console.log(allState.bookmarkItems)
+   console.log(allState.bookmarkPro)
+   allState.cartCount-- 
+   assignCartNumber(allState);
+   megaParent.removeChild(parentEl)
+   window.localStorage.setItem('state', JSON.stringify(allState));
+   if(megaParent.children.length==1) location.reload()
  
 }
 
