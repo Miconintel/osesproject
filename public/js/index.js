@@ -629,7 +629,7 @@ const linkCategories = [...document.querySelectorAll('.link--category')]
 
 // using window.location.search to confirm home page (window.location.search.length!==0)
 
-console.log(window.location.pathname.startsWith('/productname'))
+
 if(lit && window.location.search.length!==0 || lit && window.location.pathname.startsWith('/productname')){
   
   const linkPreserveActive= linkCategories.filter(el=>{
@@ -639,13 +639,13 @@ if(lit && window.location.search.length!==0 || lit && window.location.pathname.s
    return el.textContent===lit
     
   })
-  console.log(linkPreserveActive)
+  
 }
 
 categoryHeader && categoryHeader.addEventListener('click',addActive)
 
 
-// CATEGORIES FROM THE CARDS
+// CATEGORIES FROM THE CARDS/HOME PAGE
 
 parentCartContainer && parentCartContainer.addEventListener('click',e=>{
   const clicked = e.target.closest('.category')
@@ -678,6 +678,17 @@ parentCartContainer && parentCartContainer.addEventListener('click',e=>{
   }
 })
 
+document.addEventListener('click',e=>{
+ const traceOut = e.target.closest('.cart--section')?.children[0].children[0]
+//  console.log(traceOut)
+ if(traceOut && e.target.closest('.tertiary--header')){
+  
+  const categoryAdded = e.target.firstChild.textContent
+  window.localStorage.setItem('isClicked', JSON.stringify(categoryAdded));
+  
+ }
+})
+// CATEGORIES FROM CART LIST PAGE
 
 // parentCartContainer && parentCartContainer.addEventListener('click',e=>{
 //   const clicked = e.target.closest('.category')
@@ -824,15 +835,15 @@ const loadEmptyCart = function(check){
 
       if(allState.bookmarkPro.length === 0)return loadEmptyCart(alreadyOpenedLoaded)
      
-      
         const secAvail = document.querySelector('.cart--lists')
+
          if(!secAvail){
           sections.forEach(el=>{
             main.removeChild(el)})
-            loadFullcart(localState,main)
+            console.log(allState)
+            loadFullcart(allState,main)
             const cartCC = document.querySelector('.cart--lists')
             const cartLength = cartCC.children.length
-            console.log(cartLength)
             if(cartLength>=5){
                 cartCC.classList.add('scroll')
             }

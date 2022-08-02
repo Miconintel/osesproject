@@ -8888,10 +8888,10 @@ var loadFullcart = function loadFullcart(state, parentCont) {
     }), "\n          </svg>\n        </button>\n      </div>\n      <figcaption class=\"cart--options\"><p class=\"paragraph price\">$<span class=\"price--effect\">").concat(el[1] * el[0].price, "</span></p></figcaption>\n      <button class=\"button button--close  mobile--nav--button\">\n        <svg class=\"feather\">\n          ").concat(feather.icons.x.toSvg({
       class: "icon icon--minus icon-plus-minus"
     }), "\n        </svg>\n      </button>\n    </figure>");
-  }).join('');
-  console.log(loadedCarts);
-  var headerSide = "  \n    <div class=\"category--header\">\n        <h2 class=\"secondary--header\">Our Products</h2>\n\n        <div class=\"category--list-container\">\n        <h3 class=\"tertiary--header\">\n            <a href=\"#\" class=\"link link--category active\"\n            >All Products</a\n            >\n        </h3>\n        <h3 class=\"tertiary--header\">\n            <a href=\"#\" class=\"link link--category\">Provisions</a>\n        </h3>\n        <h3 class=\"tertiary--header\">\n            <a href=\"#\" class=\"link link--category\">Grains</a>\n        </h3>\n        <h3 class=\"tertiary--header\">\n            <a href=\"#\" class=\"link link--category\">Flours</a>\n        </h3>\n        <h3 class=\"tertiary--header\">\n            <a href=\"#\" class=\"link link--category\">Spices</a>\n        </h3>\n        <h3 class=\"tertiary--header\">\n            <a href=\"#\" class=\"link link--category\">Animal protein</a>\n        </h3>\n        <h3 class=\"tertiary--header\">\n            <a href=\"#\" class=\"link link--category\">Oil</a>\n        </h3>\n        <h3 class=\"tertiary--header\">\n            <a href=\"#\" class=\"link link--category\">Others</a>\n        </h3>\n        </div>\n    </div>";
-  var html = "<section class=\"cart--section\">\n      <div class=\"content\">\n          <div class=\"grid grid--2--columns cart--list--container container\">\n            <div class=\"cart--lists\">\n              <div class=\"cart--list__header cart--list__element flex\">\n                  <h3 class=\"tertiary--header\">Product Name</h3>\n                  <h3 class=\"tertiary--header\">Product price</h3>\n                  <h3 class=\"tertiary--header\">quantity</h3>\n                  <h3 class=\"tertiary--header\">subtotal</h3>\n              </div>\n              ".concat(loadedCarts, "\n            </div>\n    \n            <div class=\"checkout--side\">\n    \n               <div class=\"checkout--side__element\">\n    \n                <h3 class=\"tertiary--header summary--header\">Summary</h3>\n    \n                <div class=\"summary--container grid grid--2--columns\">\n                  <p class=\"paragraph\">order total</p>\n                  <p class=\"paragraph\">$<span class=\"price--effect\">6</span></p>\n                  <p class=\"paragraph\">Discount</p>\n                  <p class=\"paragraph\">$<span class=\"price--effect\">6</span></p>\n                  <p class=\"paragraph\">shipping</p>\n                  <p class=\"paragraph\">$<span class=\"price--effect\">6</span></p>\n                </div>\n    \n                <div class=\"total\">\n                 <h3 class=\"tertiary--header paragraph\">Total:</h3>\n                 <p class=\"paragraph\">$<span class=\"price--effect\">6</span></p>\n                </div> \n    \n               </div>\n               <button class=\"button checkout--button paragraph\">\n                <strong>CHECKOUT</strong>\n              </button>\n            </div>\n              \n          </div>\n      </div>\n    </section>");
+  }).join(''); // console.log(loadedCarts)
+
+  var headerSide = "  \n    <div class=\"category--header\">\n        <h2 class=\"secondary--header\">Our Products</h2>\n\n        <div class=\"category--list-container\">\n        <h3 class=\"tertiary--header\">\n            <a href=\"/?product=all-products&page=1\" class=\"link link--category active\"\n            >Products</a\n            >\n        </h3>\n        <h3 class=\"tertiary--header\">\n            <a href=\"/?category=Provisions&page=1\" class=\"link link--category\">Provisions</a>\n        </h3>\n        <h3 class=\"tertiary--header\">\n            <a href=\"/?category=Grains&page=1\" class=\"link link--category\">Grains</a>\n        </h3>\n        <h3 class=\"tertiary--header\">\n            <a href=\"/?category=Flour&page=1\" class=\"link link--category\">Flours</a>\n        </h3>\n        <h3 class=\"tertiary--header\">\n            <a href=\"/?category=Spices&page=1\" class=\"link link--category\">Spices</a>\n        </h3>\n        <h3 class=\"tertiary--header\">\n            <a href=\"/?category=Animal Protein&page=1\" class=\"link link--category\">Meat</a>\n        </h3>\n        <h3 class=\"tertiary--header\">\n            <a href=\"/?category=Oil&page=1\" class=\"link link--category\">Oil</a>\n        </h3>\n        <h3 class=\"tertiary--header\">\n            <a href=\"/?category=Others&page=1\" class=\"link link--category\">Others</a>\n        </h3>\n        </div>\n    </div>";
+  var html = "<section class=\"cart--section\">\n      <div class=\"content\">\n          <div class=\"grid grid--2--columns cart--list--container container\">\n            ".concat(headerSide, "\n            <div class=\"cart--lists\">\n              <div class=\"cart--list__header cart--list__element flex\">\n                  <h3 class=\"tertiary--header\">Product Name</h3>\n                  <h3 class=\"tertiary--header\">Product price</h3>\n                  <h3 class=\"tertiary--header\">quantity</h3>\n                  <h3 class=\"tertiary--header\">subtotal</h3>\n              </div>\n              ").concat(loadedCarts, "\n            </div>\n    \n            <div class=\"checkout--side\">\n    \n               <div class=\"checkout--side__element\">\n    \n                <h3 class=\"tertiary--header summary--header\">Summary</h3>\n    \n                <div class=\"summary--container grid grid--2--columns\">\n                  <p class=\"paragraph\">order total</p>\n                  <p class=\"paragraph\">$<span class=\"price--effect\">6</span></p>\n                  <p class=\"paragraph\">Discount</p>\n                  <p class=\"paragraph\">$<span class=\"price--effect\">6</span></p>\n                  <p class=\"paragraph\">shipping</p>\n                  <p class=\"paragraph\">$<span class=\"price--effect\">6</span></p>\n                </div>\n    \n                <div class=\"total\">\n                 <h3 class=\"tertiary--header paragraph\">Total:</h3>\n                 <p class=\"paragraph\">$<span class=\"price--effect\">6</span></p>\n                </div> \n    \n               </div>\n               <button class=\"button checkout--button paragraph\">\n                <strong>CHECKOUT</strong>\n              </button>\n            </div>\n              \n          </div>\n      </div>\n    </section>");
   parentCont.insertAdjacentHTML('afterbegin', html);
 };
 
@@ -9757,8 +9757,6 @@ var lit = JSON.parse(window.localStorage.getItem('isClicked'));
 var linkCategories = _toConsumableArray(document.querySelectorAll('.link--category')); // using window.location.search to confirm home page (window.location.search.length!==0)
 
 
-console.log(window.location.pathname.startsWith('/productname'));
-
 if (lit && window.location.search.length !== 0 || lit && window.location.pathname.startsWith('/productname')) {
   var linkPreserveActive = linkCategories.filter(function (el) {
     if (el.textContent === lit) {
@@ -9769,10 +9767,9 @@ if (lit && window.location.search.length !== 0 || lit && window.location.pathnam
 
     return el.textContent === lit;
   });
-  console.log(linkPreserveActive);
 }
 
-categoryHeader && categoryHeader.addEventListener('click', addActive); // CATEGORIES FROM THE CARDS
+categoryHeader && categoryHeader.addEventListener('click', addActive); // CATEGORIES FROM THE CARDS/HOME PAGE
 
 parentCartContainer && parentCartContainer.addEventListener('click', function (e) {
   var clicked = e.target.closest('.category');
@@ -9798,7 +9795,18 @@ parentCartContainer && parentCartContainer.addEventListener('click', function (e
     var category = clickedParent.firstElementChild.firstChild.textContent;
     window.localStorage.setItem('isClicked', JSON.stringify(category));
   }
-}); // parentCartContainer && parentCartContainer.addEventListener('click',e=>{
+});
+document.addEventListener('click', function (e) {
+  var _e$target$closest;
+
+  var traceOut = (_e$target$closest = e.target.closest('.cart--section')) === null || _e$target$closest === void 0 ? void 0 : _e$target$closest.children[0].children[0]; //  console.log(traceOut)
+
+  if (traceOut && e.target.closest('.tertiary--header')) {
+    var categoryAdded = e.target.firstChild.textContent;
+    window.localStorage.setItem('isClicked', JSON.stringify(categoryAdded));
+  }
+}); // CATEGORIES FROM CART LIST PAGE
+// parentCartContainer && parentCartContainer.addEventListener('click',e=>{
 //   const clicked = e.target.closest('.category')
 //   if (clicked)
 //   window.localStorage.setItem('isClicked', JSON.stringify(clicked.firstChild.textContent));
@@ -9934,10 +9942,10 @@ var showCarts = function showCarts(e) {
       sections.forEach(function (el) {
         main.removeChild(el);
       });
-      (0, _loadFullCart.default)(localState, main);
+      console.log(allState);
+      (0, _loadFullCart.default)(allState, main);
       var cartCC = document.querySelector('.cart--lists');
       var cartLength = cartCC.children.length;
-      console.log(cartLength);
 
       if (cartLength >= 5) {
         cartCC.classList.add('scroll');
@@ -10057,7 +10065,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56726" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57719" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

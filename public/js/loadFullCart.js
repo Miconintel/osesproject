@@ -34,7 +34,7 @@ const loadFullcart = function(state,parentCont){
       </button>
     </figure>`
     }).join('')
-    console.log(loadedCarts)
+    // console.log(loadedCarts)
     
     const headerSide = `  
     <div class="category--header">
@@ -42,36 +42,37 @@ const loadFullcart = function(state,parentCont){
 
         <div class="category--list-container">
         <h3 class="tertiary--header">
-            <a href="#" class="link link--category active"
-            >All Products</a
+            <a href="/?product=all-products&page=1" class="link link--category active"
+            >Products</a
             >
         </h3>
         <h3 class="tertiary--header">
-            <a href="#" class="link link--category">Provisions</a>
+            <a href="/?category=Provisions&page=1" class="link link--category">Provisions</a>
         </h3>
         <h3 class="tertiary--header">
-            <a href="#" class="link link--category">Grains</a>
+            <a href="/?category=Grains&page=1" class="link link--category">Grains</a>
         </h3>
         <h3 class="tertiary--header">
-            <a href="#" class="link link--category">Flours</a>
+            <a href="/?category=Flour&page=1" class="link link--category">Flours</a>
         </h3>
         <h3 class="tertiary--header">
-            <a href="#" class="link link--category">Spices</a>
+            <a href="/?category=Spices&page=1" class="link link--category">Spices</a>
         </h3>
         <h3 class="tertiary--header">
-            <a href="#" class="link link--category">Animal protein</a>
+            <a href="/?category=Animal Protein&page=1" class="link link--category">Meat</a>
         </h3>
         <h3 class="tertiary--header">
-            <a href="#" class="link link--category">Oil</a>
+            <a href="/?category=Oil&page=1" class="link link--category">Oil</a>
         </h3>
         <h3 class="tertiary--header">
-            <a href="#" class="link link--category">Others</a>
+            <a href="/?category=Others&page=1" class="link link--category">Others</a>
         </h3>
         </div>
     </div>`
       const html = `<section class="cart--section">
       <div class="content">
           <div class="grid grid--2--columns cart--list--container container">
+            ${headerSide}
             <div class="cart--lists">
               <div class="cart--list__header cart--list__element flex">
                   <h3 class="tertiary--header">Product Name</h3>
