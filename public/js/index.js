@@ -149,9 +149,7 @@ const addToCartPro = async function(clickedProduct,noOfItems){
   const allData = [data, noOfItems ]
   allState.bookmarkPro.push(allData);
   window.localStorage.setItem('state', JSON.stringify(allState));
-  allState.proCount++
- 
-
+  // allState.proCount++
 }
 
 
@@ -183,6 +181,7 @@ const addtoCart =  function (e) {
 
     // increase counter
     allState.cartCount++;
+    allState.proCount++
     assignCartNumber(allState);
     window.localStorage.setItem('state', JSON.stringify(allState));
   }
@@ -196,8 +195,8 @@ const removeCartPro = function(parentEl){
   allState.bookmarkPro=allState.bookmarkPro.filter(el=>{
     return el[0].productName !== parentEl.children[1].children[1].textContent
    })
+ allState.proCount--
 
-   allState.proCount--
 }
 
 const removeCart = function (e) { 
@@ -235,7 +234,6 @@ parentCartContainer && parentCartContainer.addEventListener('click', removeCart)
 const localState = JSON.parse(window.localStorage.getItem('state'));
 if (localState) {
  
-  console.log(localState.bookmarkPro)
   // allState = localState;
   // allState.cartCount = localState.cartCount
   // should havebeen allState.cartcount = localState.bookmarkItems.length
@@ -243,7 +241,6 @@ if (localState) {
   allState.cartCount=localState.bookmarkItems.length
   allState = localState
   assignCartNumber(allState);
-
 }
 
 
@@ -253,39 +250,40 @@ const reloadButtons = function(state){
 // persist cart
 // get all products
 const allProducts = [...document.querySelectorAll('.product')];
-// check for the text content of each card
+// check for the text content of each card not used
 const iniP = allProducts.map(
   (el) => el.children[1].children[1].textContent
 );
-// confirm which in bookmark
+// confirm which in bookmark not used
 allProducts.forEach((el) => {
   // check for true or false if items in bookmark match with product card names
   const f = state.bookmarkItems.some((eli) => {
     return eli === el.children[1].children[1].textContent;
   });
-
   // set to true if it does
-
+  const itemToCheck= el.children[1].children[1].textContent
   if (
     state.bookmarkItems.some((eli) => {
-      return eli === el.children[1].children[1].textContent;
+      return eli === itemToCheck
     })
   ) {
-    el.setAttribute('data-page', true);
+    // el.setAttribute('data-page', true); no longer used
+    // get the value by filtering bookmark pro to get the item loaded  since bookmarkpro also saves the item number
+    const which = state.bookmarkPro.filter(el=>el[0].productName == itemToCheck)
+    const [noAdded] = which
+    const parent = el.children[1].children[4];
+    parent.classList.add('hide--again');
+    loadNewbookmarked(el.children[1],noAdded[1],itemToCheck)
+    
   }
 
   // persist if dataset.page is true
 
-  if (el.dataset.page == 'true') {
-    const parent = el.children[1].children[4];
-    parent.classList.add('hide--again');
-    loadNewbookmarked(el.children[1]);}
   // if (el.dataset.page == 'true') {
   //   const parent = el.children[1].children[4];
-
   //   parent.classList.add('hide--again');
-  //   loadNewbookmarked(el.children[1]);
-  // } 
+  //   loadNewbookmarked(el.children[1]);}
+   
 });
 }
 reloadButtons(allState)
@@ -549,7 +547,7 @@ hero && observer.observe(hero);
 const otherPageCallback=function(entries,observer){
   
   const [entry] = entries;
-  console.log(entry)
+  
 
   if (!entry.isIntersecting) {
     // observer.unobserve(header);
@@ -605,7 +603,7 @@ parentCartContainer && observerOtherPage.observe(parentCartContainer)
 //   ADDING ACTIVE BUTTON TO RHE CATEGORIES
 const addActive= e=>{
   
-  const clicked = e.target.closest('.tertiary--header')
+const clicked = e.target.closest('.tertiary--header')
  
   if (!clicked) return
  const allChildren = clicked.parentElement.children
@@ -631,8 +629,9 @@ const linkCategories = [...document.querySelectorAll('.link--category')]
 
 // using window.location.search to confirm home page (window.location.search.length!==0)
 
-
-if(lit && window.location.search.length!==0){
+console.log(window.location.pathname.startsWith('/productname'))
+if(lit && window.location.search.length!==0 || lit && window.location.pathname.startsWith('/productname')){
+  
   const linkPreserveActive= linkCategories.filter(el=>{
     if(el.textContent===lit) {el.classList.add('active')}else{
       el.classList.remove('active')
@@ -640,6 +639,7 @@ if(lit && window.location.search.length!==0){
    return el.textContent===lit
     
   })
+  console.log(linkPreserveActive)
 }
 
 categoryHeader && categoryHeader.addEventListener('click',addActive)
@@ -664,6 +664,21 @@ productInnerContainer && productInnerContainer.addEventListener('click',e=>{
   }
 })
 
+
+// CATEGORIES FROM CARD BY CLICKING THE NAME OF PRODUCT
+
+parentCartContainer && parentCartContainer.addEventListener('click',e=>{
+  const clicked =e.target.closest('.product-name')
+  if(clicked){
+    console.log('clicked')
+    const clickedParent = clicked.parentElement
+    console.log(clickedParent)
+    const category = clickedParent.firstElementChild.firstChild.textContent
+    window.localStorage.setItem('isClicked', JSON.stringify(category));
+  }
+})
+
+
 // parentCartContainer && parentCartContainer.addEventListener('click',e=>{
 //   const clicked = e.target.closest('.category')
 //   if (clicked)
@@ -681,15 +696,17 @@ const addToCartProduct = e=>{
       '.inner--container__product'
     )
     const bookmarkItem = parentOuter.children[3].textContent;
-    allState.bookmarkItems.push(bookmarkItem);
-
     const parentInner = clicked.parentElement;
+    const valueAdded = parentInner.children[0].children[1].value
+    allState.bookmarkItems.push(bookmarkItem);
+    addToCartPro(clicked,valueAdded)
+
     parentInner.classList.add('hide--again');
-      loadNewbookmarked(parentOuter);
+      loadNewbookmarked(parentOuter,valueAdded,bookmarkItem);
 
     allState.cartCount++;
     assignCartNumber(allState);
-        window.localStorage.setItem('state', JSON.stringify(allState));
+    window.localStorage.setItem('state', JSON.stringify(allState));
 
 }
 
@@ -698,7 +715,6 @@ fullDescription && fullDescription.addEventListener('click',addToCartProduct)
 // AUTOMATED RELOAD FOR PRODUCT PAGE
 const reloadButton = function(state){
   if(!window.location.pathname.includes('product')) return
-
   const product = document.querySelector('.product-name');
   const parent = product.parentElement
   const cartButton = parent.children[parent.children.length-1]
@@ -708,8 +724,10 @@ const reloadButton = function(state){
       return eli === product.textContent;
     })
   ) {
+    const which = state.bookmarkPro.filter(el=>el[0].productName == product.textContent)
+    const [noAdded] = which
     cartButton.classList.add('hide--again');
-    loadNewbookmarked(parent)
+    loadNewbookmarked(parent,noAdded[1],product.textContent)
   }
 
   }
@@ -722,10 +740,15 @@ const reloadButton = function(state){
     if (clicked) {
      
       // remove item from cart
-      const productParent = e.target.closest('.inner--container__product'); 
+    const productParent = e.target.closest('.inner--container__product'); 
+    const itemToRemove = productParent.children[3].textContent
      allState.bookmarkItems= allState.bookmarkItems.filter(el=>{
   
-      return el !==productParent.children[3].textContent
+      return el !== itemToRemove
+     })
+    // manually doing remove cartpro
+     allState.bookmarkPro=allState.bookmarkPro.filter(el=>{
+      return el[0].productName !== itemToRemove
      })
       // return the cart btton
     allState.cartCount--
@@ -776,7 +799,7 @@ const reloadButton = function(state){
 
   console.log (sections.some(el=>el.classList.contains('cart--section')))
   // handlerfunction
-
+let checkIf
 const loadEmptyCart = function(check){
 
   const html = `<div class="close--cart--container"><p class="paragraph cart--is--empty">your cart is empty, kindly add an item to view cart <p> <p class="close--cart button">close<p><div>`
@@ -785,7 +808,7 @@ const loadEmptyCart = function(check){
 
 // 
    const timeTake = document.querySelector('.close--cart--container')
-    const checkIf= setTimeout(()=>{
+    checkIf= setTimeout(()=>{
     cartDisplay.removeChild(timeTake)
   },5000)
   
@@ -794,18 +817,26 @@ const loadEmptyCart = function(check){
 
 
   const showCarts = e=>{
+    
     const clicked = e.target.closest('.button--cart')
     if(clicked){
       const alreadyOpenedLoaded = document.querySelector('.close--cart--container')
 
       if(allState.bookmarkPro.length === 0)return loadEmptyCart(alreadyOpenedLoaded)
+     
       
         const secAvail = document.querySelector('.cart--lists')
          if(!secAvail){
-          console.log(secAvail)
           sections.forEach(el=>{
             main.removeChild(el)})
             loadFullcart(localState,main)
+            const cartCC = document.querySelector('.cart--lists')
+            const cartLength = cartCC.children.length
+            console.log(cartLength)
+            if(cartLength>=5){
+                cartCC.classList.add('scroll')
+            }
+            
          }
     }
   }
@@ -817,6 +848,9 @@ headerH.addEventListener('click',showCarts)
 cartDisplay.addEventListener('click', e=>{
  const clicked= e.target.closest('.close--cart--container')
  if (!clicked)return
+ console.log(checkIf)
+//  if checkif is there after diaogue is open clear it so it doesnt continue reading
+ checkIf && clearTimeout(checkIf)
  const toClose = clicked.closest('.close--cart--container')
  cartDisplay.removeChild(toClose)
 
@@ -886,11 +920,13 @@ const removeFromCartPAge=e=>{
     return el[0].productName !== itemName
    })
 
-   console.log(allState.bookmarkItems)
-   console.log(allState.bookmarkPro)
    allState.cartCount-- 
+   allState.proCount--
    assignCartNumber(allState);
    megaParent.removeChild(parentEl)
+   if(megaParent.children.length<=5){
+    megaParent.classList.remove('scroll')
+   }
    window.localStorage.setItem('state', JSON.stringify(allState));
    if(megaParent.children.length==1) location.reload()
  

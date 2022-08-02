@@ -7,6 +7,7 @@ block content
         section.full--description--section
             .content
                 .container.full--description--grid.grid--2--columns
+                    include _categoryHeader
                     .product--description--image--container
                         img.product--full--description--image(src=`/img/product-images/${food.image}`, alt=`${food.slug}--image`)
                     .full--product--description
@@ -33,7 +34,7 @@ block content
                                     input.input.product--unit--quantity(type='text', name='product-unit', value='1')
                                     button.button.button--icon.button-plus-minus.button--plus
                                         i.icon.icon--plus.icon-plus-minus(data-feather='plus')
-                                button.button.button--icon.button--cart(href='#')
+                                button.button.button--icon.button--cart(id=food.id)
                                     i.icon.icon--cart(data-feather='shopping-cart')
                         button.button.checkout--button.paragraph
                             strong CHECKOUT

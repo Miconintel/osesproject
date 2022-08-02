@@ -8890,7 +8890,8 @@ var loadFullcart = function loadFullcart(state, parentCont) {
     }), "\n        </svg>\n      </button>\n    </figure>");
   }).join('');
   console.log(loadedCarts);
-  var html = "<section class=\"cart--section\">\n      <div class=\"content\">\n          <div class=\"grid grid--2--columns cart--list--container container\">\n            <div class=\"cart--lists\">\n              <div class=\"cart--list__header cart--list__element flex\">\n                  <h3 class=\"tertiary--header\">Item</h3>\n                  <h3 class=\"tertiary--header\">Product Name</h3>\n                  <h3 class=\"tertiary--header\">Product price</h3>\n                  <h3 class=\"tertiary--header\">quantity</h3>\n                  <h3 class=\"tertiary--header\">subtotal</h3>\n              </div>\n              ".concat(loadedCarts, "\n            </div>\n    \n            <div class=\"checkout--side\">\n    \n               <div class=\"checkout--side__element\">\n    \n                <h3 class=\"tertiary--header summary--header\">Summary</h3>\n    \n                <div class=\"summary--container grid grid--2--columns\">\n                  <p class=\"paragraph\">order total</p>\n                  <p class=\"paragraph\">$<span class=\"price--effect\">6</span></p>\n                  <p class=\"paragraph\">Discount</p>\n                  <p class=\"paragraph\">$<span class=\"price--effect\">6</span></p>\n                  <p class=\"paragraph\">shipping</p>\n                  <p class=\"paragraph\">$<span class=\"price--effect\">6</span></p>\n                </div>\n    \n                <div class=\"total\">\n                 <h3 class=\"tertiary--header paragraph\">Total:</h3>\n                 <p class=\"paragraph\">$<span class=\"price--effect\">6</span></p>\n                </div> \n    \n               </div>\n               <button class=\"button checkout--button paragraph\">\n                <strong>CHECKOUT</strong>\n              </button>\n            </div>\n              \n          </div>\n      </div>\n    </section>");
+  var headerSide = "  \n    <div class=\"category--header\">\n        <h2 class=\"secondary--header\">Our Products</h2>\n\n        <div class=\"category--list-container\">\n        <h3 class=\"tertiary--header\">\n            <a href=\"#\" class=\"link link--category active\"\n            >All Products</a\n            >\n        </h3>\n        <h3 class=\"tertiary--header\">\n            <a href=\"#\" class=\"link link--category\">Provisions</a>\n        </h3>\n        <h3 class=\"tertiary--header\">\n            <a href=\"#\" class=\"link link--category\">Grains</a>\n        </h3>\n        <h3 class=\"tertiary--header\">\n            <a href=\"#\" class=\"link link--category\">Flours</a>\n        </h3>\n        <h3 class=\"tertiary--header\">\n            <a href=\"#\" class=\"link link--category\">Spices</a>\n        </h3>\n        <h3 class=\"tertiary--header\">\n            <a href=\"#\" class=\"link link--category\">Animal protein</a>\n        </h3>\n        <h3 class=\"tertiary--header\">\n            <a href=\"#\" class=\"link link--category\">Oil</a>\n        </h3>\n        <h3 class=\"tertiary--header\">\n            <a href=\"#\" class=\"link link--category\">Others</a>\n        </h3>\n        </div>\n    </div>";
+  var html = "<section class=\"cart--section\">\n      <div class=\"content\">\n          <div class=\"grid grid--2--columns cart--list--container container\">\n            <div class=\"cart--lists\">\n              <div class=\"cart--list__header cart--list__element flex\">\n                  <h3 class=\"tertiary--header\">Product Name</h3>\n                  <h3 class=\"tertiary--header\">Product price</h3>\n                  <h3 class=\"tertiary--header\">quantity</h3>\n                  <h3 class=\"tertiary--header\">subtotal</h3>\n              </div>\n              ".concat(loadedCarts, "\n            </div>\n    \n            <div class=\"checkout--side\">\n    \n               <div class=\"checkout--side__element\">\n    \n                <h3 class=\"tertiary--header summary--header\">Summary</h3>\n    \n                <div class=\"summary--container grid grid--2--columns\">\n                  <p class=\"paragraph\">order total</p>\n                  <p class=\"paragraph\">$<span class=\"price--effect\">6</span></p>\n                  <p class=\"paragraph\">Discount</p>\n                  <p class=\"paragraph\">$<span class=\"price--effect\">6</span></p>\n                  <p class=\"paragraph\">shipping</p>\n                  <p class=\"paragraph\">$<span class=\"price--effect\">6</span></p>\n                </div>\n    \n                <div class=\"total\">\n                 <h3 class=\"tertiary--header paragraph\">Total:</h3>\n                 <p class=\"paragraph\">$<span class=\"price--effect\">6</span></p>\n                </div> \n    \n               </div>\n               <button class=\"button checkout--button paragraph\">\n                <strong>CHECKOUT</strong>\n              </button>\n            </div>\n              \n          </div>\n      </div>\n    </section>");
   parentCont.insertAdjacentHTML('afterbegin', html);
 };
 
@@ -9330,10 +9331,9 @@ var addToCartPro = /*#__PURE__*/function () {
             data = bookmarkPro.data;
             allData = [data, noOfItems];
             allState.bookmarkPro.push(allData);
-            window.localStorage.setItem('state', JSON.stringify(allState));
-            allState.proCount++;
+            window.localStorage.setItem('state', JSON.stringify(allState)); // allState.proCount++
 
-          case 8:
+          case 7:
           case "end":
             return _context.stop();
         }
@@ -9366,6 +9366,7 @@ var addtoCart = function addtoCart(e) {
     loadNewbookmarked(parentOuter, numberofProducts, bookmarkItem); // increase counter
 
     allState.cartCount++;
+    allState.proCount++;
     assignCartNumber(allState);
     window.localStorage.setItem('state', JSON.stringify(allState));
   }
@@ -9408,10 +9409,9 @@ parentCartContainer && parentCartContainer.addEventListener('click', removeCart)
 var localState = JSON.parse(window.localStorage.getItem('state'));
 
 if (localState) {
-  console.log(localState.bookmarkPro); // allState = localState;
+  // allState = localState;
   // allState.cartCount = localState.cartCount
   // should havebeen allState.cartcount = localState.bookmarkItems.length
-
   localState.cartCount = localState.proCount = localState.bookmarkItems.length;
   allState.cartCount = localState.bookmarkItems.length;
   allState = localState;
@@ -9422,12 +9422,12 @@ if (localState) {
 var reloadButtons = function reloadButtons(state) {
   // persist cart
   // get all products
-  var allProducts = _toConsumableArray(document.querySelectorAll('.product')); // check for the text content of each card
+  var allProducts = _toConsumableArray(document.querySelectorAll('.product')); // check for the text content of each card not used
 
 
   var iniP = allProducts.map(function (el) {
     return el.children[1].children[1].textContent;
-  }); // confirm which in bookmark
+  }); // confirm which in bookmark not used
 
   allProducts.forEach(function (el) {
     // check for true or false if items in bookmark match with product card names
@@ -9435,22 +9435,28 @@ var reloadButtons = function reloadButtons(state) {
       return eli === el.children[1].children[1].textContent;
     }); // set to true if it does
 
+    var itemToCheck = el.children[1].children[1].textContent;
+
     if (state.bookmarkItems.some(function (eli) {
-      return eli === el.children[1].children[1].textContent;
+      return eli === itemToCheck;
     })) {
-      el.setAttribute('data-page', true);
-    } // persist if dataset.page is true
+      // el.setAttribute('data-page', true); no longer used
+      // get the value by filtering bookmark pro to get the item loaded  since bookmarkpro also saves the item number
+      var which = state.bookmarkPro.filter(function (el) {
+        return el[0].productName == itemToCheck;
+      });
 
+      var _which = _slicedToArray(which, 1),
+          noAdded = _which[0];
 
-    if (el.dataset.page == 'true') {
       var parent = el.children[1].children[4];
       parent.classList.add('hide--again');
-      loadNewbookmarked(el.children[1]);
-    } // if (el.dataset.page == 'true') {
+      loadNewbookmarked(el.children[1], noAdded[1], itemToCheck);
+    } // persist if dataset.page is true
+    // if (el.dataset.page == 'true') {
     //   const parent = el.children[1].children[4];
     //   parent.classList.add('hide--again');
-    //   loadNewbookmarked(el.children[1]);
-    // } 
+    //   loadNewbookmarked(el.children[1]);}
 
   });
 };
@@ -9686,8 +9692,6 @@ var otherPageCallback = function otherPageCallback(entries, observer) {
   var _entries2 = _slicedToArray(entries, 1),
       entry = _entries2[0];
 
-  console.log(entry);
-
   if (!entry.isIntersecting) {
     // observer.unobserve(header);
     header.classList.remove('fixed');
@@ -9753,7 +9757,9 @@ var lit = JSON.parse(window.localStorage.getItem('isClicked'));
 var linkCategories = _toConsumableArray(document.querySelectorAll('.link--category')); // using window.location.search to confirm home page (window.location.search.length!==0)
 
 
-if (lit && window.location.search.length !== 0) {
+console.log(window.location.pathname.startsWith('/productname'));
+
+if (lit && window.location.search.length !== 0 || lit && window.location.pathname.startsWith('/productname')) {
   var linkPreserveActive = linkCategories.filter(function (el) {
     if (el.textContent === lit) {
       el.classList.add('active');
@@ -9763,6 +9769,7 @@ if (lit && window.location.search.length !== 0) {
 
     return el.textContent === lit;
   });
+  console.log(linkPreserveActive);
 }
 
 categoryHeader && categoryHeader.addEventListener('click', addActive); // CATEGORIES FROM THE CARDS
@@ -9779,6 +9786,18 @@ productInnerContainer && productInnerContainer.addEventListener('click', functio
   if (clicked) {
     window.localStorage.setItem('isClicked', JSON.stringify(clicked.firstChild.textContent));
   }
+}); // CATEGORIES FROM CARD BY CLICKING THE NAME OF PRODUCT
+
+parentCartContainer && parentCartContainer.addEventListener('click', function (e) {
+  var clicked = e.target.closest('.product-name');
+
+  if (clicked) {
+    console.log('clicked');
+    var clickedParent = clicked.parentElement;
+    console.log(clickedParent);
+    var category = clickedParent.firstElementChild.firstChild.textContent;
+    window.localStorage.setItem('isClicked', JSON.stringify(category));
+  }
 }); // parentCartContainer && parentCartContainer.addEventListener('click',e=>{
 //   const clicked = e.target.closest('.category')
 //   if (clicked)
@@ -9792,10 +9811,12 @@ var addToCartProduct = function addToCartProduct(e) {
   if (!clicked) return;
   var parentOuter = clicked.closest('.inner--container__product');
   var bookmarkItem = parentOuter.children[3].textContent;
-  allState.bookmarkItems.push(bookmarkItem);
   var parentInner = clicked.parentElement;
+  var valueAdded = parentInner.children[0].children[1].value;
+  allState.bookmarkItems.push(bookmarkItem);
+  addToCartPro(clicked, valueAdded);
   parentInner.classList.add('hide--again');
-  loadNewbookmarked(parentOuter);
+  loadNewbookmarked(parentOuter, valueAdded, bookmarkItem);
   allState.cartCount++;
   assignCartNumber(allState);
   window.localStorage.setItem('state', JSON.stringify(allState));
@@ -9812,8 +9833,15 @@ var reloadButton = function reloadButton(state) {
   if (state.bookmarkItems.some(function (eli) {
     return eli === product.textContent;
   })) {
+    var which = state.bookmarkPro.filter(function (el) {
+      return el[0].productName == product.textContent;
+    });
+
+    var _which2 = _slicedToArray(which, 1),
+        noAdded = _which2[0];
+
     cartButton.classList.add('hide--again');
-    loadNewbookmarked(parent);
+    loadNewbookmarked(parent, noAdded[1], product.textContent);
   }
 };
 
@@ -9826,8 +9854,13 @@ var removeCartProduct = function removeCartProduct(e) {
   if (clicked) {
     // remove item from cart
     var productParent = e.target.closest('.inner--container__product');
+    var itemToRemove = productParent.children[3].textContent;
     allState.bookmarkItems = allState.bookmarkItems.filter(function (el) {
-      return el !== productParent.children[3].textContent;
+      return el !== itemToRemove;
+    }); // manually doing remove cartpro
+
+    allState.bookmarkPro = allState.bookmarkPro.filter(function (el) {
+      return el[0].productName !== itemToRemove;
     }); // return the cart btton
 
     allState.cartCount--;
@@ -9876,13 +9909,15 @@ console.log(sections.some(function (el) {
   return el.classList.contains('cart--section');
 })); // handlerfunction
 
+var checkIf;
+
 var loadEmptyCart = function loadEmptyCart(check) {
   var html = "<div class=\"close--cart--container\"><p class=\"paragraph cart--is--empty\">your cart is empty, kindly add an item to view cart <p> <p class=\"close--cart button\">close<p><div>";
   if (check) return;
   cartDisplay.insertAdjacentHTML('beforeend', html); // 
 
   var timeTake = document.querySelector('.close--cart--container');
-  var checkIf = setTimeout(function () {
+  checkIf = setTimeout(function () {
     cartDisplay.removeChild(timeTake);
   }, 5000);
 };
@@ -9896,11 +9931,17 @@ var showCarts = function showCarts(e) {
     var secAvail = document.querySelector('.cart--lists');
 
     if (!secAvail) {
-      console.log(secAvail);
       sections.forEach(function (el) {
         main.removeChild(el);
       });
       (0, _loadFullCart.default)(localState, main);
+      var cartCC = document.querySelector('.cart--lists');
+      var cartLength = cartCC.children.length;
+      console.log(cartLength);
+
+      if (cartLength >= 5) {
+        cartCC.classList.add('scroll');
+      }
     }
   }
 };
@@ -9910,6 +9951,9 @@ headerH.addEventListener('click', showCarts); // closing the display message
 cartDisplay.addEventListener('click', function (e) {
   var clicked = e.target.closest('.close--cart--container');
   if (!clicked) return;
+  console.log(checkIf); //  if checkif is there after diaogue is open clear it so it doesnt continue reading
+
+  checkIf && clearTimeout(checkIf);
   var toClose = clicked.closest('.close--cart--container');
   cartDisplay.removeChild(toClose);
 }); // adding the quamtity and price
@@ -9971,11 +10015,15 @@ var removeFromCartPAge = function removeFromCartPAge(e) {
   allState.bookmarkPro = allState.bookmarkPro.filter(function (el) {
     return el[0].productName !== itemName;
   });
-  console.log(allState.bookmarkItems);
-  console.log(allState.bookmarkPro);
   allState.cartCount--;
+  allState.proCount--;
   assignCartNumber(allState);
   megaParent.removeChild(parentEl);
+
+  if (megaParent.children.length <= 5) {
+    megaParent.classList.remove('scroll');
+  }
+
   window.localStorage.setItem('state', JSON.stringify(allState));
   if (megaParent.children.length == 1) location.reload();
 };
@@ -10009,7 +10057,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64047" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56726" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

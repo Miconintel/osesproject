@@ -36,13 +36,44 @@ const loadFullcart = function(state,parentCont){
     }).join('')
     console.log(loadedCarts)
     
-    
+    const headerSide = `  
+    <div class="category--header">
+        <h2 class="secondary--header">Our Products</h2>
+
+        <div class="category--list-container">
+        <h3 class="tertiary--header">
+            <a href="#" class="link link--category active"
+            >All Products</a
+            >
+        </h3>
+        <h3 class="tertiary--header">
+            <a href="#" class="link link--category">Provisions</a>
+        </h3>
+        <h3 class="tertiary--header">
+            <a href="#" class="link link--category">Grains</a>
+        </h3>
+        <h3 class="tertiary--header">
+            <a href="#" class="link link--category">Flours</a>
+        </h3>
+        <h3 class="tertiary--header">
+            <a href="#" class="link link--category">Spices</a>
+        </h3>
+        <h3 class="tertiary--header">
+            <a href="#" class="link link--category">Animal protein</a>
+        </h3>
+        <h3 class="tertiary--header">
+            <a href="#" class="link link--category">Oil</a>
+        </h3>
+        <h3 class="tertiary--header">
+            <a href="#" class="link link--category">Others</a>
+        </h3>
+        </div>
+    </div>`
       const html = `<section class="cart--section">
       <div class="content">
           <div class="grid grid--2--columns cart--list--container container">
             <div class="cart--lists">
               <div class="cart--list__header cart--list__element flex">
-                  <h3 class="tertiary--header">Item</h3>
                   <h3 class="tertiary--header">Product Name</h3>
                   <h3 class="tertiary--header">Product price</h3>
                   <h3 class="tertiary--header">quantity</h3>

@@ -14,10 +14,8 @@ exports.base = catchAsync(async (request, response, next) => {
  const filterObj = ['page']
  const queryObj = {...request.query}
  filterObj.forEach(element => {
-
   delete queryObj[element]
  });
- console.log(queryObj)
  const rpage = request.query.page * 1;
  const page = rpage || 1;
  const limit = 10;
@@ -28,6 +26,7 @@ exports.base = catchAsync(async (request, response, next) => {
   
   let foodPage =category || product ?  Food.find(queryObj):Food.find()
   foodPage= await foodPage.skip(skip).limit(limit);
+  // here I got the product query from the DOm so as to ascertain titile
   const allP =request.query.product
   const checkCategory = category || allP
   const title = checkCategory? checkCategory:'Home Page'
@@ -44,10 +43,13 @@ exports.base = catchAsync(async (request, response, next) => {
 });
 
 exports.getProduct =catchAsync( async(request, response,next)=>{
+  let page = request.query.page
+  console.log(page)
   let p = request.params.name
  const [food] =  await Food.find({slug:p})
- console.log(food)
+//  console.log(food)
   response.status(200).render('product', {
+    currentPage:page,
     food,
     title: [food.category, food.slug]
   });
