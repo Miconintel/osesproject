@@ -909,7 +909,7 @@ to completely prevent any detetction of the elelemnt whose opacity is set to zeo
     gap:2rem;
     margin-bottom: 1.2rem;
     padding-top: 1.2rem;
-    width: 100%;
+    /* width: 100%; */
   }
 
   .header--nav {
