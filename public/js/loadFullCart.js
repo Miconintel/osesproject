@@ -2,7 +2,7 @@ const loadFullcart = function(state,parentCont){
     const loadedCarts = state.bookmarkPro.map(el=> {
       return `<figure class="cart--list__element flex">
       <div class="cart--list__image"><img src="/img/product-images/${el[0].image}" alt="${el[0].slug}" class="image image--cart__list" /></div>
-      <figcaption class="cart--options"><p class="paragraph product-name">${el[0].productName}</p></figcaption>
+      <a class="link link--product--name" href="/productname/${el[0].slug}?page=1"><figcaption class="cart--options"><p class="paragraph product-name">${el[0].productName}</p></figcaption></a>
       <figcaption class="cart--options"><p class="paragraph price">$<span class="price--effect">${el[0].price}</span></p></figcaption>
       <div class="input--container">
         <button
