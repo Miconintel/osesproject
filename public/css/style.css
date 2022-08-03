@@ -573,8 +573,8 @@ body {
   font-weight: 300;
 } */
 .product-name {
-  max-width: 50%;
-  font-weight: 600;
+  /* max-width: 50%; */
+  font-weight: 550;
   color: var(--secondary-color);
 }
 .price {
@@ -802,6 +802,16 @@ to completely prevent any detetction of the elelemnt whose opacity is set to zeo
   .open .mobile--menu {
     display: none;
   }
+
+  .paragraph{
+    font-size: 1.2rem;
+  }
+
+  .cart--options .price--effect{
+    font-size: 1.6rem;
+  }
+
+ 
 }
 
 /* second size option */
@@ -827,12 +837,12 @@ to completely prevent any detetction of the elelemnt whose opacity is set to zeo
   }
 
   .container {
-    max-width: 90%;
+    margin:auto;
     max-width: 100%;
     padding-left: 0;
     padding-right: 0;
-    
   }
+
   .header--container {
     max-width: 100%;
     padding: 0 1.2rem;
@@ -970,6 +980,13 @@ to completely prevent any detetction of the elelemnt whose opacity is set to zeo
   .other--links{
     padding-left: 2rem;
   }
+ 
+.checkout--side__element .paragraph{
+  font-size: 1.6rem;
+}
+
+
+
 }
 
 @media(max-width:27.5em){
@@ -1021,6 +1038,8 @@ to completely prevent any detetction of the elelemnt whose opacity is set to zeo
 }
 }
 
+/* additives */
+
 .feather {
   width: 24px;
   height: 24px;
@@ -1031,3 +1050,7 @@ to completely prevent any detetction of the elelemnt whose opacity is set to zeo
   fill: none;
 }
 
+.total .tertiary--header{
+  color:var(--secondary-color--darker);
+  font-size: 2rem;
+}

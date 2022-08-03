@@ -91,16 +91,16 @@ const loadFullcart = function(state,parentCont){
     
                 <div class="summary--container grid grid--2--columns">
                   <p class="paragraph">order total</p>
-                  <p class="paragraph">$<span class="price--effect">6</span></p>
-                  <p class="paragraph">Discount</p>
-                  <p class="paragraph">$<span class="price--effect">6</span></p>
-                  <p class="paragraph">shipping</p>
-                  <p class="paragraph">$<span class="price--effect">6</span></p>
+                  <p class="paragraph price">$<span class="price--effect">6</span></p>
+                  <p class="paragraph ">Discount</p>
+                  <p class="paragraph price">$<span class="price--effect">6</span></p>
+                  <p class="paragraph ">shipping</p>
+                  <p class="paragraph price">$<span class="price--effect">6</span></p>
                 </div>
     
                 <div class="total">
                  <h3 class="tertiary--header paragraph">Total:</h3>
-                 <p class="paragraph">$<span class="price--effect">6</span></p>
+                 <p class="paragraph price">$<span class="price--effect">6</span></p>
                 </div> 
     
                </div>
