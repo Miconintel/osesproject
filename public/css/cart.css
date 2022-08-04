@@ -135,9 +135,13 @@ color:var(--secondary-color--darker) !important;
     border-radius: 2rem;
 }
 
-.grid--2--columns {
-    grid-template-columns: repeat(2, 1fr);
-  }
+.grid--2--columns--cart {
+  grid-template-columns: repeat(2, 1fr);
+}
+.grid--2--columns{
+  grid-template-columns: repeat(2, 1fr);
+}
+
 .checkout--button {
 color: #fff;
 background-color: var(--primary-color);

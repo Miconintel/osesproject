@@ -75,7 +75,8 @@ body {
   text-align: center;
 }
 .product--full--description--image {
-  height: 50rem;
+  
+  max-width: 100%;
 }
 .full--product--description {
   display: flex;
@@ -124,6 +125,7 @@ body {
 
   .product--description--image--container{
     text-align: center;
+    
   }
 
 }

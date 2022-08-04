@@ -6,11 +6,7 @@ import {getCartItem} from './carts'
 import loadFullcart from './loadFullCart'
 
 
-
-
-
 feather.replace();
-
 // SELECT ITEMS
 const dotContainer = document.querySelector('.dots--container');
 const slides = document.querySelectorAll('.slide');
@@ -31,8 +27,6 @@ const pageLink = document.querySelector('.page--link');
 const categoryHeader = document.querySelector('.category--header')
 const searchInput = document.querySelector('.search--input')
 const ButtonSearch = document.querySelector('.button--search')
-
-
 
 // SEARCH BAR
 searchFood('Provisions')
@@ -670,9 +664,9 @@ productInnerContainer && productInnerContainer.addEventListener('click',e=>{
 parentCartContainer && parentCartContainer.addEventListener('click',e=>{
   const clicked =e.target.closest('.product-name')
   if(clicked){
-    console.log('clicked')
+    
     const clickedParent = clicked.parentElement
-    console.log(clickedParent)
+    // console.log(clickedParent)
     const category = clickedParent.firstElementChild.firstChild.textContent
     window.localStorage.setItem('isClicked', JSON.stringify(category));
   }
@@ -824,24 +818,44 @@ const loadEmptyCart = function(check){
   },5000)
   
 }
+      const calculateSum = function(c){
+      const y = [...document.querySelectorAll(`${c}`)]
+      const total=y.map(el=>{return el.textContent})
 
+      const grandTotal = total.reduce((acc,el)=>{
+        return acc + Number(el)
+      },0)
+
+     const final = grandTotal.toFixed(0)
+
+     const summaryTotals = [...document.querySelectorAll("[data-total]")].map(el=>el.textContent).reduce((acc,el)=>{return acc+Number(el)},0) + Number(final)
+    
+       return [final,summaryTotals]
+      
+      
+      }
 
 
   const showCarts = e=>{
     
     const clicked = e.target.closest('.button--cart')
     if(clicked){
-      const alreadyOpenedLoaded = document.querySelector('.close--cart--container')
 
+      
+      const alreadyOpenedLoaded = document.querySelector('.close--cart--container')
       if(allState.bookmarkPro.length === 0)return loadEmptyCart(alreadyOpenedLoaded)
      
         const secAvail = document.querySelector('.cart--lists')
-
+        
          if(!secAvail){
           sections.forEach(el=>{
             main.removeChild(el)})
-            console.log(allState)
             loadFullcart(allState,main)
+            
+         const totals = calculateSum('.sub--totals')
+         document.querySelector('.grand--total').textContent=totals[0]
+         console.log(document.querySelector('.final--total'))
+         document.querySelector('.final--total').textContent=totals[1]
             const cartCC = document.querySelector('.cart--lists')
             const cartLength = cartCC.children.length
             if(cartLength>=5){
@@ -890,16 +904,23 @@ const addQtyPrice = e=>{
   qtyIcons.children[1].value=currentValue
   newPrice=currentValue*priceSpan
   subTotalElement.textContent=newPrice.toFixed(2)
-  console.log(priceSpan,currentValue,subPrice)
+  const totals = calculateSum('.sub--totals')
+         document.querySelector('.grand--total').textContent=totals[0]
+         document.querySelector('.final--total').textContent=totals[1]
+  // console.log(priceSpan,currentValue,subPrice)
   
  }
  if(checkButton?.classList.contains('button--minus') && qtyIcons.children[1].value-1 !== 0){
-  console.log(priceSpan,currentValue,subPrice)
+  // console.log(priceSpan,currentValue,subPrice)
   currentValue--
   newValue=currentValue
   qtyIcons.children[1].value=currentValue
   newPrice=currentValue*priceSpan
   subTotalElement.textContent= newPrice.toFixed(2)
+  const totals = calculateSum('.sub--totals')
+         document.querySelector('.grand--total').textContent=totals[0]
+         document.querySelector('.final--total').textContent=totals[1]
+         
  }
 }
 document.addEventListener('click',addQtyPrice)
@@ -910,10 +931,13 @@ document.addEventListener('change',e=>{
   if(!clicked)return
   const value = Number(clicked.value)
   const parentEl = clicked.closest('.cart--list__element')
-  console.log(parentEl,value)
+  // console.log(parentEl,value)
   const price = Number(parentEl.children[2].children[0].firstElementChild.textContent)
   const subTotalElement= parentEl.children[4].children[0].firstElementChild
   subTotalElement.textContent= value*price
+  const totals = calculateSum('.sub--totals')
+   document.querySelector('.grand--total').textContent=totals[0]
+   document.querySelector('.final--total').textContent=totals[1]
 
 })
 
@@ -930,11 +954,15 @@ const removeFromCartPAge=e=>{
    allState.bookmarkPro=allState.bookmarkPro.filter(el=>{
     return el[0].productName !== itemName
    })
-
+   
    allState.cartCount-- 
    allState.proCount--
    assignCartNumber(allState);
    megaParent.removeChild(parentEl)
+   const totals = calculateSum('.sub--totals')
+   document.querySelector('.grand--total').textContent=totals[0]
+   document.querySelector('.final--total').textContent=totals[1]
+
    if(megaParent.children.length<=5){
     megaParent.classList.remove('scroll')
    }
@@ -944,3 +972,12 @@ const removeFromCartPAge=e=>{
 }
 
 document.addEventListener('click',removeFromCartPAge)
+
+
+const alli=[1,2,5,6]
+
+const summ = alli.reduce((acc,el)=>{
+return acc+el
+},0)
+
+console.log(summ)

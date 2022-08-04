@@ -26,7 +26,7 @@ const loadFullcart = function(state,parentCont){
           </svg>
         </button>
       </div>
-      <figcaption class="cart--options"><p class="paragraph price">$<span class="price--effect">${el[1]*el[0].price}</span></p></figcaption>
+      <figcaption class="cart--options"><p class="paragraph price">$<span class="price--effect sub--totals" data-src="totals">${el[1]*el[0].price}</span></p></figcaption>
       <button class="button button--close  mobile--nav--button">
         <svg class="feather">
           ${feather.icons.x.toSvg({class: "icon icon--minus icon-plus-minus"})}
@@ -71,7 +71,7 @@ const loadFullcart = function(state,parentCont){
     </div>`
       const html = `<section class="cart--section">
       <div class="content">
-          <div class="grid grid--2--columns cart--list--container container">
+          <div class="grid grid--2--columns--cart cart--list--container container">
             ${headerSide}
             <div class="cart--lists">
               <div class="cart--list__header cart--list__element flex">
@@ -91,16 +91,16 @@ const loadFullcart = function(state,parentCont){
     
                 <div class="summary--container grid grid--2--columns">
                   <p class="paragraph">order total</p>
-                  <p class="paragraph price">$<span class="price--effect">6</span></p>
+                  <p class="paragraph price">$<span class="price--effect grand--total">6</span></p>
                   <p class="paragraph ">Discount</p>
-                  <p class="paragraph price">$<span class="price--effect">6</span></p>
+                  <p class="paragraph price">$<span class="price--effect" data-total="totals">0</span></p>
                   <p class="paragraph ">shipping</p>
-                  <p class="paragraph price">$<span class="price--effect">6</span></p>
+                  <p class="paragraph price">$<span class="price--effect" data-total="totals">0</span></p>
                 </div>
     
                 <div class="total">
                  <h3 class="tertiary--header paragraph">Total:</h3>
-                 <p class="paragraph price">$<span class="price--effect">6</span></p>
+                 <p class="paragraph price">$<span class="price--effect final--total">6</span></p>
                 </div> 
     
                </div>
