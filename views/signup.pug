@@ -1,0 +1,32 @@
+extends base
+append head 
+    link(rel='stylesheet', href='/css/signup.css')
+
+block content
+    main
+        section.signup--section
+            .content
+                .container.signup--grid.grid.grid--2--columns
+                    .signup--image--container
+                        h2.secondary--header
+                            | SIGNUP AND SHOP 
+                            br
+                            | WITH US
+                    .form--container
+                        form.form
+                            .form--elements
+                                label.paragraph.label--paragraph(for='firstname') FirstName
+                                input#firstname.signup--input(name='firstname', type='text', placeholder='FIRSTNAME')
+                            .form--elements
+                                label.paragraph.label--paragraph(for='lastname') LastName
+                                input#lastname.signup--input(name='lastname', type='text', placeholder='LASTNAME')
+                            .form--elements
+                                label.paragraph.label--paragraph(for='email') Email
+                                input#email.signup--input(name='email', type='email', placeholder='EMAIL')
+                            .form--elements
+                                label.paragraph.label--paragraph(for='Password') Password
+                                input#Password.signup--input(name='Password', type='password')
+                            .form--elements
+                                label.paragraph.label--paragraph(for='cpassword') Confirm Password
+                                input#cpassword.signup--input(name='cpassword', type='password')
+                            input.signup--input.submit--input(type='submit')
