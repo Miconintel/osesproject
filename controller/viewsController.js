@@ -55,6 +55,11 @@ exports.getProduct =catchAsync( async(request, response,next)=>{
   });
 
 })
+exports.signup = (request, response, next) => {
+  response.status(200).render('signup', {
+    title: 'signup',
+  });
+};
 exports.login = (request, response, next) => {
   response.status(200).render('login', {
     title: 'login',

@@ -9644,7 +9644,7 @@ navContainer.addEventListener('click', function (e) {
 
 document.addEventListener('click', function (e) {
   var logoForProduct = e.target.closest('.header--logo__container');
-  if (logoForProduct) window.localStorage.setItem('isClicked', JSON.stringify('All Products'));
+  if (logoForProduct) window.localStorage.setItem('isClicked', JSON.stringify('Products'));
   var clicked = e.target.closest('.image--link');
 
   if (clicked) {

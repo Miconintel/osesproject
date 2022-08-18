@@ -485,7 +485,7 @@ dotContainer && dotContainer.addEventListener('click', moveWithDots);
 
 document.addEventListener('click', (e) => {
   const logoForProduct = e.target.closest('.header--logo__container')
-  if (logoForProduct) window.localStorage.setItem('isClicked', JSON.stringify('All Products'));
+  if (logoForProduct) window.localStorage.setItem('isClicked', JSON.stringify('Products'));
   const clicked = e.target.closest('.image--link');
   if (clicked) {
     // e.preventDefault();

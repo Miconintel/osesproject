@@ -10,16 +10,11 @@ header.main--header
         nav.nav.header--nav.flex
           // FLEX ITEM 1
           ul.lists.nav--lists.flex
-            //
-              <li class="list">
-              <a href="#" class="link nav--link">About Us</a>
-              </li>
+            
             li.list
               a.link.nav--link(href='/') Home
             | 
-            //- li.list
-            //-   a.link.nav--link(href='#products--id') Contact us
-            //- |                 
+                          
             li.list
               a.link.nav--link(href='#products--id')  Products 
             |                 
@@ -48,21 +43,43 @@ header.main--header
             </button>
             </li>
             </ul>
+          //- ul.nav--lists.flex
+          //-   li.list.list--cta
+          //-     a.link.nav--link.link--outline(href='#') Logout
+      if !user      
+        .all--buttons(id='cart--display')
           ul.nav--lists.flex
             li.list.list--cta
-              a.link.nav--link.link--outline(href='#') Logout  
-      .all--buttons(id='cart--display')
-        .list.list--cta
-          a.link.user--image--container(href=`page=${currentPage+1}`)
-            img.image.user--image(src='/img/hero/oses-bag-03.jpg', alt='logged-in-user-image')
-          |                   
-          button.list--cta__element.button.button--icon.button--cart
-            .cart--number--container
-              p.cart--number 0
-            i.icon.icon--cart(data-feather='shopping-cart')        
-        .mobile--nav--button--container
-          button.button.mobile--nav--button.mobile--menu
-            i.icon.mobile--nav--icon(data-feather='menu')
-          |             
-          button.button.mobile--nav--button.mobile--close
-            i.icon.mobile--nav--icon(data-feather='x')
+                  a.link.nav--link.link--outline(href='/login') Login 
+            li.list.list--cta
+              a.list--cta__element.link.nav--link.link--cta(href='/signup') Shopnow
+              |                   
+              button.list--cta__element.button.button--icon.button--cart
+                .cart--number--container
+                  p.cart--number 0
+                i.icon.icon--cart(data-feather='shopping-cart')        
+          .mobile--nav--button--container
+            button.button.mobile--nav--button.mobile--menu
+              i.icon.mobile--nav--icon(data-feather='menu')
+            |             
+            button.button.mobile--nav--button.mobile--close
+              i.icon.mobile--nav--icon(data-feather='x')
+      else        
+        .all--buttons(id='cart--display')
+          ul.nav--lists.flex
+            li.list.list--cta
+                  a.link.nav--link.link--outline(href='#') Logout 
+            li.list.list--cta
+              a.link.user--image--container(href=`page=${currentPage+1}`)
+                img.image.user--image(src='/img/hero/oses-bag-03.jpg', alt='logged-in-user-image')
+              |                   
+              button.list--cta__element.button.button--icon.button--cart
+                .cart--number--container
+                  p.cart--number 0
+                i.icon.icon--cart(data-feather='shopping-cart')        
+          .mobile--nav--button--container
+            button.button.mobile--nav--button.mobile--menu
+              i.icon.mobile--nav--icon(data-feather='menu')
+            |             
+            button.button.mobile--nav--button.mobile--close
+              i.icon.mobile--nav--icon(data-feather='x')

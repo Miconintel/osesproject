@@ -19,7 +19,7 @@ Do you have high and classic taste when it comes to interior designs.
 are you looking to transform your interiors with epoxy installations neatly done by professionals.
 we have everuthing it takes to give you the best when it comes to metallic walls, vinyl walls and other installations.
 Like our page to see more of our works and contact us to book our service.
-
+https://developer.mozilla.org/en-US/docs/Web/CSS/background-image
 
 for enquiries, contact
 
@@ -188,7 +188,7 @@ body {
 }
 
 .header--container {
-  max-width: 120rem;
+  max-width: 130rem;
   /* margin: auto; */
   /* padding: 0 1.2rem; */
 }
@@ -215,6 +215,9 @@ body {
 }
 .nav--lists {
   gap: 4.8rem;
+}
+.all--buttons .nav--lists {
+  gap: 2.4rem;
 }
 
 .nav--lists:nth-child(2) {
