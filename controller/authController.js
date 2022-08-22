@@ -42,9 +42,9 @@ exports.signUp = catchAsync(async (request, response, next) => {
   //  this is flawed because we need to make sure the user wont login as admin
   const newUser = await User.create(request.body);
 
-  const url = `${request.protocol}://${request.get('host')}/`;
+  // const url = `${request.protocol}://${request.get('host')}/`;
 
-  await new Email(newUser, url).sendWelcome();
+  // await new Email(newUser, url).sendWelcome();
 
   getAndSendToken(newUser, 201, response);
 });
