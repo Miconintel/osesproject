@@ -979,6 +979,9 @@ document.addEventListener('click',removeFromCartPAge)
 
 
 // SIGN UP FORM'
+
+const form = document.querySelector('.form')
+
 const signU = async (e)=>{
   e.preventDefault()
   const formElements = [...document.querySelectorAll('.form--input')]
@@ -987,16 +990,16 @@ const signU = async (e)=>{
   const formObj = h && Object.fromEntries(h)
   await signUp(formObj.firstname,formObj.lastname,formObj.email,formObj.password,formObj.passwordConfirmed)
 }
-const form = document.querySelector('.form')
+
 form && form.addEventListener('submit', signU)
 
 
 
-const allButtons = document.querySelector('.all--buttons')
-const logouts = async (e)=>{
-  const clicked = e.target.closest('.list--cta')
-  if(clicked.firstElementChild.classList.contains('link--outline'))
-  console.log('rihght')
-  await logout()
-}
-allButtons&&allButtons.addEventListener('click',logouts)
+// const allButtons = document.querySelector('.all--buttons')
+// const logouts = async (e)=>{
+//   const clicked = e.target.closest('.list--cta')
+//   if(clicked.firstElementChild.classList.contains('link--outline'))
+//   console.log('rihght')
+//   await logout()
+// }
+// allButtons&&allButtons.addEventListener('click',logouts)

@@ -743,7 +743,26 @@ FOOTER SECTION
     /* u have to make it position relative so overflow x hidden can work */
     position: relative;
   }
+  .header--flex {
+    gap:unset
+  }
 
+.link--outline:link,
+.link--outline:visited {
+  padding: 0.4rem 1.2rem;
+  border-radius: 50rem;
+  border: var(--primary-color) solid 0.1rem;
+  /* transition: all 1s; */
+}
+
+.link--cta:link,
+.link--cta:visited {
+  color: #fff !important;
+  padding: 0.4rem 1.2rem;
+  border-radius: 50rem;
+  background-color: var(--primary-color);
+}
+  
   .nav--container {
      /* display: flex;
     justify-content: center;
