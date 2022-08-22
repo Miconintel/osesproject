@@ -3,34 +3,44 @@ const pug = require('pug');
 const htmlToText = require('html-to-text');
 
 // when creating a class the variable needed that will be supplied in the outside environment is made availabkle to be passed into the constructor when a new object is created.
-
+// @8%*vnB84kq^%D6w
 module.exports = class Email {
   constructor(user, url) {
     this.to = user.email;
-    this.firstName = user.name.split(' ')[0];
+    this.firstName = user.firstName
+    // this.firstName = user.name.split(' ')[0];
     this.url = url;
     this.from = `Chinaza <${process.env.EMAIL_FROM}>`;
   }
 
   newTransport() {
+    console.log(process.NODE_ENV)
     // const prod = process.env.NODE_ENV.trim();
     if (process.env.NODE_ENV !== 'development') {
-      return nodemailer.createTransport({
-        service: 'SendGrid',
+      console.log('transport created')
+       const nm =  nodemailer.createTransport({
+        host:	'smtp.sendgrid.net',
+        port:587,
         auth: {
           user: `${process.env.SENDGRID_USERNAME}`,
           pass: `${process.env.SENDGRID_PASSWORD}`,
         },
       });
+      // console.log(nm)
+      return nm
     } else {
-      return nodemailer.createTransport({
+      console.log('transport created')
+      const nm = nodemailer.createTransport({
         host: process.env.EMAIL_HOST,
         port: process.env.EMAIL_PORT,
         auth: {
-          user: process.env.EMAIL_USERNAME,
-          pass: process.env.EMAIL_PASSWORD,
+          user:`${process.env.EMAIL_USERNAME}`,
+          pass: `${process.env.EMAIL_PASSWORD}`,
         },
       });
+
+      // console.log(nm)
+      return nm
     }
   }
 
@@ -57,20 +67,21 @@ module.exports = class Email {
         text: htmlToText.convert(html),
         // html:
       };
-
+      console.log('waiting to send')
       const sent = await this.newTransport().sendMail(mailOptions);
-      console.log(sent);
+      console.log(sent)
+     
     } catch (err) {
       // if (err.code === 'EPROTOCOL')
       //   throw new Error('this is from the email');
       // whenever you throw an error it is caught on the catch block as the try block runs, you can also throw the eroor there, which will now be caught on the next catch block.
-      console.log(err);
+
       throw err;
     }
   }
 
   async sendWelcome() {
-    await this.send('welcome', 'welcome to the Natours family');
+    await this.send('welcomeemail', 'welcome to OSESWORLD');
   }
 
   async sendPasswordReset() {

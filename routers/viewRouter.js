@@ -24,7 +24,7 @@ const router = express.Router({ mergeParams: true });
 
 // router.get('/base', base);
 // not useful
-router.get('/', base);
+router.get('/',isLoggedIn, base);
 router.get('/productname/:name', getProduct);
 router.get('/signup', signup);
 // router.get('/tour/:slug', isLoggedIn, getTour);

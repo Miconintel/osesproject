@@ -42,7 +42,7 @@ exports.signUp = catchAsync(async (request, response, next) => {
   //  this is flawed because we need to make sure the user wont login as admin
   const newUser = await User.create(request.body);
 
-  const url = `${request.protocol}://${request.get('host')}/me`;
+  const url = `${request.protocol}://${request.get('host')}/`;
 
   await new Email(newUser, url).sendWelcome();
 
@@ -68,6 +68,7 @@ exports.login = catchAsync(async (request, response, next) => {
 
 exports.logout = (request, response, next) => {
   response.cookie('jwt', 'logged out', {
+    // this is 10seconds
     expires: new Date(Date.now() + 10 * 1000),
     httpOnly: true,
   });

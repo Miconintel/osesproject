@@ -64,12 +64,12 @@ const sendErrorProd = (err, request, response) => {
       console.error(`error  ${err.message}`);
       return response.status(500).json({
         status: 'fail',
-        message: 'something went very wrong',
+        message: 'something went very wrong here',
         error: err,
       });
     }
   }
-  if (err.isOperational) {
+if (err.isOperational) {
     console.log(err);
     return response.status(err.statusCode).render('error', {
       title: 'something went wrong',

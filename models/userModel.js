@@ -6,7 +6,15 @@ const Booking = require('./../models/bookingModel');
 
 const userSchema = mongoose.Schema(
   {
-    name: { type: String, required: [true, 'must have a name'] },
+    firstname: { type: String, required: [true, 'must have a name'] },
+    email: {
+      type: String,
+      required: [true, 'must have email'],
+      unique: [true, 'user already exists'],
+      lowercase: true,
+      validate: [validatorM.isEmail, 'please provide a valid email'],
+    },
+    lastname: { type: String, required: [true, 'must have a name'] },
     email: {
       type: String,
       required: [true, 'must have email'],
@@ -58,6 +66,7 @@ userSchema.virtual('bookings', {
 });
 
 userSchema.pre('save', async function (next) {
+  // you have to check this if block incase u want to make any other changes on the othre options rather than the password
   if (!this.isModified('password')) return next();
 
   // encrypt password
@@ -67,6 +76,7 @@ userSchema.pre('save', async function (next) {
 });
 
 userSchema.pre('save', async function (next) {
+  // this is to change the time password was changed only for objects that re not new
   if (!this.isModified('password') || this.isNew) return next();
 
   // encrypt password

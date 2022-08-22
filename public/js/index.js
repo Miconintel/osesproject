@@ -4,6 +4,10 @@ import '@babel/polyfill'
 import {searchFood} from './search'
 import {getCartItem} from './carts'
 import loadFullcart from './loadFullCart'
+import {signUp} from './logins'
+import {logout} from './logins'
+import { async } from 'regenerator-runtime'
+
 
 
 feather.replace();
@@ -974,10 +978,25 @@ const removeFromCartPAge=e=>{
 document.addEventListener('click',removeFromCartPAge)
 
 
-const alli=[1,2,5,6]
+// SIGN UP FORM'
+const signU = async (e)=>{
+  e.preventDefault()
+  const formElements = [...document.querySelectorAll('.form--input')]
+  if (formElements.some(el=>el.value==''))return console.log('pls fil in the space')
+  const h = formElements.map(el=>[el.getAttribute('name'),el.value])
+  const formObj = h && Object.fromEntries(h)
+  await signUp(formObj.firstname,formObj.lastname,formObj.email,formObj.password,formObj.passwordConfirmed)
+}
+const form = document.querySelector('.form')
+form && form.addEventListener('submit', signU)
 
-const summ = alli.reduce((acc,el)=>{
-return acc+el
-},0)
 
-console.log(summ)
+
+const allButtons = document.querySelector('.all--buttons')
+const logouts = async (e)=>{
+  const clicked = e.target.closest('.list--cta')
+  if(clicked.firstElementChild.classList.contains('link--outline'))
+  console.log('rihght')
+  await logout()
+}
+allButtons&&allButtons.addEventListener('click',logouts)

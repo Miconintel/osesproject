@@ -778,7 +778,7 @@ to completely prevent any detetction of the elelemnt whose opacity is set to zeo
   /* GAps not sshowing have to use marfin but later showed because error is from my phone*/
 
   .nav--lists {
-    flex-direction: column;
+    /* flex-direction: column; */
     gap: 3rem;
   }
 
