@@ -39,6 +39,7 @@ overflow-x: hidden;
     gap:1rem;
     margin-bottom: 2rem;
 }
+.login--input,
 .signup--input{
     /* max-width: 75%; */
     padding: 1.2rem;

@@ -1,0 +1,28 @@
+extends base
+append head 
+    link(rel='stylesheet', href='/css/signup.css')
+
+block content
+    main
+        section.signup--section
+            .content
+                .container.signup--grid.grid.grid--2--columns
+                    .signup--image--container
+                        h2.secondary--header
+                            | SIGNUP AND SHOP 
+                            br
+                            | WITH US
+                    .form--container
+                        form.form
+
+                            .form--elements
+                                label.paragraph.label--paragraph(for='email') Email
+                                input#email.login--input.form--input(name='email', type='email', placeholder='EMAIL')
+                            .form--elements
+                                label.paragraph.label--paragraph(for='Password') Password
+                                input#Password.login--input.form--input(name='password', type='password')
+                            .form--elements.login--check
+                                input.login--input.submit--input(type='submit')
+                                p.paragraph Don't have an account? 
+                                    span
+                                     a.link(href="/signup") Signup

@@ -6,6 +6,7 @@ import {getCartItem} from './carts'
 import loadFullcart from './loadFullCart'
 import {signUp} from './logins'
 import {logout} from './logins'
+import {login} from './logins'
 import { async } from 'regenerator-runtime'
 
 
@@ -988,18 +989,28 @@ const signU = async (e)=>{
   if (formElements.some(el=>el.value==''))return console.log('pls fil in the space')
   const h = formElements.map(el=>[el.getAttribute('name'),el.value])
   const formObj = h && Object.fromEntries(h)
-  await signUp(formObj.firstname,formObj.lastname,formObj.email,formObj.password,formObj.passwordConfirmed)
+  if(form.lastElementChild.classList.contains('signup--check')){
+    console.log('yes it does signup')
+    await signUp(formObj.firstname,formObj.lastname,formObj.email,formObj.password,formObj.passwordConfirmed)
+  }
+  console.log('done')
+  if(form.lastElementChild.classList.contains('login--check')){
+    console.log('yes it does login')
+    await login(formObj.email,formObj.password)
+  }
+  
 }
 
 form && form.addEventListener('submit', signU)
 
 
 
-// const allButtons = document.querySelector('.all--buttons')
-// const logouts = async (e)=>{
-//   const clicked = e.target.closest('.list--cta')
-//   if(clicked.firstElementChild.classList.contains('link--outline'))
-//   console.log('rihght')
-//   await logout()
-// }
-// allButtons&&allButtons.addEventListener('click',logouts)
+const allButtons = document.querySelector('.all--buttons')
+const logouts = async (e)=>{
+ 
+  const clicked = e.target.closest('.list--cta')
+  if(clicked && clicked.firstElementChild.id=='link--outline')
+  
+  await logout()
+}
+allButtons&&allButtons.addEventListener('click',logouts)

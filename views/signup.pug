@@ -29,4 +29,8 @@ block content
                             .form--elements
                                 label.paragraph.label--paragraph(for='cpassword') Confirm Password
                                 input#cpassword.signup--input.form--input(name='passwordConfirmed', type='password')
-                            input.signup--input.submit--input(type='submit')
+                            .form--elements.signup--check
+                                input.signup--input.submit--input(type='submit')
+                                p.paragraph Already have an account? 
+                                    span
+                                     a.link(href="/login") Login

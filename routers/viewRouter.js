@@ -27,6 +27,7 @@ const router = express.Router({ mergeParams: true });
 router.get('/',isLoggedIn, base);
 router.get('/productname/:name', getProduct);
 router.get('/signup', signup);
+router.get('/login', login);
 // router.get('/tour/:slug', isLoggedIn, getTour);
 // router.get('/login', isLoggedIn, login);
 // router.get('/me', protect, getAccount);
