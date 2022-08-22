@@ -18,13 +18,13 @@ const {
 
 const router = express.Router({ mergeParams: true });
 
-// router.use(isLoggedIn);
+router.use(isLoggedIn);
 
 // router.use(alerts);
 
 // router.get('/base', base);
 // not useful
-router.get('/',isLoggedIn, base);
+router.get('/', base);
 router.get('/productname/:name', getProduct);
 router.get('/signup', signup);
 router.get('/login', login);
