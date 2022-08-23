@@ -44,6 +44,20 @@ overflow-x: hidden;
     /* max-width: 75%; */
     padding: 1.2rem;
     border: 0.001rem var(--primary-color) solid
+} 
+
+.submit--input{
+    /* max-width: 75%; */
+    padding: 1.2rem;
+    padding-left: 2.4rem;
+    padding-right: 2.4rem;
+    border: 0.001rem var(--primary-color) solid;
+color: whitesmoke;
+    background-color: var(--primary-color);
+} 
+
+.signup--check,.login--check{
+    align-items: center;
 }
 .signup--grid{
     gap:4rem;
@@ -54,9 +68,9 @@ overflow-x: hidden;
     padding: 2rem
 }
 
-.submit--input{
-    max-width: 30rem;
-}
+/* .submit--input{
+    width: 20rem;
+} */
 .signup--image--container{
    
     background: linear-gradient(180deg,  rgba(218, 157, 25, 0.599) 0%, rgba(242, 174, 28, 0.705) 50%, rgba(242, 174, 28, 0.749) 100%),

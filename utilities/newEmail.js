@@ -19,14 +19,15 @@ module.exports = class Email {
     if (process.env.NODE_ENV !== 'development') {
       console.log('transport created')
        const nm =  nodemailer.createTransport({
-        host:	'smtp.sendgrid.net',
-        port:587,
+        host: 'smtp.sendgrid.net',
+        port: 587,
+        // service: 'SendGrid',
         auth: {
-          user: `${process.env.SENDGRID_USERNAME}`,
-          pass: `${process.env.SENDGRID_PASSWORD}`,
+          user: "apikey",
+          pass: process.env.SENDGRID_PASSWORD,
         },
       });
-      // console.log(nm)
+      console.log(nm)
       return nm
     } else {
       console.log('transport created')

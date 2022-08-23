@@ -9458,8 +9458,7 @@ if (mobileContainer) {
     var clicked = e.target.closest('.mobile--nav--button');
 
     if (clicked) {
-      e.preventDefault();
-
+      // e.preventDefault();
       if (clicked.classList.contains('mobile--menu')) {
         header.classList.add('open');
       } else if (clicked.classList.contains('mobile--close')) header.classList.remove('open');
@@ -9475,8 +9474,7 @@ var increaseCart = function increaseCart(e) {
   var clicked = e.target.closest('.button-plus-minus');
 
   if (clicked) {
-    var cartNum;
-    e.preventDefault();
+    var cartNum; // e.preventDefault();
 
     if (clicked.firstElementChild.classList.contains('feather-plus')) {
       cartNum = clicked.previousElementSibling.value * 1;
@@ -10387,7 +10385,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52591" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55667" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

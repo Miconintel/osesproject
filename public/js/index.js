@@ -76,7 +76,7 @@ if (mobileContainer) {
     const clicked = e.target.closest('.mobile--nav--button');
 
     if (clicked) {
-      e.preventDefault();
+      // e.preventDefault();
       if (clicked.classList.contains('mobile--menu')) {
         
         header.classList.add('open');
@@ -94,7 +94,7 @@ const increaseCart = (e) => {
   const clicked = e.target.closest('.button-plus-minus');
   if (clicked) {
     let cartNum;
-    e.preventDefault();
+    // e.preventDefault();
 
     if (clicked.firstElementChild.classList.contains('feather-plus')) {
       cartNum = clicked.previousElementSibling.value * 1;

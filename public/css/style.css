@@ -388,7 +388,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  z-index: 90;
+  z-index: 40;
   width: 100%;
   position: absolute;
   left: 0;
@@ -458,6 +458,7 @@ body {
   justify-content: center;
   left: 0;
   top: 50%;
+  z-index: 100;
 }
 
 .hero--link--cta:link,

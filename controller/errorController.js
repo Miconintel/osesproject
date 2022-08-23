@@ -68,21 +68,23 @@ const sendErrorProd = (err, request, response) => {
         error: err,
       });
     }
+  }else{
+    if (err.isOperational) {
+      console.log(err);
+      return response.status(err.statusCode).render('error', {
+        title: 'something went wrong',
+        msg: err.message,
+      });
+    } else {
+      // if we dont know what thw problem is
+      console.log(err);
+      return response.status(err.statusCode).render('error', {
+        title: 'something went wrong',
+        msg: 'please try again something went wrong',
+      });
+    }
   }
-if (err.isOperational) {
-    console.log(err);
-    return response.status(err.statusCode).render('error', {
-      title: 'something went wrong',
-      msg: err.message,
-    });
-  } else {
-    // if we dont know what thw problem is
-    console.log(err);
-    return response.status(err.statusCode).render('error', {
-      title: 'something went wrong',
-      msg: 'please try again something went wrong',
-    });
-  }
+
 };
 
 module.exports = (err, request, response, next) => {
