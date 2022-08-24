@@ -105,7 +105,7 @@ const loadFullcart = function(state,parentCont){
     
                </div>
                <button class="button checkout--button paragraph">
-                <strong>CHECKOUT</strong>
+                <a class="link link--cta" href="#"><strong>CHECKOUT</strong></a>
               </button>
             </div>
               

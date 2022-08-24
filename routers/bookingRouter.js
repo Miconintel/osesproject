@@ -13,10 +13,11 @@ const {
 } = require('../controller/bookingController');
 
 const router = express.Router();
-router.use(protect);
+// router.use(protect);
 
 //
-router.route('/checkout-session/:tourId').get(getCheckoutSession);
+router.route('/checkout-session/:foodId').post(getCheckoutSession);
+// router.route('/checkout-session/:tourId').get(getCheckoutSession);
 router.use(authorizeAdmin('admin'));
 router.route('/:id').get(getOneBooking).patch(updateBooking);
 router.route('/').get(getAllBookings).post(createBooking);

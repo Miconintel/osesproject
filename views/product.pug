@@ -37,4 +37,5 @@ block content
                                 button.button.button--icon.button--cart(id=food.id)
                                     i.icon.icon--cart(data-feather='shopping-cart')
                         button.button.checkout--button.paragraph
-                            strong CHECKOUT
+                            a.link.link--cta(href=`/checkout-session/${food.id}`)
+                                strong CHECKOUT

@@ -1,26 +1,113 @@
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 const Tour = require('../models/tourModel.js');
 const User = require('../models/userModel');
+const Food = require('../models/foodModel');
 const Booking = require('../models/bookingModel');
 const AppError = require('../utilities/appError.js');
 const APIfeatures = require('../utilities/APIfeatures');
 const catchAsync = require('../utilities/catchAsync');
 const handlerFactory = require('./handlerFactory');
 
+
+// EDIT THIS
+exports.getCheckoutSession = catchAsync(
+  async (req, res,next) => {
+    const food = await Food.findById(request.params.foodId);
+    const session = await stripe.checkout.sessions.create({
+      payment_method_types: ['card'],
+      success_url: `${req.protocol}://${req.get(
+        'host'
+      )}/?alert=booking`,
+      cancel_url: `${req.protocol}://${req.get('host')}/tour/${
+        food.slug
+      }`,
+      // customer_email: request.user.email,
+      client_reference_id: req.params.foodId,
+      shipping_address_collection: {
+        allowed_countries: ['US', 'CA'],
+      },
+      shipping_options: [
+        // {
+        //   shipping_rate_data: {
+        //     type: 'fixed_amount',
+        //     fixed_amount: {
+        //       amount: 0,
+        //       currency: 'usd',
+        //     },
+        //     display_name: 'Free shipping',
+        //     // Delivers between 5-7 business days
+        //     delivery_estimate: {
+        //       minimum: {
+        //         unit: 'business_day',
+        //         value: 5,
+        //       },
+        //       maximum: {
+        //         unit: 'business_day',
+        //         value: 7,
+        //       },
+        //     }
+        //   }
+        // },
+        {
+          shipping_rate_data: {
+            type: 'fixed_amount',
+            fixed_amount: {
+              amount: 1500,
+              currency: 'usd',
+            },
+            display_name: 'Express',
+            // Delivers in exactly 1 business day
+            delivery_estimate: {
+              minimum: {
+                unit: 'business_day',
+                value: 1,
+              },
+              maximum: {
+                unit: 'business_day',
+                value: 1,
+              },
+            }
+          }
+        },
+      ],
+      line_items: [
+        {
+          
+          price_data: {
+            currency: 'usd',
+            product_data: {
+              name: food.name,
+              images: [
+                `${req.protocol}://${req.get('host')}/img/product-images/${
+                  food.imageCover
+                }`,
+              ],
+            },
+            unit_amount: food.price*100,
+          },
+          quantity: 1,
+        },
+      ],
+      mode: 'payment',
+    });
+  
+    // res.json({ id: session.id });
+    res.status(200).json({
+      status: 'success',
+      session,
+    });
+  }
+)
+ 
 // const useStripe = stripe(process.env.STRIPE_SECRET_KEY);
 
-exports.getCheckoutSession = catchAsync(
+exports.getCheckoutSessionOld = catchAsync(
   async (request, response, next) => {
     // get currently booke tour
     const tour = await Tour.findById(request.params.tourId);
     // create checkout
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ['card'],
-      // success_url: `${request.protocol}://${request.get(
-      //   'host'
-      // )}/?parentTour=${request.params.tourId}&parentUser=${
-      //   request.user.id
-      // }&price=${tour.price}`,
       success_url: `${request.protocol}://${request.get(
         'host'
       )}/?alert=booking`,
@@ -52,6 +139,49 @@ exports.getCheckoutSession = catchAsync(
     });
   }
 );
+// exports.getCheckoutSession = catchAsync(
+//   async (request, response, next) => {
+//     // get currently booke tour
+//     const tour = await Tour.findById(request.params.tourId);
+//     // create checkout
+//     const session = await stripe.checkout.sessions.create({
+//       payment_method_types: ['card'],
+//       // success_url: `${request.protocol}://${request.get(
+//       //   'host'
+//       // )}/?parentTour=${request.params.tourId}&parentUser=${
+//       //   request.user.id
+//       // }&price=${tour.price}`,
+//       success_url: `${request.protocol}://${request.get(
+//         'host'
+//       )}/?alert=booking`,
+//       cancel_url: `${request.protocol}://${request.get('host')}/tour/${
+//         tour.slug
+//       }`,
+//       customer_email: request.user.email,
+//       client_reference_id: request.params.tourId,
+//       line_items: [
+//         {
+//           name: `${tour.name} Tour`,
+//           description: tour.summary,
+//           images: [
+//             `${request.protocol}://${request.get('host')}/img/tours/${
+//               tour.imageCover
+//             }`,
+//           ],
+//           amount: tour.price * 100,
+//           // amount is usually in cents
+//           currency: 'usd',
+//           quantity: 1,
+//         },
+//       ],
+//     });
+
+//     response.status(200).json({
+//       status: 'success',
+//       session,
+//     });
+//   }
+// );
 
 // we are literally creating a booking object when someone hits the route
 // exports.createBookingcheckout = catchAsync(
@@ -96,7 +226,7 @@ exports.webhookCheckout = (request, response, next) => {
   if (event.type === 'checkout.session.completed') {
     console.log('completed event');
     checkOut(event.data.object);
-    return response.status(200).json({ received: `created object too` });
+    return response.status(200).json({received: `created object too`});
   }
   response.status(200).json({ received: true });
 };

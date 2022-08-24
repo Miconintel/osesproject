@@ -5,6 +5,8 @@ dotenv.config({ path: `./config.env` });
 
 // using _dirname is important because it states the actual path to a file, despite which folder and file u want to refernce it from. this is beacuse the dot in referencing a file is talking abou the folder that is opened on vs code which the node app is running. so if the js file referencing other files is already sitted on the root folder which is he folder opened in vscode, it wont be much of a problem, since the dot is the root folder and the js file running is already there, but if the js file u want to run is inside a folder an u acces it on the command line by referencing it on the command that is referencing through the folder it is, u might assume that the dot is the direct parent folder and start referencing other files/folder from there, this will cause an errror because the dot wont be talking abyt the direct parent folder, but the root folder that is the folder opened in vs code the folder in the terminal upon which te vs code is running.
 
+// this error doesnt need to hit our errir controller already because if ot happens the App wont load the contents.
+
 process.on('uncaughtException', (err) => {
   console.log('shutting down exception error');
   console.log(err.name, err.message);
@@ -19,6 +21,7 @@ const DB = process.env.DATABASE.replace(
 );
 
 // console.log(DB);
+// this asynchronous code here is unhandled  in acse of rejection
 
 mongoose.connect(DB).then((con) => {
   console.log('I am connected');
