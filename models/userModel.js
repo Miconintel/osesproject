@@ -15,13 +15,13 @@ const userSchema = mongoose.Schema(
       validate: [validatorM.isEmail, 'please provide a valid email'],
     },
     lastname: { type: String, required: [true, 'must have a name'] },
-    email: {
-      type: String,
-      required: [true, 'must have email'],
-      unique: [true, 'user already exists'],
-      lowercase: true,
-      validate: [validatorM.isEmail, 'please provide a valid email'],
-    },
+    // email: {
+    //   type: String,
+    //   required: [true, 'must have email'],
+    //   unique: [true, 'user already exists'],
+    //   lowercase: true,
+    //   validate: [validatorM.isEmail, 'please provide a valid email'],
+    // },
     role: {
       type: String,
       enum: ['user', 'admin', 'manager', 'lead-guide', 'guide'],
