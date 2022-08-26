@@ -1000,7 +1000,6 @@ const signU = async (e)=>{
     console.log('yes it does login')
     await login(formObj.email,formObj.password)
   }
-  
 }
 
 form && form.addEventListener('submit', signU)
