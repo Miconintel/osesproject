@@ -22,6 +22,7 @@ const reviewRouter = require('./routers/reviewRouter');
 const errorController = require('./controller/errorController');
 const viewRouter = require('./routers/viewRouter');
 const bookingRouter = require('./routers/bookingRouter');
+const checkoutRouter = require('./routers/checkoutRouter');
 //
 const { webhookCheckout } = require('./controller/bookingController');
 // BASICALLY EXPRESS JS IS A FRAMEWORK THAT USES ASYNCHRONOUS MEANS TO RUN CODES WHEN YO CREATE AN APP, U CREATE AN APP OBJECT, U STILL RUN METHODS THAT HAPPEN ASYNCHRONOUSLY.
@@ -295,6 +296,7 @@ app.use('/api/v1/foods', foodRouter);
 app.use('/api/v1/users', userRouter);
 app.use('/api/v1/reviews', reviewRouter);
 app.use('/api/v1/bookings', bookingRouter);
+app.use('/api/v1/checkout-session', checkoutRouter);
 app.all('*', (request, response, next) => {
   // here we send it directly from the middle wear
   // response.status(404).json({

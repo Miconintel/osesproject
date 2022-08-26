@@ -8,6 +8,7 @@ import {signUp} from './logins'
 import {logout} from './logins'
 import {login} from './logins'
 import { async } from 'regenerator-runtime'
+import{buyFood} from './stripe'
 
 
 
@@ -1013,4 +1014,25 @@ const logouts = async (e)=>{
   
   await logout()
 }
+
+
+
 allButtons&&allButtons.addEventListener('click',logouts)
+
+// CHECKOUT
+
+const checkoutButton=document.querySelector('.checkout--button')
+const buyFoodHandler = async(e)=>{
+  e.preventDefault()
+  try{
+    // console.log(checkoutButton.dataset)
+    const {id} = checkoutButton.dataset
+    // console.log(id)
+    await buyFood(id)
+  }catch(err){
+console.log(err)
+  }
+
+}
+
+checkoutButton&&checkoutButton.addEventListener('click',buyFoodHandler)

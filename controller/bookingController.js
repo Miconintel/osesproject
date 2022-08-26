@@ -10,18 +10,31 @@ const handlerFactory = require('./handlerFactory');
 
 
 // EDIT THIS
+
+// exports.getCheckoutSession = catchAsync(
+//   async (req, res,next) => {
+//     const food = await Food.findById(req.params.foodId);
+    
+  
+//     // res.json({ id: session.id });
+//     res.status(200).json({
+//       status: 'success',
+//       food,
+//     });
+//   }
+// )
+
 exports.getCheckoutSession = catchAsync(
   async (req, res,next) => {
-    const food = await Food.findById(request.params.foodId);
+    const food = await Food.findById(req.params.foodId);
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ['card'],
       success_url: `${req.protocol}://${req.get(
         'host'
       )}/?alert=booking`,
-      cancel_url: `${req.protocol}://${req.get('host')}/tour/${
+      cancel_url: `${req.protocol}://${req.get('host')}/productname/${
         food.slug
       }`,
-      // customer_email: request.user.email,
       client_reference_id: req.params.foodId,
       shipping_address_collection: {
         allowed_countries: ['US', 'CA'],
@@ -72,19 +85,19 @@ exports.getCheckoutSession = catchAsync(
       ],
       line_items: [
         {
-          
           price_data: {
             currency: 'usd',
+            unit_amount: food.price*100,
             product_data: {
-              name: food.name,
+              name: food.productName,
               images: [
                 `${req.protocol}://${req.get('host')}/img/product-images/${
-                  food.imageCover
+                  food.image
                 }`,
               ],
             },
-            unit_amount: food.price*100,
           },
+          
           quantity: 1,
         },
       ],
@@ -98,6 +111,7 @@ exports.getCheckoutSession = catchAsync(
     });
   }
 )
+
  
 // const useStripe = stripe(process.env.STRIPE_SECRET_KEY);
 

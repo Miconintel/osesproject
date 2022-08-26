@@ -100,7 +100,7 @@ body {
 .checkout--button {
   color: #fff !important;
   background-color: var(--primary-color);
-  /* padding: 2rem 3.6rem; */
+  padding: 1rem 1.6rem;
   border-radius: 1.6rem;
 }
 

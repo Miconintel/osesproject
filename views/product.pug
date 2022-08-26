@@ -36,6 +36,7 @@ block content
                                         i.icon.icon--plus.icon-plus-minus(data-feather='plus')
                                 button.button.button--icon.button--cart(id=food.id)
                                     i.icon.icon--cart(data-feather='shopping-cart')
-                        button.button.checkout--button.paragraph
-                            a.link.link--cta(href=`/checkout-session/${food.id}`)
-                                strong CHECKOUT
+                        button.button.checkout--button.paragraph(data-id=food.id)
+                            strong CHECKOUT
+                            //- a.link.link--cta(href=`/checkout-session/${food.id}`)
+                            //-     strong CHECKOUT
