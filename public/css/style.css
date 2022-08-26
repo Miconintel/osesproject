@@ -1077,3 +1077,16 @@ to completely prevent any detetction of the elelemnt whose opacity is set to zeo
   color:var(--secondary-color--darker);
   font-size: 2rem;
 }
+
+.alert{
+  padding: 1.2rem 0;
+  font-size: 1.6rem;
+  text-align: center;
+  color:#fff
+}
+.alert--success{
+  background-color: var(--secondary-color);
+}
+.alert--error{
+  background-color: red;
+}

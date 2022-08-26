@@ -1,4 +1,5 @@
 // 'use strict';
+import { async } from 'regenerator-runtime'
 import 'regenerator-runtime'
 import '@babel/polyfill'
 import {searchFood} from './search'
@@ -7,8 +8,8 @@ import loadFullcart from './loadFullCart'
 import {signUp} from './logins'
 import {logout} from './logins'
 import {login} from './logins'
-import { async } from 'regenerator-runtime'
 import{buyFood} from './stripe'
+import {showAlert} from './alert'
 
 
 
