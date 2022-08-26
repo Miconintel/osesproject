@@ -1008,17 +1008,17 @@ form && form.addEventListener('submit', signU)
 
 
 const allButtons = document.querySelector('.all--buttons')
+
 const logouts = async (e)=>{
- 
   const clicked = e.target.closest('.list--cta')
-  if(clicked && clicked.firstElementChild.id=='link--outline')
+  if(clicked && clicked.firstElementChild.id =='link--outline')
   
   await logout()
 }
 
 
 
-allButtons&&allButtons.addEventListener('click',logouts)
+allButtons && allButtons.addEventListener('click',logouts)
 
 // CHECKOUT
 
