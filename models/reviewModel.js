@@ -8,7 +8,7 @@ const reviewSchema = new mongoose.Schema(
     parentTour: {
       type: mongoose.Schema.ObjectId,
       ref: 'Tour',
-      required: [true, 'review must belon to a tour'],
+      required: [true, 'review must belong to a tour'],
     },
 
     parentUser: {
@@ -29,6 +29,7 @@ reviewSchema.statics.calculateAverageRatings = async function (tourId) {
     {
       $match: { parentTour: tourId },
     },
+    // match all the reviews that have their parent tour as thistour ID
 
     {
       $group: {

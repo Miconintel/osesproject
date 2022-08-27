@@ -6,6 +6,7 @@ const {
 const {
   getCheckoutSession,
   getCheckoutSessionOld,
+  checkId,
   getAllBookings,
   getOneBooking,
   updateBooking,
@@ -17,7 +18,8 @@ const router = express.Router();
 // router.use(protect);
 
 //
-router.route('/checkout-session/:foodId').get(getCheckoutSession);
+// router.route('/checkout-session/:foodId').get(getCheckoutSession);
+router.route('/checkout-session/:foodId').get(checkId,getCheckoutSession);
 
 // router.route('/checkout-session/:tourId').get(getCheckoutSession);
 router.use(authorizeAdmin('admin'));

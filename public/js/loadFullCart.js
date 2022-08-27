@@ -1,5 +1,7 @@
 const loadFullcart = function(state,parentCont){
+    const ids =[]
     const loadedCarts = state.bookmarkPro.map(el=> {
+      // ids.push(el[0].id)
       return `<figure class="cart--list__element flex">
       <div class="cart--list__image"><img src="/img/product-images/${el[0].image}" alt="${el[0].slug}" class="image image--cart__list" /></div>
       <a class="link link--product--name" href="/productname/${el[0].slug}?page=1"><figcaption class="cart--options"><p class="paragraph product-name">${el[0].productName}</p></figcaption></a>
@@ -69,6 +71,7 @@ const loadFullcart = function(state,parentCont){
         </h3>
         </div>
     </div>`
+
       const html = `<section class="cart--section">
       <div class="content">
           <div class="grid grid--2--columns--cart cart--list--container container">
@@ -104,15 +107,15 @@ const loadFullcart = function(state,parentCont){
                 </div> 
     
                </div>
-               <button class="button checkout--button paragraph">
-                <a class="link link--cta" href="#"><strong>CHECKOUT</strong></a>
+               <button class="button checkout--button paragraph" >
+                  <strong>CHECKOUT</strong>
               </button>
             </div>
               
           </div>
       </div>
     </section>`
-    
+   
     parentCont.insertAdjacentHTML('afterbegin',html)
     }
 
