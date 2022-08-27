@@ -2,6 +2,8 @@ import axios from 'axios';
 import { showAlert } from './alert';
 // import stripe from 'stripe'
 
+// the stripe doesnt have any refrerence because its scriptmis onthe page and make the global variable stripe availaable
+
 const stripe  = Stripe(
   `pk_test_51Kqu9NHVqQpkAuMelrOd8IPdiiFI80yCyJj0GQ6Z9XUng3SlyhrGbljFjKUwfyTRx5s8wXxeMqANZXMV3CChjzw500svbt4gYc`
 );
@@ -38,7 +40,7 @@ export const buyFood = async (foodId) => {
       `/api/v1/bookings/checkout-session/${foodId}`
     );
     console.log(session);
-    console.log(stripe)
+    // console.log(stripe)
     // use stripe to
    
     await stripe.redirectToCheckout({

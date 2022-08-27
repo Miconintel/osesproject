@@ -1023,12 +1023,35 @@ allButtons && allButtons.addEventListener('click',logouts)
 
 const checkoutButton=document.querySelector('.checkout--button')
 const buyFoodHandler = async(e)=>{
-  e.preventDefault()
+  
   try{
     // console.log(checkoutButton.dataset)
-    const {id} = checkoutButton.dataset
-    // console.log(id)
-    await buyFood(id)
+    const parent = e.target.closest('.full--product--description')
+    if(parent){
+      const {id} = checkoutButton.dataset
+      await buyFood(id)
+    }
+   
+  }catch(err){
+console.log(err)
+  }
+
+}
+const buyFoodHandlerMany = async(e)=>{
+
+  try{
+    const parent = e.target.closest('.checkout--button')
+    if (parent && parent.closest('.checkout--side')){
+       const all = allState.bookmarkPro
+       
+       const id = all.map(el=>el[0].id).join(',')
+       console.log(id)
+       await buyFood(id)
+        //  const {id} =parent.dataset
+      //  const idArray = id.split(',')
+
+    }
+   
   }catch(err){
 console.log(err)
   }
@@ -1036,3 +1059,32 @@ console.log(err)
 }
 
 checkoutButton&&checkoutButton.addEventListener('click',buyFoodHandler)
+document.addEventListener('click',buyFoodHandlerMany)
+
+
+
+const loj = "Emeka,oga"
+const im = loj.split(',')
+console.log(im)
+
+const promise1 = new Promise((resolve,reject)=>{
+  setTimeout(()=>resolve('resolved'), 2000)
+})
+const promise2 = new Promise((resolve,reject)=>{
+  setTimeout(()=>reject('resolved 2'), 1000)
+})
+
+
+const all = [promise1,promise2]
+
+const see = async()=>{
+  try{
+    const r = await Promise.any(all)
+    console.log(r)
+  }catch(err){
+    console.log(`err ${err}`)
+  }
+ 
+}
+
+see()
