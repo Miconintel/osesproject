@@ -19,7 +19,8 @@ const router = express.Router();
 
 //
 // router.route('/checkout-session/:foodId').get(getCheckoutSession);
-router.route('/checkout-session/:foodId').get(checkId,getCheckoutSession);
+router.route('/checkout-session/:foodId').get(checkId);
+// router.route('/checkout-session/:foodId').get(checkId, getCheckoutSession);
 
 // router.route('/checkout-session/:tourId').get(getCheckoutSession);
 router.use(authorizeAdmin('admin'));

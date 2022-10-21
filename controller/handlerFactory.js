@@ -66,7 +66,9 @@ exports.getAll = (model) =>
       .sort()
       .fields()
       .page();
-
+    // the features object has a property of query as assigned in its class.
+    // and also returns this.when the functions are done.
+    // then
     const docs = await features.query;
     // const docs = await features.query.explain() this furher explains the returned query
     response.status(200).json({

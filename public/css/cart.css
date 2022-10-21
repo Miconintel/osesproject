@@ -38,6 +38,7 @@ padding: 1.2rem;
 border-radius: 0.8rem;
 box-shadow: var(--light-shadow--place);
 transition: all 10s;
+
 }
 
 .cart--list__header{
@@ -171,4 +172,7 @@ grid-template-columns: repeat(1, 1fr);
 .cart--list__header{
   gap: 4rem
 }
+}
+.error--state{
+  border-color: red;
 }

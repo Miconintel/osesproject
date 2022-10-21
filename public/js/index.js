@@ -1,17 +1,15 @@
 // 'use strict';
-import { async } from 'regenerator-runtime'
-import 'regenerator-runtime'
-import '@babel/polyfill'
-import {searchFood} from './search'
-import {getCartItem} from './carts'
-import loadFullcart from './loadFullCart'
-import {signUp} from './logins'
-import {logout} from './logins'
-import {login} from './logins'
-import{buyFood} from './stripe'
-import {showAlert} from './alert'
-
-
+import { async } from 'regenerator-runtime';
+import 'regenerator-runtime';
+import '@babel/polyfill';
+import { searchFood } from './search';
+import { getCartItem } from './carts';
+import loadFullcart from './loadFullCart';
+import { signUp } from './logins';
+import { logout } from './logins';
+import { login } from './logins';
+import { buyFood } from './stripe';
+import { showAlert } from './alert';
 
 feather.replace();
 // SELECT ITEMS
@@ -31,43 +29,67 @@ const mobileContainer = document.querySelector(
 );
 const cartNumber = document.querySelector('.cart--number');
 const pageLink = document.querySelector('.page--link');
-const categoryHeader = document.querySelector('.category--header')
-const searchInput = document.querySelector('.search--input')
-const ButtonSearch = document.querySelector('.button--search')
+const categoryHeader = document.querySelector('.category--header');
+const searchInput = document.querySelector('.search--input');
+const ButtonSearch = document.querySelector('.button--search');
 
 // SEARCH BAR
-searchFood('Provisions')
-let allCat= document.querySelectorAll('.link--category')
-allCat=[...allCat]
-const catName = allCat.map(e=>e.textContent)
+searchFood('Provisions');
+let allCat = document.querySelectorAll('.link--category');
+allCat = [...allCat];
+const catName = allCat.map((e) => e.textContent);
 
-const speak = catName.some(e=>e==='Provisions')
+const speak = catName.some((e) => e === 'Provisions');
 
-
-const n = 'g'.slice(0,1).toUpperCase().concat('grai'.slice(1,)).startsWith('Grains'.slice(0,2))
-const cif = catName.filter(el=>'gr'.slice(0,1).toUpperCase().concat('gr'.slice(1)).startsWith(el.slice(0,2)))
-
+const n = 'g'
+  .slice(0, 1)
+  .toUpperCase()
+  .concat('grai'.slice(1))
+  .startsWith('Grains'.slice(0, 2));
+const cif = catName.filter((el) =>
+  'gr'
+    .slice(0, 1)
+    .toUpperCase()
+    .concat('gr'.slice(1))
+    .startsWith(el.slice(0, 2))
+);
 
 let queryHead;
-const searchFunction= e=>{
+const searchFunction = (e) => {
   // e.preventDefault()
-  
-  let productCategory = searchInput.value 
-  const cif = catName.filter(el=>productCategory.slice(0,1).toUpperCase().concat(productCategory.slice(1)).startsWith(el.slice(0,2)))
-  productCategory = cif.join('') || productCategory.slice(0,1).toUpperCase().concat(productCategory.slice(1))
-  if(catName.some(e=>e===productCategory)){
-    queryHead='category'
-  }else{
-    queryHead='productName'
+
+  let productCategory = searchInput.value;
+  const cif = catName.filter((el) =>
+    productCategory
+      .slice(0, 1)
+      .toUpperCase()
+      .concat(productCategory.slice(1))
+      .startsWith(el.slice(0, 2))
+  );
+  productCategory =
+    cif.join('') ||
+    productCategory
+      .slice(0, 1)
+      .toUpperCase()
+      .concat(productCategory.slice(1));
+  if (catName.some((e) => e === productCategory)) {
+    queryHead = 'category';
+  } else {
+    queryHead = 'productName';
   }
 
-window.localStorage.setItem('qhead', queryHead);
-  if(!productCategory)return console.log('please input something')
-   ButtonSearch.setAttribute('href',`/?${queryHead}=${productCategory}&page=1`)
-   window.localStorage.setItem('isClicked', JSON.stringify(productCategory));
-  
- }
-ButtonSearch.addEventListener('click',searchFunction)
+  window.localStorage.setItem('qhead', queryHead);
+  if (!productCategory) return console.log('please input something');
+  ButtonSearch.setAttribute(
+    'href',
+    `/?${queryHead}=${productCategory}&page=1`
+  );
+  window.localStorage.setItem(
+    'isClicked',
+    JSON.stringify(productCategory)
+  );
+};
+ButtonSearch.addEventListener('click', searchFunction);
 //
 //
 //
@@ -80,7 +102,6 @@ if (mobileContainer) {
     if (clicked) {
       // e.preventDefault();
       if (clicked.classList.contains('mobile--menu')) {
-        
         header.classList.add('open');
       } else if (clicked.classList.contains('mobile--close'))
         header.classList.remove('open');
@@ -101,7 +122,7 @@ const increaseCart = (e) => {
     if (clicked.firstElementChild.classList.contains('feather-plus')) {
       cartNum = clicked.previousElementSibling.value * 1;
       cartNum++;
-  
+
       clicked.previousElementSibling.value = cartNum;
     } else if (
       clicked.firstElementChild.classList.contains('feather-minus')
@@ -114,12 +135,14 @@ const increaseCart = (e) => {
   }
 };
 
- parentCartContainer&&addEventListener('click', increaseCart);
+parentCartContainer && addEventListener('click', increaseCart);
 
 // // add to cart
 
-const loadNewbookmarked = function (par,itemNo,itemName) {
-  const html = `<div class="add-to-cart-container"><p class="added--to--cart">Added ${itemNo?itemNo:''} ${itemName?itemName:''} to cart</p>
+const loadNewbookmarked = function (par, itemNo, itemName) {
+  const html = `<div class="add-to-cart-container"><p class="added--to--cart">Added ${
+    itemNo ? itemNo : ''
+  } ${itemName ? itemName : ''} to cart</p>
   <button class="button button--remove--cart">
 remove
 </button></div>
@@ -127,13 +150,11 @@ remove
   par.insertAdjacentHTML('beforeend', html);
 };
 let allState = {
-  proCount:0,
+  proCount: 0,
   cartCount: 0,
   bookmarkItems: [],
-  bookmarkPro :[]
+  bookmarkPro: [],
 };
-
-
 
 // let cartCount = 0;
 const assignCartNumber = function (state) {
@@ -142,26 +163,26 @@ const assignCartNumber = function (state) {
 
 // HANDLER FUNCTION
 
-
-const addToCartPro = async function(clickedProduct,noOfItems){
-
-  const bookmarkPro = await getCartItem(clickedProduct.id)
-  const {data} = bookmarkPro
-  const allData = [data, noOfItems ]
-  allState.bookmarkPro.push(allData);
+const addToCartPro = async function (clickedProduct, noOfItems) {
+  const bookmarkPro = await getCartItem(clickedProduct.id);
+  const { data } = bookmarkPro;
+  const allData = [data, noOfItems];
+  const newData = [...allState.bookmarkPro, allData];
+  allState.bookmarkPro = newData;
+  // allState.bookmarkPro.push(allData);
   window.localStorage.setItem('state', JSON.stringify(allState));
   // allState.proCount++
-}
+};
 
-
-const addtoCart =  function (e) {
+const addtoCart = function (e) {
   const clicked = e.target.closest('.button--cart');
   if (clicked) {
     // mark bookmark true
-  
-    const numberofProducts = clicked.previousElementSibling.children[1].value
-    addToCartPro(clicked,numberofProducts*1)
-  
+
+    const numberofProducts =
+      clicked.previousElementSibling.children[1].value;
+    addToCartPro(clicked, numberofProducts * 1);
+
     const productParent = clicked.closest('.product');
     productParent.setAttribute('data-page', true);
 
@@ -178,117 +199,116 @@ const addtoCart =  function (e) {
     parentInner.classList.add('hide--again');
 
     // show already bookmarked button
-    loadNewbookmarked(parentOuter,numberofProducts,bookmarkItem);
+    loadNewbookmarked(parentOuter, numberofProducts, bookmarkItem);
 
     // increase counter
     allState.cartCount++;
-    allState.proCount++
+    allState.proCount++;
     assignCartNumber(allState);
     window.localStorage.setItem('state', JSON.stringify(allState));
   }
 };
 
-parentCartContainer&&parentCartContainer.addEventListener('click', addtoCart);
+parentCartContainer &&
+  parentCartContainer.addEventListener('click', addtoCart);
 
 // REMOVE FROM CART
 
-const removeCartPro = function(parentEl){
-  allState.bookmarkPro=allState.bookmarkPro.filter(el=>{
-    return el[0].productName !== parentEl.children[1].children[1].textContent
-   })
- allState.proCount--
+const removeCartPro = function (parentEl) {
+  allState.bookmarkPro = allState.bookmarkPro.filter((el) => {
+    return (
+      el[0].productName !== parentEl.children[1].children[1].textContent
+    );
+  });
+  allState.proCount--;
+};
 
-}
-
-const removeCart = function (e) { 
+const removeCart = function (e) {
   // console.log(e.target);
   const clicked = e.target.classList.contains('button--remove--cart');
-  if (clicked) {   
+  if (clicked) {
     // remove item from cart
     const productParent = e.target.closest('.product');
     productParent.setAttribute('data-page', false);
-    allState.bookmarkItems= allState.bookmarkItems.filter(el=>{
+    allState.bookmarkItems = allState.bookmarkItems.filter((el) => {
+      return el !== productParent.children[1].children[1].textContent;
+    });
 
-    return el !==productParent.children[1].children[1].textContent
-   })
-
-   removeCartPro(productParent)
+    removeCartPro(productParent);
     // return the cart btton
-   
-   allState.cartCount-- 
-   assignCartNumber(allState);
-   window.localStorage.setItem('state', JSON.stringify(allState));
 
-    productParent.children[1].children[4].classList.remove('hide--again')
-    const parentPull = productParent.children[1]
-    const childPull = parentPull.children[5]
-    parentPull.removeChild(childPull)
+    allState.cartCount--;
+    assignCartNumber(allState);
+    window.localStorage.setItem('state', JSON.stringify(allState));
+
+    productParent.children[1].children[4].classList.remove('hide--again');
+    const parentPull = productParent.children[1];
+    const childPull = parentPull.children[5];
+    parentPull.removeChild(childPull);
     // persist crt
   }
 };
 
-parentCartContainer && parentCartContainer.addEventListener('click', removeCart);
-
+parentCartContainer &&
+  parentCartContainer.addEventListener('click', removeCart);
 
 // GET LOCAL STATE
 
 const localState = JSON.parse(window.localStorage.getItem('state'));
 if (localState) {
- 
   // allState = localState;
   // allState.cartCount = localState.cartCount
   // should havebeen allState.cartcount = localState.bookmarkItems.length
-  localState.cartCount=localState.proCount=localState.bookmarkItems.length
-  allState.cartCount=localState.bookmarkItems.length
-  allState = localState
+  localState.cartCount = localState.proCount =
+    localState.bookmarkItems.length;
+  allState.cartCount = localState.bookmarkItems.length;
+  allState = localState;
   assignCartNumber(allState);
 }
 
+// RELOAD BUTTONS
 
-// RELOAD BUTTONS 
+const reloadButtons = function (state) {
+  // persist cart
+  // get all products
+  const allProducts = [...document.querySelectorAll('.product')];
+  // check for the text content of each card not used
+  const iniP = allProducts.map(
+    (el) => el.children[1].children[1].textContent
+  );
+  // confirm which in bookmark not used
+  allProducts.forEach((el) => {
+    // check for true or false if items in bookmark match with product card names
+    const f = state.bookmarkItems.some((eli) => {
+      return eli === el.children[1].children[1].textContent;
+    });
+    // set to true if it does
+    const itemToCheck = el.children[1].children[1].textContent;
+    if (
+      state.bookmarkItems.some((eli) => {
+        return eli === itemToCheck;
+      })
+    ) {
+      // el.setAttribute('data-page', true); no longer used
+      // get the value by filtering bookmark pro to get the item loaded  since bookmarkpro also saves the item number
+      const which = state.bookmarkPro.filter(
+        (el) => el[0].productName == itemToCheck
+      );
+      const [noAdded] = which;
+      const parent = el.children[1].children[4];
+      parent.classList.add('hide--again');
+      loadNewbookmarked(el.children[1], noAdded[1], itemToCheck);
+    }
 
-const reloadButtons = function(state){
-// persist cart
-// get all products
-const allProducts = [...document.querySelectorAll('.product')];
-// check for the text content of each card not used
-const iniP = allProducts.map(
-  (el) => el.children[1].children[1].textContent
-);
-// confirm which in bookmark not used
-allProducts.forEach((el) => {
-  // check for true or false if items in bookmark match with product card names
-  const f = state.bookmarkItems.some((eli) => {
-    return eli === el.children[1].children[1].textContent;
+    // persist if dataset.page is true
+
+    // if (el.dataset.page == 'true') {
+    //   const parent = el.children[1].children[4];
+    //   parent.classList.add('hide--again');
+    //   loadNewbookmarked(el.children[1]);}
   });
-  // set to true if it does
-  const itemToCheck= el.children[1].children[1].textContent
-  if (
-    state.bookmarkItems.some((eli) => {
-      return eli === itemToCheck
-    })
-  ) {
-    // el.setAttribute('data-page', true); no longer used
-    // get the value by filtering bookmark pro to get the item loaded  since bookmarkpro also saves the item number
-    const which = state.bookmarkPro.filter(el=>el[0].productName == itemToCheck)
-    const [noAdded] = which
-    const parent = el.children[1].children[4];
-    parent.classList.add('hide--again');
-    loadNewbookmarked(el.children[1],noAdded[1],itemToCheck)
-    
-  }
-
-  // persist if dataset.page is true
-
-  // if (el.dataset.page == 'true') {
-  //   const parent = el.children[1].children[4];
-  //   parent.classList.add('hide--again');
-  //   loadNewbookmarked(el.children[1]);}
-   
-});
-}
-reloadButtons(allState)
-
+};
+reloadButtons(allState);
 
 /// SET HERO HEIGHT
 //
@@ -296,16 +316,17 @@ reloadButtons(allState)
 //
 
 const ChangeHeroSize = function () {
-
   // I could hae also used getBoundingclient rect and get the nubers in number  type withput hving to parse int and now calculate it inside a iteral string , but it is god that i also know the get computed style.
   // get headerheight
-  let headerHeight = slider&&parseInt(window.getComputedStyle(header).height);
+  let headerHeight =
+    slider && parseInt(window.getComputedStyle(header).height);
   // getslidereigt
-  let sliderHeight =slider&& parseInt(window.getComputedStyle(slider).height);
+  let sliderHeight =
+    slider && parseInt(window.getComputedStyle(slider).height);
   // console.log(sliderHeight);
   // compute new height
   const herowidth = hero?.getBoundingClientRect().width * 1;
- 
+
   if (herowidth && herowidth > 390)
     slider.style.maxHeight = `${sliderHeight - headerHeight}px`;
 };
@@ -341,8 +362,6 @@ const createDot = function () {
 //   setTimeout(resolve,10000)
 // })
 
-
-
 // window.addEventListener('load',()=>{
 //   b.then(e=>{
 //     slides.forEach(e=>e.classList.remove('none'))
@@ -351,13 +370,11 @@ const createDot = function () {
 
 // SLIDER COUNT
 
-
 const pos = function (count) {
   slides.forEach((s, i) => {
     const newP = (i - count) * 100;
     s.style.transform = `translateX(${newP}%)`;
-   
-  }); 
+  });
 
   const fg = function (c) {
     dots.forEach(function (dot, i, arr) {
@@ -476,7 +493,7 @@ dotContainer && dotContainer.addEventListener('click', moveWithDots);
 //
 //
 
- navContainer.addEventListener('click', function (e) {
+navContainer.addEventListener('click', function (e) {
   if (e.target.classList.contains('nav--link')) {
     // e.preventDefault();
     const idShowninHref = e.target.getAttribute('href');
@@ -491,8 +508,9 @@ dotContainer && dotContainer.addEventListener('click', moveWithDots);
 //
 
 document.addEventListener('click', (e) => {
-  const logoForProduct = e.target.closest('.header--logo__container')
-  if (logoForProduct) window.localStorage.setItem('isClicked', JSON.stringify('Products'));
+  const logoForProduct = e.target.closest('.header--logo__container');
+  if (logoForProduct)
+    window.localStorage.setItem('isClicked', JSON.stringify('Products'));
   const clicked = e.target.closest('.image--link');
   if (clicked) {
     // e.preventDefault();
@@ -520,13 +538,9 @@ const headerObserverCallback = (entries, observer) => {
   const [entry] = entries;
   if (!entry.isIntersecting) {
     header.classList.add('fixed');
-    
   } else {
     header.classList.remove('fixed');
-  }  
-  
-  
-  
+  }
 
   // the second argument is the same observer objet u can use to call the unobserve option and oass in the element u want to unobserve
 };
@@ -544,11 +558,9 @@ const observer = new IntersectionObserver(
 hero && observer.observe(hero);
 
 //
-// ADD STICKY NAV TO OTHER 
-const otherPageCallback=function(entries,observer){
-  
+// ADD STICKY NAV TO OTHER
+const otherPageCallback = function (entries, observer) {
   const [entry] = entries;
-  
 
   if (!entry.isIntersecting) {
     // observer.unobserve(header);
@@ -556,9 +568,8 @@ const otherPageCallback=function(entries,observer){
   } else {
     header.classList.add('fixed');
     // observer.observe(header);
-  } 
-  
-}
+  }
+};
 
 const otherPageOptions = {
   root: null,
@@ -566,9 +577,11 @@ const otherPageOptions = {
   rootMargin: `${headerHeight * 20}px`,
 };
 
-const observerOtherPage = new IntersectionObserver(otherPageCallback,otherPageOptions)
-parentCartContainer && observerOtherPage.observe(parentCartContainer)
-
+const observerOtherPage = new IntersectionObserver(
+  otherPageCallback,
+  otherPageOptions
+);
+parentCartContainer && observerOtherPage.observe(parentCartContainer);
 
 //
 // PAGINATION SCROLL
@@ -602,489 +615,556 @@ parentCartContainer && observerOtherPage.observe(parentCartContainer)
 // scrollOnPage();
 
 //   ADDING ACTIVE BUTTON TO RHE CATEGORIES
-const addActive= e=>{
-  
-const clicked = e.target.closest('.tertiary--header')
- 
-  if (!clicked) return
- const allChildren = clicked.parentElement.children
- const siblings = [...allChildren].filter(el=>{
-  return el!==clicked
- })
-   
-  siblings.forEach(e=>{ 
-    const targetEl = e.firstChild
-    targetEl.classList.remove('active')
-    
-})
+const addActive = (e) => {
+  const clicked = e.target.closest('.tertiary--header');
 
-   clicked.firstChild.classList.add('active')
-   window.localStorage.setItem('isClicked', JSON.stringify(clicked.firstChild.textContent));
+  if (!clicked) return;
+  const allChildren = clicked.parentElement.children;
+  const siblings = [...allChildren].filter((el) => {
+    return el !== clicked;
+  });
 
-}
+  siblings.forEach((e) => {
+    const targetEl = e.firstChild;
+    targetEl.classList.remove('active');
+  });
 
+  clicked.firstChild.classList.add('active');
+  window.localStorage.setItem(
+    'isClicked',
+    JSON.stringify(clicked.firstChild.textContent)
+  );
+};
 
-const lit = JSON.parse(window.localStorage.getItem('isClicked'))
-const linkCategories = [...document.querySelectorAll('.link--category')]
-
+const lit = JSON.parse(window.localStorage.getItem('isClicked'));
+const linkCategories = [...document.querySelectorAll('.link--category')];
 
 // using window.location.search to confirm home page (window.location.search.length!==0)
 
-
-if(lit && window.location.search.length!==0 || lit && window.location.pathname.startsWith('/productname')){
-  
-  const linkPreserveActive= linkCategories.filter(el=>{
-    if(el.textContent===lit) {el.classList.add('active')}else{
-      el.classList.remove('active')
+if (
+  (lit && window.location.search.length !== 0) ||
+  (lit && window.location.pathname.startsWith('/productname'))
+) {
+  const linkPreserveActive = linkCategories.filter((el) => {
+    if (el.textContent === lit) {
+      el.classList.add('active');
+    } else {
+      el.classList.remove('active');
     }
-   return el.textContent===lit
-    
-  })
-  
+    return el.textContent === lit;
+  });
 }
 
-categoryHeader && categoryHeader.addEventListener('click',addActive)
-
+categoryHeader && categoryHeader.addEventListener('click', addActive);
 
 // CATEGORIES FROM THE CARDS/HOME PAGE
 
-parentCartContainer && parentCartContainer.addEventListener('click',e=>{
-  const clicked = e.target.closest('.category')
-  if (clicked)
-  window.localStorage.setItem('isClicked', JSON.stringify(clicked.firstChild.textContent));
-  
-})
+parentCartContainer &&
+  parentCartContainer.addEventListener('click', (e) => {
+    const clicked = e.target.closest('.category');
+    if (clicked)
+      window.localStorage.setItem(
+        'isClicked',
+        JSON.stringify(clicked.firstChild.textContent)
+      );
+  });
 
 // CATEGORIES FROM PRODUCT DETAILS
-const productInnerContainer = document.querySelector('.inner--container__product')
+const productInnerContainer = document.querySelector(
+  '.inner--container__product'
+);
 
-productInnerContainer && productInnerContainer.addEventListener('click',e=>{
-  const clicked =e.target.closest('.category')
-  if(clicked){
-    window.localStorage.setItem('isClicked', JSON.stringify(clicked.firstChild.textContent));
-  }
-})
-
+productInnerContainer &&
+  productInnerContainer.addEventListener('click', (e) => {
+    const clicked = e.target.closest('.category');
+    if (clicked) {
+      window.localStorage.setItem(
+        'isClicked',
+        JSON.stringify(clicked.firstChild.textContent)
+      );
+    }
+  });
 
 // CATEGORIES FROM CARD BY CLICKING THE NAME OF PRODUCT
 
-parentCartContainer && parentCartContainer.addEventListener('click',e=>{
-  const clicked =e.target.closest('.product-name')
-  if(clicked){
-    
-    const clickedParent = clicked.parentElement
-    // console.log(clickedParent)
-    const category = clickedParent.firstElementChild.firstChild.textContent
-    window.localStorage.setItem('isClicked', JSON.stringify(category));
-  }
-})
+parentCartContainer &&
+  parentCartContainer.addEventListener('click', (e) => {
+    const clicked = e.target.closest('.product-name');
+    if (clicked) {
+      const clickedParent = clicked.parentElement;
+      // console.log(clickedParent)
+      const category =
+        clickedParent.firstElementChild.firstChild.textContent;
+      window.localStorage.setItem('isClicked', JSON.stringify(category));
+    }
+  });
 
-document.addEventListener('click',e=>{
- const traceOut = e.target.closest('.cart--section')?.children[0].children[0]
-//  console.log(traceOut)
- if(traceOut && e.target.closest('.tertiary--header')){
-  
-  const categoryAdded = e.target.firstChild.textContent
-  window.localStorage.setItem('isClicked', JSON.stringify(categoryAdded));
-  
- }
-})
+document.addEventListener('click', (e) => {
+  const traceOut =
+    e.target.closest('.cart--section')?.children[0].children[0];
+  //  console.log(traceOut)
+  if (traceOut && e.target.closest('.tertiary--header')) {
+    const categoryAdded = e.target.firstChild.textContent;
+    window.localStorage.setItem(
+      'isClicked',
+      JSON.stringify(categoryAdded)
+    );
+  }
+});
 // CATEGORIES FROM CART LIST PAGE
 
 // parentCartContainer && parentCartContainer.addEventListener('click',e=>{
 //   const clicked = e.target.closest('.category')
 //   if (clicked)
 //   window.localStorage.setItem('isClicked', JSON.stringify(clicked.firstChild.textContent));
-  
+
 // })
 
+const fullDescription = document.querySelector(
+  '.full--product--description'
+);
 
-const fullDescription = document.querySelector('.full--product--description')
-
-const addToCartProduct = e=>{
+const addToCartProduct = (e) => {
   const clicked = e.target.closest('.button--cart');
-  if(!clicked)return
-      const parentOuter = clicked.closest(
-      '.inner--container__product'
-    )
-    const bookmarkItem = parentOuter.children[3].textContent;
-    const parentInner = clicked.parentElement;
-    const valueAdded = parentInner.children[0].children[1].value
-    allState.bookmarkItems.push(bookmarkItem);
-    addToCartPro(clicked,valueAdded)
+  if (!clicked) return;
+  const parentOuter = clicked.closest('.inner--container__product');
+  const bookmarkItem = parentOuter.children[3].textContent;
+  const parentInner = clicked.parentElement;
+  const valueAdded = parentInner.children[0].children[1].value;
+  allState.bookmarkItems.push(bookmarkItem);
+  addToCartPro(clicked, valueAdded);
 
-    parentInner.classList.add('hide--again');
-      loadNewbookmarked(parentOuter,valueAdded,bookmarkItem);
+  parentInner.classList.add('hide--again');
+  loadNewbookmarked(parentOuter, valueAdded, bookmarkItem);
 
-    allState.cartCount++;
-    assignCartNumber(allState);
-    window.localStorage.setItem('state', JSON.stringify(allState));
+  allState.cartCount++;
+  assignCartNumber(allState);
+  window.localStorage.setItem('state', JSON.stringify(allState));
+};
 
-}
-
-fullDescription && fullDescription.addEventListener('click',addToCartProduct)
+fullDescription &&
+  fullDescription.addEventListener('click', addToCartProduct);
 
 // AUTOMATED RELOAD FOR PRODUCT PAGE
-const reloadButton = function(state){
-  if(!window.location.pathname.includes('product')) return
+const reloadButton = function (state) {
+  if (!window.location.pathname.includes('product')) return;
   const product = document.querySelector('.product-name');
-  const parent = product.parentElement
-  const cartButton = parent.children[parent.children.length-1]
-  
+  const parent = product.parentElement;
+  const cartButton = parent.children[parent.children.length - 1];
+
   if (
     state.bookmarkItems.some((eli) => {
       return eli === product.textContent;
     })
   ) {
-    const which = state.bookmarkPro.filter(el=>el[0].productName == product.textContent)
-    const [noAdded] = which
+    const which = state.bookmarkPro.filter(
+      (el) => el[0].productName == product.textContent
+    );
+    const [noAdded] = which;
     cartButton.classList.add('hide--again');
-    loadNewbookmarked(parent,noAdded[1],product.textContent)
+    loadNewbookmarked(parent, noAdded[1], product.textContent);
   }
+};
+reloadButton(localState);
 
-  }
-  reloadButton(localState)
-
-
-  const removeCartProduct = function (e) {
-    // console.log(e.target);
-    const clicked = e.target.classList.contains('button--remove--cart');
-    if (clicked) {
-     
-      // remove item from cart
-    const productParent = e.target.closest('.inner--container__product'); 
-    const itemToRemove = productParent.children[3].textContent
-     allState.bookmarkItems= allState.bookmarkItems.filter(el=>{
-  
-      return el !== itemToRemove
-     })
+const removeCartProduct = function (e) {
+  // console.log(e.target);
+  const clicked = e.target.classList.contains('button--remove--cart');
+  if (clicked) {
+    // remove item from cart
+    const productParent = e.target.closest('.inner--container__product');
+    const itemToRemove = productParent.children[3].textContent;
+    allState.bookmarkItems = allState.bookmarkItems.filter((el) => {
+      return el !== itemToRemove;
+    });
     // manually doing remove cartpro
-     allState.bookmarkPro=allState.bookmarkPro.filter(el=>{
-      return el[0].productName !== itemToRemove
-     })
-      // return the cart btton
-    allState.cartCount--
+    allState.bookmarkPro = allState.bookmarkPro.filter((el) => {
+      return el[0].productName !== itemToRemove;
+    });
+    // return the cart btton
+    allState.cartCount--;
     assignCartNumber(allState);
     window.localStorage.setItem('state', JSON.stringify(allState));
-    const cartB =   productParent.children[productParent.children.length-2]
-    cartB.classList.remove('hide--again')
-    const childPull =  productParent.children[productParent.children.length-1]
-    productParent.removeChild(childPull)
-      // persist crt
-    }
-  };
+    const cartB =
+      productParent.children[productParent.children.length - 2];
+    cartB.classList.remove('hide--again');
+    const childPull =
+      productParent.children[productParent.children.length - 1];
+    productParent.removeChild(childPull);
+    // persist crt
+  }
+};
 
-  fullDescription && fullDescription.addEventListener('click',removeCartProduct)
+fullDescription &&
+  fullDescription.addEventListener('click', removeCartProduct);
 
-  const increaseCartProductDetails = (e) => {
-    const clicked = e.target.closest('.button-plus-minus');
-    if (clicked) {
-      // e.preventDefault();
-      let cartNum;
-      if (clicked.firstElementChild.classList.contains('feather-plus')) {
-        cartNum = clicked.previousElementSibling.value * 1;
-        cartNum++;
-       
-        clicked.previousElementSibling.value = cartNum;
-      } else if (
-        clicked.firstElementChild.classList.contains('feather-minus')
-      ) {
-        cartNum = clicked.nextElementSibling.value * 1;
-        if (cartNum !== 1) cartNum--;
-        clicked.nextElementSibling.value = cartNum;
-      }
-    }
-  };
+const increaseCartProductDetails = (e) => {
+  const clicked = e.target.closest('.button-plus-minus');
+  if (clicked) {
+    // e.preventDefault();
+    let cartNum;
+    if (clicked.firstElementChild.classList.contains('feather-plus')) {
+      cartNum = clicked.previousElementSibling.value * 1;
+      cartNum++;
 
-  productInnerContainer && productInnerContainer.addEventListener('click',increaseCartProductDetails)
-
-
-  // DISPLAY CART
-  const cartDisplay = document.querySelector('#cart--display')
-  const main = document.querySelector('main')  
-  const headerH = document.querySelector('.header--container')
-  const mainMain = body.children[1]
-  const sections = [...document.querySelectorAll('section')]
-  const closeCart = document.querySelector('.close--cart')
-  const closeContainer = document.querySelector('.close--cart--container')
-  
-
-  console.log (sections.some(el=>el.classList.contains('cart--section')))
-  // handlerfunction
-let checkIf
-const loadEmptyCart = function(check){
-
-  const html = `<div class="close--cart--container"><p class="paragraph cart--is--empty">your cart is empty, kindly add an item to view cart <p> <p class="close--cart button">close<p><div>`
-  if(check)return
-  cartDisplay.insertAdjacentHTML('beforeend', html)
-
-// 
-   const timeTake = document.querySelector('.close--cart--container')
-    checkIf= setTimeout(()=>{
-    cartDisplay.removeChild(timeTake)
-  },5000)
-  
-}
-      const calculateSum = function(c){
-      const y = [...document.querySelectorAll(`${c}`)]
-      const total=y.map(el=>{return el.textContent})
-
-      const grandTotal = total.reduce((acc,el)=>{
-        return acc + Number(el)
-      },0)
-
-     const final = grandTotal.toFixed(0)
-
-     const summaryTotals = [...document.querySelectorAll("[data-total]")].map(el=>el.textContent).reduce((acc,el)=>{return acc+Number(el)},0) + Number(final)
-    
-       return [final,summaryTotals]
-      
-      
-      }
-
-
-  const showCarts = e=>{
-    
-    const clicked = e.target.closest('.button--cart')
-    if(clicked){
-
-      
-      const alreadyOpenedLoaded = document.querySelector('.close--cart--container')
-      if(allState.bookmarkPro.length === 0)return loadEmptyCart(alreadyOpenedLoaded)
-     
-        const secAvail = document.querySelector('.cart--lists')
-        
-         if(!secAvail){
-          sections.forEach(el=>{
-            main.removeChild(el)})
-            loadFullcart(allState,main)
-            
-         const totals = calculateSum('.sub--totals')
-         document.querySelector('.grand--total').textContent=totals[0]
-         console.log(document.querySelector('.final--total'))
-         document.querySelector('.final--total').textContent=totals[1]
-            const cartCC = document.querySelector('.cart--lists')
-            const cartLength = cartCC.children.length
-            if(cartLength>=5){
-                cartCC.classList.add('scroll')
-            }
-            
-         }
+      clicked.previousElementSibling.value = cartNum;
+    } else if (
+      clicked.firstElementChild.classList.contains('feather-minus')
+    ) {
+      cartNum = clicked.nextElementSibling.value * 1;
+      if (cartNum !== 1) cartNum--;
+      clicked.nextElementSibling.value = cartNum;
     }
   }
+};
 
-headerH.addEventListener('click',showCarts)
+productInnerContainer &&
+  productInnerContainer.addEventListener(
+    'click',
+    increaseCartProductDetails
+  );
+
+// DISPLAY CART
+const cartDisplay = document.querySelector('#cart--display');
+const main = document.querySelector('main');
+const headerH = document.querySelector('.header--container');
+const mainMain = body.children[1];
+const sections = [...document.querySelectorAll('section')];
+const closeCart = document.querySelector('.close--cart');
+const closeContainer = document.querySelector('.close--cart--container');
+
+// console.log(sections.some((el) => el.classList.contains('cart--section')));
+// handlerfunction
+let checkIf;
+const loadEmptyCart = function (check) {
+  const html = `<div class="close--cart--container"><p class="paragraph cart--is--empty">your cart is empty, kindly add an item to view cart <p> <p class="close--cart button">close<p><div>`;
+  if (check) return;
+  cartDisplay.insertAdjacentHTML('beforeend', html);
+
+  //
+  const timeTake = document.querySelector('.close--cart--container');
+  checkIf = setTimeout(() => {
+    cartDisplay.removeChild(timeTake);
+  }, 5000);
+};
+const calculateSum = function (c) {
+  const y = [...document.querySelectorAll(`${c}`)];
+  const total = y.map((el) => {
+    return el.textContent;
+  });
+
+  const grandTotal = total.reduce((acc, el) => {
+    return acc + Number(el);
+  }, 0);
+
+  const final = grandTotal.toFixed(0);
+
+  const summaryTotals =
+    [...document.querySelectorAll('[data-total]')]
+      .map((el) => el.textContent)
+      .reduce((acc, el) => {
+        return acc + Number(el);
+      }, 0) + Number(final);
+
+  return [final, summaryTotals];
+};
+
+const showCarts = (e) => {
+  const clicked = e.target.closest('.button--cart');
+  if (clicked) {
+    const alreadyOpenedLoaded = document.querySelector(
+      '.close--cart--container'
+    );
+    if (allState.bookmarkPro.length === 0)
+      return loadEmptyCart(alreadyOpenedLoaded);
+
+    const secAvail = document.querySelector('.cart--lists');
+    // confirm to make sure u have not opened it before so it doesnt open twice,
+    // so check if the cartlist section is already opened when the cart button is clicked on the loaded page
+    // so u dont have to open it again
+
+    if (!secAvail) {
+      sections.forEach((el) => {
+        main.removeChild(el);
+      });
+      console.log(allState.bookmarkPro);
+      loadFullcart(allState, main);
+
+      const totals = calculateSum('.sub--totals');
+      document.querySelector('.grand--total').textContent = totals[0];
+      // console.log(document.querySelector('.final--total'));
+      document.querySelector('.final--total').textContent = totals[1];
+      const cartCC = document.querySelector('.cart--lists');
+      const cartLength = cartCC.children.length;
+      if (cartLength >= 5) {
+        cartCC.classList.add('scroll');
+      }
+    }
+  }
+};
+
+headerH.addEventListener('click', showCarts);
 
 // closing the display message
 
-cartDisplay.addEventListener('click', e=>{
- const clicked= e.target.closest('.close--cart--container')
- if (!clicked)return
- console.log(checkIf)
-//  if checkif is there after diaogue is open clear it so it doesnt continue reading
- checkIf && clearTimeout(checkIf)
- const toClose = clicked.closest('.close--cart--container')
- cartDisplay.removeChild(toClose)
-
-})
- 
+cartDisplay.addEventListener('click', (e) => {
+  const clicked = e.target.closest('.close--cart--container');
+  if (!clicked) return;
+  console.log(checkIf);
+  //  if checkif is there after diaogue is open clear it so it doesnt continue reading
+  checkIf && clearTimeout(checkIf);
+  const toClose = clicked.closest('.close--cart--container');
+  cartDisplay.removeChild(toClose);
+});
 
 // adding the quamtity and price
+const setNew = function (clicked, currentValue) {
+  const bookProList = [...allState.bookmarkPro];
 
+  // get the product whose value has changed
+  const itemIndex = bookProList.findIndex((el) => {
+    return el[0].id === clicked.id;
+  });
+
+  // get the main item
+  const mainItem = bookProList[itemIndex];
+  mainItem[1] = currentValue;
+
+  bookProList[itemIndex] = mainItem;
+  allState.bookmarkPro = bookProList;
+
+  console.log(allState.bookmarkPro);
+};
 let newPrice;
-let newValue
-const addQtyPrice = e=>{
-  const clicked = e.target.closest('.cart--list__element')
- if(!clicked || clicked.classList.contains('cart--list__header')) return
- const checkButton = e.target.closest('.button-plus-minus')
- const qtyIcons = clicked.children[3]
- const priceElement=clicked.children[2].children[0].firstElementChild
- const priceSpan = Number(priceElement.textContent)
- const subTotalElement=clicked.children[4].children[0].firstElementChild
- const  subPrice = Number(subTotalElement.textContent)
- 
- let currentValue = Number(qtyIcons.children[1].value)
- 
- if(checkButton?.classList.contains('button--plus')){
-  currentValue++
-  newValue=currentValue
-  qtyIcons.children[1].value=currentValue
-  newPrice=currentValue*priceSpan
-  subTotalElement.textContent=newPrice.toFixed(2)
-  const totals = calculateSum('.sub--totals')
-         document.querySelector('.grand--total').textContent=totals[0]
-         document.querySelector('.final--total').textContent=totals[1]
-  // console.log(priceSpan,currentValue,subPrice)
-  
- }
- if(checkButton?.classList.contains('button--minus') && qtyIcons.children[1].value-1 !== 0){
-  // console.log(priceSpan,currentValue,subPrice)
-  currentValue--
-  newValue=currentValue
-  qtyIcons.children[1].value=currentValue
-  newPrice=currentValue*priceSpan
-  subTotalElement.textContent= newPrice.toFixed(2)
-  const totals = calculateSum('.sub--totals')
-         document.querySelector('.grand--total').textContent=totals[0]
-         document.querySelector('.final--total').textContent=totals[1]
-         
- }
-}
-document.addEventListener('click',addQtyPrice)
+let newValue;
+const addQtyPrice = (e) => {
+  const clicked = e.target.closest('.cart--list__element');
+  if (!clicked || clicked.classList.contains('cart--list__header')) return;
+  const checkButton = e.target.closest('.button-plus-minus');
+  const priceElement = clicked.children[2].children[0].firstElementChild;
+  const priceSpan = Number(priceElement.textContent);
+  const subTotalElement =
+    clicked.children[4].children[0].firstElementChild;
+  const subPrice = Number(subTotalElement.textContent);
+  const qtyIcons = clicked.children[3];
+  let currentValue = Number(qtyIcons.children[1].value);
 
+  if (checkButton?.classList.contains('button--plus')) {
+    currentValue++;
+    newValue = currentValue;
+    qtyIcons.children[1].value = currentValue;
 
-document.addEventListener('change',e=>{
-  const clicked = e.target.closest('.product--unit--quantity')
-  if(!clicked)return
-  const value = Number(clicked.value)
-  const parentEl = clicked.closest('.cart--list__element')
+    // update quantity here
+
+    setNew(clicked, currentValue);
+
+    // const bookProList = [...allState.bookmarkPro];
+
+    // // get the product whose value has changed
+    // const itemIndex = bookProList.findIndex((el) => {
+    //   return el[0].id === clicked.id;
+    // });
+
+    // // get the main item
+    // const mainItem = bookProList[itemIndex];
+    // mainItem[1] = currentValue;
+
+    // bookProList[itemIndex] = mainItem;
+    // console.log(bookProList);
+
+    newPrice = currentValue * priceSpan;
+    subTotalElement.textContent = newPrice.toFixed(2);
+    const totals = calculateSum('.sub--totals');
+    document.querySelector('.grand--total').textContent = totals[0];
+    document.querySelector('.final--total').textContent = totals[1];
+    // console.log(priceSpan,currentValue,subPrice)
+  }
+  if (
+    checkButton?.classList.contains('button--minus') &&
+    qtyIcons.children[1].value - 1 !== 0
+  ) {
+    // console.log(priceSpan,currentValue,subPrice)
+    currentValue--;
+    newValue = currentValue;
+    qtyIcons.children[1].value = currentValue;
+    // check the list
+    setNew(clicked, currentValue);
+
+    newPrice = currentValue * priceSpan;
+    subTotalElement.textContent = newPrice.toFixed(2);
+    const totals = calculateSum('.sub--totals');
+    document.querySelector('.grand--total').textContent = totals[0];
+    document.querySelector('.final--total').textContent = totals[1];
+  }
+};
+document.addEventListener('click', addQtyPrice);
+
+document.addEventListener('change', (e) => {
+  const clicked = e.target.closest('.product--unit--quantity');
+  if (!clicked) return;
+  let value = Number(clicked.value);
+  if (value == 0) {
+    value = 1;
+    clicked.value = value;
+  }
+  const parentEl = clicked.closest('.cart--list__element');
   // console.log(parentEl,value)
-  const price = Number(parentEl.children[2].children[0].firstElementChild.textContent)
-  const subTotalElement= parentEl.children[4].children[0].firstElementChild
-  subTotalElement.textContent= value*price
-  const totals = calculateSum('.sub--totals')
-   document.querySelector('.grand--total').textContent=totals[0]
-   document.querySelector('.final--total').textContent=totals[1]
+  const price = Number(
+    parentEl.children[2].children[0].firstElementChild.textContent
+  );
+  const subTotalElement =
+    parentEl.children[4].children[0].firstElementChild;
+  subTotalElement.textContent = value * price;
+  setNew(parentEl, value);
+  const totals = calculateSum('.sub--totals');
+  document.querySelector('.grand--total').textContent = totals[0];
+  document.querySelector('.final--total').textContent = totals[1];
+});
 
-})
+const removeFromCartPAge = (e) => {
+  const clicked = e.target.closest('.button--close');
+  if (!clicked) return;
+  const parentEl = clicked.closest('.cart--list__element');
+  const megaParent = clicked.closest('.cart--lists');
+  const itemName = parentEl.children[1].children[0].textContent;
+  allState.bookmarkItems = allState.bookmarkItems.filter((el) => {
+    return el !== itemName;
+  });
+  allState.bookmarkPro = allState.bookmarkPro.filter((el) => {
+    return el[0].productName !== itemName;
+  });
 
-const removeFromCartPAge=e=>{
-  const clicked = e.target.closest('.button--close')
-  if(!clicked) return
-  const parentEl = clicked.closest('.cart--list__element')
-  const megaParent = clicked.closest('.cart--lists')
-  const itemName= parentEl.children[1].children[0].textContent
-  allState.bookmarkItems= allState.bookmarkItems.filter(el=>{
+  allState.cartCount--;
+  allState.proCount--;
+  assignCartNumber(allState);
+  megaParent.removeChild(parentEl);
+  const totals = calculateSum('.sub--totals');
+  document.querySelector('.grand--total').textContent = totals[0];
+  document.querySelector('.final--total').textContent = totals[1];
 
-    return el !==itemName
-   })
-   allState.bookmarkPro=allState.bookmarkPro.filter(el=>{
-    return el[0].productName !== itemName
-   })
-   
-   allState.cartCount-- 
-   allState.proCount--
-   assignCartNumber(allState);
-   megaParent.removeChild(parentEl)
-   const totals = calculateSum('.sub--totals')
-   document.querySelector('.grand--total').textContent=totals[0]
-   document.querySelector('.final--total').textContent=totals[1]
+  if (megaParent.children.length <= 5) {
+    megaParent.classList.remove('scroll');
+  }
+  window.localStorage.setItem('state', JSON.stringify(allState));
+  if (megaParent.children.length == 1) location.reload();
+};
 
-   if(megaParent.children.length<=5){
-    megaParent.classList.remove('scroll')
-   }
-   window.localStorage.setItem('state', JSON.stringify(allState));
-   if(megaParent.children.length==1) location.reload()
- 
-}
+document.addEventListener('click', removeFromCartPAge);
 
-document.addEventListener('click',removeFromCartPAge)
+// ON CHANGE
 
+// document.addEventListener('change', (e) => {
+//   const theInput = e.target.classList.contains('product--unit--quantity');
+//   const theParent = e.target.closest('.cart--list__element');
+
+//   if (theInput && theParent) {
+//     if (e.target.value == 0) {
+//       console.log('please put a number greater than 0');
+//       document.querySelector('.checkout--button').classList.add('blur');
+//       e.target.value = 1;
+//     }
+//   }
+// });
 
 // SIGN UP FORM'
 
-const form = document.querySelector('.form')
+const form = document.querySelector('.form');
 
-const signU = async (e)=>{
-  e.preventDefault()
-  const formElements = [...document.querySelectorAll('.form--input')]
-  if (formElements.some(el=>el.value==''))return console.log('pls fil in the space')
-  const h = formElements.map(el=>[el.getAttribute('name'),el.value])
-  const formObj = h && Object.fromEntries(h)
-  if(form.lastElementChild.classList.contains('signup--check')){
-    console.log('yes it does signup')
-    await signUp(formObj.firstname,formObj.lastname,formObj.email,formObj.password,formObj.passwordConfirmed)
+const signU = async (e) => {
+  e.preventDefault();
+  const formElements = [...document.querySelectorAll('.form--input')];
+  if (formElements.some((el) => el.value == ''))
+    return console.log('pls fil in the space');
+  const h = formElements.map((el) => [el.getAttribute('name'), el.value]);
+  const formObj = h && Object.fromEntries(h);
+  if (form.lastElementChild.classList.contains('signup--check')) {
+    await signUp(
+      formObj.firstname,
+      formObj.lastname,
+      formObj.email,
+      formObj.password,
+      formObj.passwordConfirmed
+    );
   }
-  console.log('done')
-  if(form.lastElementChild.classList.contains('login--check')){
-    console.log('yes it does login')
-    await login(formObj.email,formObj.password)
+
+  if (form.lastElementChild.classList.contains('login--check')) {
+    await login(formObj.email, formObj.password);
   }
-}
+};
 
-form && form.addEventListener('submit', signU)
+form && form.addEventListener('submit', signU);
 
+const allButtons = document.querySelector('.all--buttons');
 
+const logouts = async (e) => {
+  const clicked = e.target.closest('.list--cta');
+  if (clicked && clicked.firstElementChild.id == 'link--outline')
+    await logout();
+};
 
-const allButtons = document.querySelector('.all--buttons')
-
-const logouts = async (e)=>{
-  const clicked = e.target.closest('.list--cta')
-  if(clicked && clicked.firstElementChild.id =='link--outline')
-  
-  await logout()
-}
-
-
-
-allButtons && allButtons.addEventListener('click',logouts)
+allButtons && allButtons.addEventListener('click', logouts);
 
 // CHECKOUT
 
-const checkoutButton=document.querySelector('.checkout--button')
-const buyFoodHandler = async(e)=>{
-  
-  try{
+const checkoutButton = document.querySelector('.checkout--button');
+const buyFoodHandler = async (e) => {
+  try {
     // console.log(checkoutButton.dataset)
-    const parent = e.target.closest('.full--product--description')
-    if(parent){
-      const {id} = checkoutButton.dataset
-      await buyFood(id)
+
+    const parent = e.target.closest('.full--product--description');
+    if (parent && e.target.closest('.checkout--button')) {
+      const theValueAmount =
+        e.target.closest('.checkout--button').previousElementSibling
+          .lastElementChild.children[0].children[1].value * 1;
+      console.log(theValueAmount);
+      const { id } = checkoutButton.dataset;
+      const item = [
+        {
+          id,
+          amount: theValueAmount,
+        },
+      ];
+
+      console.log(item);
+      const str = JSON.stringify(item);
+      await buyFood(str);
     }
-   
-  }catch(err){
-console.log(err)
+  } catch (err) {
+    console.log(err);
   }
+};
+const buyFoodHandlerMany = async (e) => {
+  try {
+    const parent = e.target.closest('.checkout--button');
+    if (
+      parent &&
+      parent.closest('.checkout--side') &&
+      e.target.closest('.checkout--button')
+    ) {
+      const all = [...allState.bookmarkPro];
+      console.log(all);
 
-}
-const buyFoodHandlerMany = async(e)=>{
+      const id = all.map((el) => {
+        const item = {
+          id: el[0].id,
+          amount: el[1],
+        };
+        return item;
+      });
 
-  try{
-    const parent = e.target.closest('.checkout--button')
-    if (parent && parent.closest('.checkout--side')){
-       const all = allState.bookmarkPro
-       
-       const id = all.map(el=>el[0].id).join(',')
-       console.log(id)
-       await buyFood(id)
-        //  const {id} =parent.dataset
+      const str = JSON.stringify(id);
+      console.log(str);
+      await buyFood(str);
+      // const id = all.map((el) => el[0].id).join(',');
+      // console.log(id);
+      // await buyFood(id);
+      //  const {id} =parent.dataset
       //  const idArray = id.split(',')
-
     }
-   
-  }catch(err){
-console.log(err)
+  } catch (err) {
+    console.log(err);
   }
+};
 
-}
-
-checkoutButton&&checkoutButton.addEventListener('click',buyFoodHandler)
-document.addEventListener('click',buyFoodHandlerMany)
-
-
-
-const loj = "Emeka,oga"
-const im = loj.split(',')
-console.log(im)
-
-const promise1 = new Promise((resolve,reject)=>{
-  setTimeout(()=>resolve('resolved'), 2000)
-})
-const promise2 = new Promise((resolve,reject)=>{
-  setTimeout(()=>reject('resolved 2'), 1000)
-})
-
-
-const all = [promise1,promise2]
-
-const see = async()=>{
-  try{
-    const r = await Promise.any(all)
-    console.log(r)
-  }catch(err){
-    console.log(`err ${err}`)
-  }
- 
-}
-
-see()
+checkoutButton && checkoutButton.addEventListener('click', buyFoodHandler);
+document.addEventListener('click', buyFoodHandlerMany);

@@ -1,9 +1,14 @@
 import axios from 'axios';
 import { showAlert } from './alert';
 
-export const signUp = async (firstname,lastname,email, password, passwordConfirmed) => {
+export const signUp = async (
+  firstname,
+  lastname,
+  email,
+  password,
+  passwordConfirmed
+) => {
   try {
-    console.log('see me');
     const res = await axios({
       method: 'POST',
       url: `/api/v1/users/signup`,
@@ -12,7 +17,7 @@ export const signUp = async (firstname,lastname,email, password, passwordConfirm
         lastname,
         email,
         password,
-        passwordConfirmed
+        passwordConfirmed,
       },
     });
 
@@ -28,7 +33,6 @@ export const signUp = async (firstname,lastname,email, password, passwordConfirm
 };
 export const login = async (email, password) => {
   try {
-    console.log('see me');
     const res = await axios({
       method: 'POST',
       url: `/api/v1/users/login`,

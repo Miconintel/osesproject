@@ -1,17 +1,28 @@
-const loadFullcart = function(state,parentCont){
-    const ids =[]
-    const loadedCarts = state.bookmarkPro.map(el=> {
+const loadFullcart = function (state, parentCont) {
+  const ids = [];
+  const loadedCarts = state.bookmarkPro
+    .map((el) => {
       // ids.push(el[0].id)
-      return `<figure class="cart--list__element flex">
-      <div class="cart--list__image"><img src="/img/product-images/${el[0].image}" alt="${el[0].slug}" class="image image--cart__list" /></div>
-      <a class="link link--product--name" href="/productname/${el[0].slug}?page=1"><figcaption class="cart--options"><p class="paragraph product-name">${el[0].productName}</p></figcaption></a>
-      <figcaption class="cart--options"><p class="paragraph price">$<span class="price--effect">${el[0].price}</span></p></figcaption>
+      return `<figure class="cart--list__element flex" id=${el[0].id}>
+      <div class="cart--list__image"><img src="/img/product-images/${
+        el[0].image
+      }" alt="${el[0].slug}" class="image image--cart__list" /></div>
+      <a class="link link--product--name" href="/productname/${
+        el[0].slug
+      }?page=1"><figcaption class="cart--options"><p class="paragraph product-name">${
+        el[0].productName
+      }</p></figcaption></a>
+      <figcaption class="cart--options"><p class="paragraph price">$<span class="price--effect">${
+        el[0].price
+      }</span></p></figcaption>
       <div class="input--container">
         <button
           class="button button--icon button-plus-minus button--minus"
         >
           <svg class="feather">
-            ${feather.icons.minus.toSvg({class: "icon icon--minus icon-plus-minus"})}
+            ${feather.icons.minus.toSvg({
+              class: 'icon icon--minus icon-plus-minus',
+            })}
           </svg>
         </button>
         <input
@@ -24,21 +35,28 @@ const loadFullcart = function(state,parentCont){
           class="button button--icon button-plus-minus button--plus"
         >
           <svg class="feather">
-            ${feather.icons.plus.toSvg({class: "icon icon--minus icon-plus-minus"})}
+            ${feather.icons.plus.toSvg({
+              class: 'icon icon--minus icon-plus-minus',
+            })}
           </svg>
         </button>
       </div>
-      <figcaption class="cart--options"><p class="paragraph price">$<span class="price--effect sub--totals" data-src="totals">${el[1]*el[0].price}</span></p></figcaption>
+      <figcaption class="cart--options"><p class="paragraph price">$<span class="price--effect sub--totals" data-src="totals">${
+        el[1] * el[0].price
+      }</span></p></figcaption>
       <button class="button button--close  mobile--nav--button">
         <svg class="feather">
-          ${feather.icons.x.toSvg({class: "icon icon--minus icon-plus-minus"})}
+          ${feather.icons.x.toSvg({
+            class: 'icon icon--minus icon-plus-minus',
+          })}
         </svg>
       </button>
-    </figure>`
-    }).join('')
-    // console.log(loadedCarts)
-    
-    const headerSide = `  
+    </figure>`;
+    })
+    .join('');
+  // console.log(loadedCarts)
+
+  const headerSide = `  
     <div class="category--header">
         <h2 class="secondary--header">Our Products</h2>
 
@@ -70,9 +88,9 @@ const loadFullcart = function(state,parentCont){
             <a href="/?category=Others&page=1" class="link link--category">Others</a>
         </h3>
         </div>
-    </div>`
+    </div>`;
 
-      const html = `<section class="cart--section">
+  const html = `<section class="cart--section">
       <div class="content">
           <div class="grid grid--2--columns--cart cart--list--container container">
             ${headerSide}
@@ -114,9 +132,9 @@ const loadFullcart = function(state,parentCont){
               
           </div>
       </div>
-    </section>`
-   
-    parentCont.insertAdjacentHTML('afterbegin',html)
-    }
+    </section>`;
 
-    export default loadFullcart
+  parentCont.insertAdjacentHTML('afterbegin', html);
+};
+
+export default loadFullcart;

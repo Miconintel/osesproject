@@ -11,10 +11,6 @@ const hpp = require('hpp');
 const cookieParser = require('cookie-parser');
 const compression = require('compression');
 const cors = require('cors');
-const bodyParser = require('body-parser');
-
-// const res = require('express/lib/response');
-// const { request } = require('http');
 const tourRouter = require('./routers/tourRouter');
 const foodRouter = require('./routers/foodRouter');
 const userRouter = require('./routers/userRouter');
@@ -23,9 +19,14 @@ const errorController = require('./controller/errorController');
 const viewRouter = require('./routers/viewRouter');
 const bookingRouter = require('./routers/bookingRouter');
 const checkoutRouter = require('./routers/checkoutRouter');
+const bodyParser = require('body-parser');
 //
 const { webhookCheckout } = require('./controller/bookingController');
-// BASICALLY EXPRESS JS IS A FRAMEWORK THAT USES ASYNCHRONOUS MEANS TO RUN CODES WHEN YO CREATE AN APP, U CREATE AN APP OBJECT, U STILL RUN METHODS THAT HAPPEN ASYNCHRONOUSLY.
+// const res = require('express/lib/response');
+// const { request } = require('http');
+
+/* BASICALLY EXPRESS JS IS A FRAMEWORK THAT USES ASYNCHRONOUS MEANS TO RUN CODES WHEN YO CREATE AN APP, U CREATE AN APP OBJECT,
+U STILL RUN METHODS THAT HAPPEN ASYNCHRONOUSLY.*/
 
 const app = express();
 app.set('view engine', 'pug');
@@ -55,7 +56,7 @@ app.use(cookieParser());
 app.use('/api', helmet());
 
 //
-console.log(process.env.SENDGRID_PASSWORD);
+// console.log(process.env.SENDGRID_PASSWORD);
 // evelopment loggig
 // if (process.env.NODE_ENV === 'development') {
 //   app.use(morgan('dev'));
@@ -287,7 +288,13 @@ app.use((request, response, next) => {
 //   .delete(deleteUser);
 
 // render html
-// ROUTERS ARE MIDDLEWEARS ALSO CALLBACKS THAT WHEN EXECUTED ON USE, TAKES THE END POINT, MOUNTING TEM ON ITSELF AND PERFORS THE ROUTE.GET.PATCH FUNCTIONS, that now calls the controller. BEFORE THE ACTUAL CONTROLLER FUNCTION THAT TAKES THE ENDPOINT AND MOUNTS IT ON A NEW ROUTE, THIS ROUTE IS THEN USING THE ENDPOINT AS ITS BASEPOINT TO CALL THE CALLBACKFUNCTION OR MIDDLWEAR-CALLBACK-FUNCTION CONTROLLER WHICH NOW PERFORMS THE ACTION THAT HAS BEEN CODED INTO IT
+/*
+ ROUTERS ARE MIDDLEWEARS ALSO CALLBACKS THAT WHEN EXECUTED ON USE, TAKES THE END POINT, MOUNTING TEM ON ITSELF AND PERFORS
+THE ROUTE.GET.PATCH FUNCTIONS, 
+that now calls the controller. BEFORE THE ACTUAL CONTROLLER FUNCTION THAT TAKES THE ENDPOINT AND MOUNTS IT ON A NEW ROUTE, 
+THIS ROUTE IS THEN USING THE 
+ENDPOINT AS ITS BASEPOINT TO CALL THE CALLBACKFUNCTION OR MIDDLWEAR-CALLBACK-FUNCTION CONTROLLER
+WHICH NOW PERFORMS THE ACTION THAT HAS BEEN CODED INTO IT*/
 
 app.use('/', viewRouter);
 //

@@ -7,15 +7,14 @@ const AppError = require('../utilities/appError.js');
 const APIfeatures = require('../utilities/APIfeatures');
 const catchAsync = require('../utilities/catchAsync');
 const handlerFactory = require('./handlerFactory');
-
+const { promises } = require('nodemailer/lib/xoauth2/index.js');
 
 // EDIT THIS
 
 // exports.getCheckoutSession = catchAsync(
 //   async (req, res,next) => {
 //     const food = await Food.findById(req.params.foodId);
-    
-  
+
 //     // res.json({ id: session.id });
 //     res.status(200).json({
 //       status: 'success',
@@ -24,214 +23,230 @@ const handlerFactory = require('./handlerFactory');
 //   }
 // )
 
-exports.getCheckoutSessionwait = catchAsync(
-  async (req, res,next) => {
-    const food = await Food.findById(req.params.foodId);
-    const session = await stripe.checkout.sessions.create({
-      payment_method_types: ['card'],
-      success_url: `${req.protocol}://${req.get(
-        'host'
-      )}/?alert=booking`,
-      cancel_url: `${req.protocol}://${req.get('host')}/productname/${
-        food.slug
-      }`,
-      client_reference_id: req.params.foodId,
-      shipping_address_collection: {
-        allowed_countries: ['US', 'CA'],
-      },
-      shipping_options: [
-        // {
-        //   shipping_rate_data: {
-        //     type: 'fixed_amount',
-        //     fixed_amount: {
-        //       amount: 0,
-        //       currency: 'usd',
-        //     },
-        //     display_name: 'Free shipping',
-        //     // Delivers between 5-7 business days
-        //     delivery_estimate: {
-        //       minimum: {
-        //         unit: 'business_day',
-        //         value: 5,
-        //       },
-        //       maximum: {
-        //         unit: 'business_day',
-        //         value: 7,
-        //       },
-        //     }
-        //   }
-        // },
-        {
-          shipping_rate_data: {
-            type: 'fixed_amount',
-            fixed_amount: {
-              amount: 1500,
-              currency: 'usd',
-            },
-            display_name: 'Express',
-            // Delivers in exactly 1 business day
-            delivery_estimate: {
-              minimum: {
-                unit: 'business_day',
-                value: 1,
-              },
-              maximum: {
-                unit: 'business_day',
-                value: 1,
-              },
-            }
-          }
-        },
-      ],
-      line_items: [
-        {
-          price_data: {
+exports.getCheckoutSessionwait = catchAsync(async (req, res, next) => {
+  const food = await Food.findById(req.params.foodId);
+  const session = await stripe.checkout.sessions.create({
+    payment_method_types: ['card'],
+    success_url: `${req.protocol}://${req.get('host')}/?alert=booking`,
+    cancel_url: `${req.protocol}://${req.get('host')}/productname/${
+      food.slug
+    }`,
+    client_reference_id: req.params.foodId,
+    shipping_address_collection: {
+      allowed_countries: ['US', 'CA'],
+    },
+    shipping_options: [
+      // {
+      //   shipping_rate_data: {
+      //     type: 'fixed_amount',
+      //     fixed_amount: {
+      //       amount: 0,
+      //       currency: 'usd',
+      //     },
+      //     display_name: 'Free shipping',
+      //     // Delivers between 5-7 business days
+      //     delivery_estimate: {
+      //       minimum: {
+      //         unit: 'business_day',
+      //         value: 5,
+      //       },
+      //       maximum: {
+      //         unit: 'business_day',
+      //         value: 7,
+      //       },
+      //     }
+      //   }
+      // },
+      {
+        shipping_rate_data: {
+          type: 'fixed_amount',
+          fixed_amount: {
+            amount: 1500,
             currency: 'usd',
-            unit_amount: (food.price*100).toFixed(1),
-            product_data: {
-              name: food.productName,
-              images: [
-                `${req.protocol}://${req.get('host')}/img/product-images/${
-                  food.image
-                }`,
-              ],
+          },
+          display_name: 'Express',
+          // Delivers in exactly 1 business day
+          delivery_estimate: {
+            minimum: {
+              unit: 'business_day',
+              value: 1,
+            },
+            maximum: {
+              unit: 'business_day',
+              value: 1,
             },
           },
-          
-          quantity: 1,
         },
-      ],
-      mode: 'payment',
-    });
-  
-    // res.json({ id: session.id });
-    res.status(200).json({
-      status: 'success',
-      session,
-    });
-  }
-)
+      },
+    ],
+    line_items: [
+      {
+        price_data: {
+          currency: 'usd',
+          unit_amount: (food.price * 100).toFixed(1),
+          product_data: {
+            name: food.productName,
+            images: [
+              `${req.protocol}://${req.get('host')}/img/product-images/${
+                food.image
+              }`,
+            ],
+          },
+        },
 
- 
+        quantity: 1,
+      },
+    ],
+    mode: 'payment',
+  });
+
+  // res.json({ id: session.id });
+  res.status(200).json({
+    status: 'success',
+    session,
+  });
+});
+
 // const useStripe = stripe(process.env.STRIPE_SECRET_KEY);
 // WE ARE GOING TO BE WROKING FOR PLENTY TOURS THIS TIME
 
+exports.checkId = catchAsync(async (request, response, next) => {
+  const idd = request.params.foodId;
+  const test = JSON.parse(idd);
+  console.log(test.length);
 
-exports.checkId = catchAsync(async(request,response,next)=>{
- const idd = request.params.foodId
- const idArray = idd.split(',')
- if(idArray.length ==1){
-  next()
-  return
-}
+  // const idArray = idd.split(',');
+  // if (test.length == 1) {
+  //   next();
+  //   return;
+  // }
+  const idp = test.map((item) => {
+    return item.id;
+  });
+  const mapId = idp.map(async (id) => {
+    return await Food.findById(id);
+  });
+  const all = await Promise.all(mapId);
 
-const idp = idArray.map(async el=>{
-   return await Food.findById(el);
-})
- const all = await Promise.all(idp)
- request.id = all
- next()
+  const final = all.map((food) => {
+    return test.reduce((acc, item) => {
+      return food.id === item.id
+        ? { food: food, amount: item.amount }
+        : acc;
+      // if (food.id === item.id) {
+      //   return { food: food, amount: item.amount };
+      // }
+    }, 0);
+  });
 
-})
+  console.log(final);
+  // const idp = idArray.map(async (el) => {
+  //   return await Food.findById(el);
+  // });
+  // const all = await Promise.all(idp);
+  request.id = final;
+  // res.status(200).json({
+  //   status: 'success',
+  //   all,
+  // });
+  next();
+});
 
+exports.getCheckoutSession = catchAsync(async (req, res, next) => {
+  let food = req.id;
+  // if (req.id) {
+  //   food = req.id;
+  // } else {
+  //   food = [await Food.findById(req.params.foodId)];
+  // }
 
-exports.getCheckoutSession = catchAsync(
-  async (req, res,next) => {
-let food
-if (req.id){
-  food = req.id
-}else{
-   food =  [await Food.findById(req.params.foodId)];
-}
-   
-const getline = food.map(el=>{
-  return {
-          price_data: {
-            currency: 'usd',
-            unit_amount: el.price*100,
-            product_data: {
-              name: el.productName,
-              images: [
-                `${req.protocol}://${req.get('host')}/img/product-images/${
-                  el.image
-                }`,
-              ],
-            },
-          },
-          
-          quantity: food.length,
-        }
-})
-    
-    // const food = await Food.findById(req.params.foodId);
-    const session = await stripe.checkout.sessions.create({
-      payment_method_types: ['card'],
-      success_url: `${req.protocol}://${req.get(
-        'host'
-      )}/?alert=booking`,
-     cancel_url: `${req.protocol}://${req.get('host')}/`,
+  const getline = food.map((el) => {
+    return {
+      price_data: {
+        currency: 'usd',
+        unit_amount: el.food.price * 100,
+        product_data: {
+          name: el.food.productName,
+          images: [
+            `${req.protocol}://${req.get('host')}/img/product-images/${
+              el.food.image
+            }`,
+          ],
+        },
+      },
+
+      quantity: el.amount,
+    };
+  });
+
+  // const food = await Food.findById(req.params.foodId);
+  const session = await stripe.checkout.sessions.create({
+    payment_method_types: ['card'],
+    success_url: `${req.protocol}://${req.get('host')}/?alert=booking`,
+    cancel_url: `${req.protocol}://${req.get('host')}/`,
     //  cancel_url: `${req.protocol}://${req.get('host')}/productname/${
     //     food.slug
     //   }`,
-      client_reference_id: req.params.foodId,
-      shipping_address_collection: {
-        allowed_countries: ['US', 'CA'],
-      },
-      shipping_options: [
-        {
-          shipping_rate_data: {
-            type: 'fixed_amount',
-            fixed_amount: {
-              amount: 1500,
-              currency: 'usd',
+    client_reference_id: req.params.foodId,
+    shipping_address_collection: {
+      allowed_countries: ['US', 'CA'],
+    },
+    shipping_options: [
+      {
+        shipping_rate_data: {
+          type: 'fixed_amount',
+          fixed_amount: {
+            amount: 1500,
+            currency: 'usd',
+          },
+          display_name: 'Express',
+          // Delivers in exactly 1 business day
+          delivery_estimate: {
+            minimum: {
+              unit: 'business_day',
+              value: 1,
             },
-            display_name: 'Express',
-            // Delivers in exactly 1 business day
-            delivery_estimate: {
-              minimum: {
-                unit: 'business_day',
-                value: 1,
-              },
-              maximum: {
-                unit: 'business_day',
-                value: 1,
-              },
-            }
-          }
+            maximum: {
+              unit: 'business_day',
+              value: 1,
+            },
+          },
         },
-      ],
-      line_items: getline,
-      // line_items: [
-      //   {
-      //     price_data: {
-      //       currency: 'usd',
-      //       unit_amount: food.price*100,
-      //       product_data: {
-      //         name: food.productName,
-      //         images: [
-      //           `${req.protocol}://${req.get('host')}/img/product-images/${
-      //             food.image
-      //           }`,
-      //         ],
-      //       },
-      //     },
-          
-      //     quantity: food.length,
-      //   },
-      // ],
-      mode: 'payment',
-    });
-  
-    // res.status(200).json({
-    //   status: 'success',
-    //   getline
-    // });
-    res.status(200).json({
-      status: 'success',
-      session,
-    });
-  }
-)
+      },
+    ],
+    line_items: getline,
+    // line_items: [
+    //   {
+    //     price_data: {
+    //       currency: 'usd',
+    //       unit_amount: food.price*100,
+    //       product_data: {
+    //         name: food.productName,
+    //         images: [
+    //           `${req.protocol}://${req.get('host')}/img/product-images/${
+    //             food.image
+    //           }`,
+    //         ],
+    //       },
+    //     },
+
+    //     quantity: food.length,
+    //   },
+    // ],
+    mode: 'payment',
+  });
+
+  // res.status(200).json({
+  //   status: 'success',
+  //   getline
+  // });
+  res.status(200).json({
+    status: 'success',
+    session,
+  });
+});
+
+/** */
 
 // exports.getCheckoutSessionOld = catchAsync(
 //   async (request, response, next) => {
@@ -358,7 +373,7 @@ exports.webhookCheckout = (request, response, next) => {
   if (event.type === 'checkout.session.completed') {
     console.log('completed event');
     checkOut(event.data.object);
-    return response.status(200).json({received: `created object too`});
+    return response.status(200).json({ received: `created object too` });
   }
   response.status(200).json({ received: true });
 };

@@ -31,7 +31,13 @@ const reviewRouter = require('./../routers/reviewRouter');
 const router = express.Router();
 
 // router.param('id', checkId);
+// this is used when u want to acess the review home route from tour route,
+// because u need an info from the tour route to use
+// in creating review route.
+// usually when the info provided in the body
+// is only provided in real world by users actions.
 router.use('/:tourId/reviews', reviewRouter);
+
 router.route('/top-5-cheap').get(aliasTop, getAlltours);
 router.route('/tour-stats').get(getTourStats);
 router.route('/monthlyPlan/:year').get(getMonthlyPlan);

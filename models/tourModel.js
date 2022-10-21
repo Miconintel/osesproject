@@ -87,7 +87,19 @@ const tourSchema = new mongoose.Schema(
     },
 
     startDates: [Date],
-
+    /**because type is a reserved keyword in mongoose
+ * when you want to nest another object as one of the properties
+ * of your schema but u want the object to have a property called type,
+ * you have to work areoud it this way
+ * location :{ type:{type:string,enum:['sing'], location
+ * }
+ * this is saying that location has a property name type, and that
+ * type is not defining the type of location but is a type, and its type of type
+ * is a string , means a type that will be a property provided by someone and
+ * which will be a of type text.
+ 
+ * }
+ */
     startLocation: {
       type: {
         type: String,
@@ -170,7 +182,7 @@ tourSchema.pre('save', function (next) {
 //   next();
 // });
 tourSchema.post('save', function (doc, next) {
-  // console.log(doc);
+  console.log(doc);
   next();
 });
 tourSchema.pre(/^find/, function (next) {
