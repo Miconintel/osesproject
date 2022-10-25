@@ -932,6 +932,7 @@ const setNew = function (clicked, currentValue) {
 
   bookProList[itemIndex] = mainItem;
   allState.bookmarkPro = bookProList;
+  window.localStorage.setItem('state', JSON.stringify(allState));
 
   console.log(allState.bookmarkPro);
 };
@@ -973,6 +974,7 @@ const addQtyPrice = (e) => {
     // console.log(bookProList);
 
     newPrice = currentValue * priceSpan;
+    loadFullcart(allState, main);
     subTotalElement.textContent = newPrice.toFixed(2);
     const totals = calculateSum('.sub--totals');
     document.querySelector('.grand--total').textContent = totals[0];
@@ -989,6 +991,7 @@ const addQtyPrice = (e) => {
     qtyIcons.children[1].value = currentValue;
     // check the list
     setNew(clicked, currentValue);
+    loadFullcart(allState, main);
 
     newPrice = currentValue * priceSpan;
     subTotalElement.textContent = newPrice.toFixed(2);

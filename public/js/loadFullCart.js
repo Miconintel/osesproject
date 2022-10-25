@@ -1,4 +1,5 @@
 const loadFullcart = function (state, parentCont) {
+  console.log(state.bookmarkPro.map((el) => el[0].price));
   const ids = [];
   const loadedCarts = state.bookmarkPro
     .map((el) => {
@@ -12,9 +13,9 @@ const loadFullcart = function (state, parentCont) {
       }?page=1"><figcaption class="cart--options"><p class="paragraph product-name">${
         el[0].productName
       }</p></figcaption></a>
-      <figcaption class="cart--options"><p class="paragraph price">$<span class="price--effect">${
-        el[0].price
-      }</span></p></figcaption>
+      <figcaption class="cart--options"><p class="paragraph price">$<span class="price--effect">${el[0].price.toFixed(
+        1
+      )}</span></p></figcaption>
       <div class="input--container">
         <button
           class="button button--icon button-plus-minus button--minus"
@@ -42,7 +43,7 @@ const loadFullcart = function (state, parentCont) {
         </button>
       </div>
       <figcaption class="cart--options"><p class="paragraph price">$<span class="price--effect sub--totals" data-src="totals">${
-        el[1] * el[0].price
+        el[1] * el[0].price.toFixed(1)
       }</span></p></figcaption>
       <button class="button button--close  mobile--nav--button">
         <svg class="feather">

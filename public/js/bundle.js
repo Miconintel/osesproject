@@ -8880,14 +8880,17 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = void 0;
 
 var loadFullcart = function loadFullcart(state, parentCont) {
+  console.log(state.bookmarkPro.map(function (el) {
+    return el[0].price;
+  }));
   var ids = [];
   var loadedCarts = state.bookmarkPro.map(function (el) {
     // ids.push(el[0].id)
-    return "<figure class=\"cart--list__element flex\" id=".concat(el[0].id, ">\n      <div class=\"cart--list__image\"><img src=\"/img/product-images/").concat(el[0].image, "\" alt=\"").concat(el[0].slug, "\" class=\"image image--cart__list\" /></div>\n      <a class=\"link link--product--name\" href=\"/productname/").concat(el[0].slug, "?page=1\"><figcaption class=\"cart--options\"><p class=\"paragraph product-name\">").concat(el[0].productName, "</p></figcaption></a>\n      <figcaption class=\"cart--options\"><p class=\"paragraph price\">$<span class=\"price--effect\">").concat(el[0].price, "</span></p></figcaption>\n      <div class=\"input--container\">\n        <button\n          class=\"button button--icon button-plus-minus button--minus\"\n        >\n          <svg class=\"feather\">\n            ").concat(feather.icons.minus.toSvg({
+    return "<figure class=\"cart--list__element flex\" id=".concat(el[0].id, ">\n      <div class=\"cart--list__image\"><img src=\"/img/product-images/").concat(el[0].image, "\" alt=\"").concat(el[0].slug, "\" class=\"image image--cart__list\" /></div>\n      <a class=\"link link--product--name\" href=\"/productname/").concat(el[0].slug, "?page=1\"><figcaption class=\"cart--options\"><p class=\"paragraph product-name\">").concat(el[0].productName, "</p></figcaption></a>\n      <figcaption class=\"cart--options\"><p class=\"paragraph price\">$<span class=\"price--effect\">").concat(el[0].price.toFixed(1), "</span></p></figcaption>\n      <div class=\"input--container\">\n        <button\n          class=\"button button--icon button-plus-minus button--minus\"\n        >\n          <svg class=\"feather\">\n            ").concat(feather.icons.minus.toSvg({
       class: 'icon icon--minus icon-plus-minus'
     }), "\n          </svg>\n        </button>\n        <input\n          type=\"text\"\n          class=\"input product--unit--quantity\"\n          name=\"product-unit\"\n          value=\"").concat(el[1], "\"\n        />\n        <button\n          class=\"button button--icon button-plus-minus button--plus\"\n        >\n          <svg class=\"feather\">\n            ").concat(feather.icons.plus.toSvg({
       class: 'icon icon--minus icon-plus-minus'
-    }), "\n          </svg>\n        </button>\n      </div>\n      <figcaption class=\"cart--options\"><p class=\"paragraph price\">$<span class=\"price--effect sub--totals\" data-src=\"totals\">").concat(el[1] * el[0].price, "</span></p></figcaption>\n      <button class=\"button button--close  mobile--nav--button\">\n        <svg class=\"feather\">\n          ").concat(feather.icons.x.toSvg({
+    }), "\n          </svg>\n        </button>\n      </div>\n      <figcaption class=\"cart--options\"><p class=\"paragraph price\">$<span class=\"price--effect sub--totals\" data-src=\"totals\">").concat(el[1] * el[0].price.toFixed(1), "</span></p></figcaption>\n      <button class=\"button button--close  mobile--nav--button\">\n        <svg class=\"feather\">\n          ").concat(feather.icons.x.toSvg({
       class: 'icon icon--minus icon-plus-minus'
     }), "\n        </svg>\n      </button>\n    </figure>");
   }).join(''); // console.log(loadedCarts)
@@ -10285,6 +10288,7 @@ var setNew = function setNew(clicked, currentValue) {
   mainItem[1] = currentValue;
   bookProList[itemIndex] = mainItem;
   allState.bookmarkPro = bookProList;
+  window.localStorage.setItem('state', JSON.stringify(allState));
   console.log(allState.bookmarkPro);
 };
 
@@ -10319,6 +10323,7 @@ var addQtyPrice = function addQtyPrice(e) {
     // console.log(bookProList);
 
     newPrice = currentValue * priceSpan;
+    (0, _loadFullCart.default)(allState, main);
     subTotalElement.textContent = newPrice.toFixed(2);
     var totals = calculateSum('.sub--totals');
     document.querySelector('.grand--total').textContent = totals[0];
@@ -10332,6 +10337,7 @@ var addQtyPrice = function addQtyPrice(e) {
     qtyIcons.children[1].value = currentValue; // check the list
 
     setNew(clicked, currentValue);
+    (0, _loadFullCart.default)(allState, main);
     newPrice = currentValue * priceSpan;
     subTotalElement.textContent = newPrice.toFixed(2);
 
@@ -10631,7 +10637,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64711" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "61928" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
