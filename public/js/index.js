@@ -1245,3 +1245,23 @@ const yu = arr.reduce((acc, el) => {
 }, []);
 
 console.log(yu);
+
+const products = [{ name: 'milo', price: 20 }];
+
+const cart = {
+  total: 0,
+  quantity: 0,
+  items: [],
+};
+
+const addToCart = (product, quantity) => {
+  const newCart = { ...cart };
+  const addedProduct = { ...product, quantity };
+
+  const updatedCart = {
+    ...newCart,
+    total: newCart.total + addedProduct * quantity,
+  };
+};
+
+const hy = [8, 9];
