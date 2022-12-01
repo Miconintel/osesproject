@@ -87,7 +87,6 @@ body {
   color: #444;
   width: 100%;
   overflow-x: hidden;
- 
 }
 
 /* GENERAL */
@@ -273,9 +272,9 @@ body {
   justify-content: space-between;
 }
 
-.all--buttons{
+.all--buttons {
   display: flex;
-  gap:1.6rem;
+  gap: 1.6rem;
   align-items: center;
 }
 
@@ -335,7 +334,6 @@ body {
   background: none;
 }
 
-
 /* MAIN STARTS HERE   */
 
 .hero--container {
@@ -351,7 +349,7 @@ body {
   overflow: hidden;
 }
 
-.none{
+.none {
   transition: none;
 }
 
@@ -399,9 +397,9 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  
+
   width: 3.6rem;
- 
+
   height: 3.6rem;
   transition: all 0.8s;
 }
@@ -424,7 +422,6 @@ body {
   background-color: var(--primary-color);
   /* border-bottom-right-radius: 2rem; */
 }
-
 
 .button--cart:hover {
   transform: translateY(-0.6rem);
@@ -473,7 +470,6 @@ body {
 .hero--link--cta:active {
   box-shadow: 0 1rem 3rem 0 #4e4e4e;
 }
-
 
 /* PRODUCT SECTION 
 
@@ -601,7 +597,6 @@ body {
   align-items: center;
   justify-content: center;
   gap: 3.6rem;
-  
 }
 .secondary--header {
   color: var(--primary-color);
@@ -652,10 +647,8 @@ body {
 }
 .page--link:hover,
 .page--link:active {
-background-color: var(--primary-color--darker);
+  background-color: var(--primary-color--darker);
 }
-
-
 
 /* 
 
@@ -710,10 +703,42 @@ FOOTER SECTION
   display: none;
 }
 
-.footer .image--link{
+.footer .image--link {
   display: inline-block;
   height: fit-content;
 }
+
+/* additives */
+
+.feather {
+  width: 24px;
+  height: 24px;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  fill: none;
+}
+
+.total .tertiary--header {
+  color: var(--secondary-color--darker);
+  font-size: 2rem;
+}
+
+.alert {
+  padding: 1.2rem 0;
+  font-size: 1.6rem;
+  text-align: center;
+  color: #fff;
+}
+.alert--success {
+  background-color: var(--secondary-color);
+}
+.alert--error {
+  background-color: red;
+}
+
+/* QUERIES */
 
 /* MEDIA QUERY */
 
@@ -745,27 +770,27 @@ FOOTER SECTION
     position: relative;
   }
   .header--flex {
-    gap:unset
+    gap: unset;
   }
 
-.link--outline:link,
-.link--outline:visited {
-  padding: 0.4rem 1.2rem;
-  border-radius: 50rem;
-  border: var(--primary-color) solid 0.1rem;
-  /* transition: all 1s; */
-}
+  .link--outline:link,
+  .link--outline:visited {
+    padding: 0.4rem 1.2rem;
+    border-radius: 50rem;
+    border: var(--primary-color) solid 0.1rem;
+    /* transition: all 1s; */
+  }
 
-.link--cta:link,
-.link--cta:visited {
-  color: #fff !important;
-  padding: 0.4rem 1.2rem;
-  border-radius: 50rem;
-  background-color: var(--primary-color);
-}
-  
+  .link--cta:link,
+  .link--cta:visited {
+    color: #fff !important;
+    padding: 0.4rem 1.2rem;
+    border-radius: 50rem;
+    background-color: var(--primary-color);
+  }
+
   .nav--container {
-     /* display: flex;
+    /* display: flex;
     justify-content: center;
     align-items: center; */
     position: absolute;
@@ -775,7 +800,7 @@ FOOTER SECTION
     background: #04380a;
     width: 100%;
     z-index: 100;
-/* the concept of using opacity to hide element is to allow for animation as display none doesnt allow it, but then to have the same effect like display none
+    /* the concept of using opacity to hide element is to allow for animation as display none doesnt allow it, but then to have the same effect like display none
 and make it appear like the elelemnt is really not on the screen follow the next steo properties like poinnter events and visibility
 to completely prevent any detetction of the elelemnt whose opacity is set to zeo and might have been detetcted ordinarily */
 
@@ -785,7 +810,7 @@ to completely prevent any detetction of the elelemnt whose opacity is set to zeo
     /* unnacessible to mouse and keyboard */
     pointer-events: none;
     height: 100vh;
-    
+
     transition: all 1.5s ease-in-out;
   }
 
@@ -811,10 +836,10 @@ to completely prevent any detetction of the elelemnt whose opacity is set to zeo
 
   .open .nav--container {
     opacity: 93%;
-      /* visibility id to prvent screnn reaad*/
-      visibility: visible;
-      /* unnacessible to mouse and keyboard */
-      pointer-events:auto;
+    /* visibility id to prvent screnn reaad*/
+    visibility: visible;
+    /* unnacessible to mouse and keyboard */
+    pointer-events: auto;
     left: 0%;
     backdrop-filter: blur(4rem);
   }
@@ -826,15 +851,13 @@ to completely prevent any detetction of the elelemnt whose opacity is set to zeo
     display: none;
   }
 
-  .paragraph{
+  .paragraph {
     font-size: 1.2rem;
   }
 
-  .cart--options .price--effect{
+  .cart--options .price--effect {
     font-size: 1.6rem;
   }
-
- 
 }
 
 /* second size option */
@@ -860,7 +883,7 @@ to completely prevent any detetction of the elelemnt whose opacity is set to zeo
   }
 
   .container {
-    margin:auto;
+    margin: auto;
     max-width: 100%;
     padding-left: 0;
     padding-right: 0;
@@ -900,16 +923,16 @@ to completely prevent any detetction of the elelemnt whose opacity is set to zeo
   .product--container {
     grid-template-columns: repeat(1, 1fr);
     gap: 1.6rem;
-  } 
+  }
 
-.product--description--container{
-  width:50%
-}
- .product--image--container{
-  display: flex;
-  align-items: center;
-  width: 50%;
- }
+  .product--description--container {
+    width: 50%;
+  }
+  .product--image--container {
+    display: flex;
+    align-items: center;
+    width: 50%;
+  }
   .product {
     display: flex;
     flex-direction: row;
@@ -921,15 +944,15 @@ to completely prevent any detetction of the elelemnt whose opacity is set to zeo
     grid-template-columns: repeat(4, 1fr);
     justify-items: center;
     align-items: center;
-    padding:0 2rem;
+    padding: 0 2rem;
     padding-bottom: 2rem;
-    gap:1.2rem;
+    gap: 1.2rem;
     width: 100%;
   }
 
-  .category--header{
+  .category--header {
     background-color: #04380a;
-    gap:2rem;
+    gap: 2rem;
     margin-bottom: 1.2rem;
     padding-top: 1.2rem;
     width: 100%;
@@ -953,10 +976,10 @@ to completely prevent any detetction of the elelemnt whose opacity is set to zeo
 
   .link--category:link,
   .link--category:visited {
-  color: var(--primary-color);
-  font-size: 1.4rem;
-}
-  
+    color: var(--primary-color);
+    font-size: 1.4rem;
+  }
+
   .cart--container {
     grid-column: 1/-1;
     justify-content: flex-start;
@@ -995,98 +1018,64 @@ to completely prevent any detetction of the elelemnt whose opacity is set to zeo
     row-gap: 4rem;
   }
 
-  .address{
+  .address {
     justify-self: unset;
     padding-right: 2rem;
   }
 
-  .other--links{
+  .other--links {
     padding-left: 2rem;
   }
- 
-.checkout--side__element .paragraph{
-  font-size: 1.6rem;
+
+  .checkout--side__element .paragraph {
+    font-size: 1.6rem;
+  }
 }
 
+/* third size option */
 
-
-}
-
-@media(max-width:27.5em){
-
+@media (max-width: 27.5em) {
   html {
     font-size: 20%;
   }
-.paragraph{
-  font-size: 1.2rem;
-}
+  .paragraph {
+    font-size: 1.2rem;
+  }
 
-.link:link,
-.link:visited {
- 
-  font-size: 1.2rem;
-}
+  .link:link,
+  .link:visited {
+    font-size: 1.2rem;
+  }
 
-.cart--container {
-  gap: 1.6rem;
-}
+  .cart--container {
+    gap: 1.6rem;
+  }
 
+  .logo {
+    max-width: 12rem;
+    /* height: 6rem; */
+  }
 
-.logo{
-  max-width: 12rem;
-  /* height: 6rem; */
-}
+  .footer {
+    padding: 4.8rem 0;
+  }
 
-.footer{
-  padding: 4.8rem 0;
-}
+  .footer--container {
+    align-items: flex-start;
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .brand {
+    grid-column: 1/-1;
+    padding: 0 2rem;
+    gap: 1.2rem;
+  }
 
-.footer--container{
-  align-items: flex-start;
-  grid-template-columns:repeat(3,1fr)
-}
-.brand{
-  grid-column: 1/-1;
-  padding: 0 2rem;
-  gap:1.2rem;
-}
+  .footer--header {
+    font-size: 1.6rem;
+  }
 
-.footer--header{
-  font-size: 1.6rem;
-}
-
-.footer .image--link{
-  display: inline-block;
-  height: fit-content;
-}
-}
-
-/* additives */
-
-.feather {
-  width: 24px;
-  height: 24px;
-  stroke: currentColor;
-  stroke-width: 2;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  fill: none;
-}
-
-.total .tertiary--header{
-  color:var(--secondary-color--darker);
-  font-size: 2rem;
-}
-
-.alert{
-  padding: 1.2rem 0;
-  font-size: 1.6rem;
-  text-align: center;
-  color:#fff
-}
-.alert--success{
-  background-color: var(--secondary-color);
-}
-.alert--error{
-  background-color: red;
+  .footer .image--link {
+    display: inline-block;
+    height: fit-content;
+  }
 }
