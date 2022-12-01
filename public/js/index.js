@@ -10,6 +10,8 @@ import { logout } from './logins';
 import { login } from './logins';
 import { buyFood } from './stripe';
 import { showAlert } from './alert';
+import View from './view/view';
+import { searchHandlerFunction } from './helper/handler';
 
 feather.replace();
 // SELECT ITEMS
@@ -31,7 +33,11 @@ const cartNumber = document.querySelector('.cart--number');
 const pageLink = document.querySelector('.page--link');
 const categoryHeader = document.querySelector('.category--header');
 const searchInput = document.querySelector('.search--input');
-const ButtonSearch = document.querySelector('.button--search');
+const buttonSearch = document.querySelector('.button--search');
+
+const view = new View(buttonSearch);
+view.clickHandler(searchHandlerFunction);
+console.log(view);
 
 // SEARCH BAR
 searchFood('Provisions');
@@ -40,6 +46,10 @@ allCat = [...allCat];
 const catName = allCat.map((e) => e.textContent);
 
 const speak = catName.some((e) => e === 'Provisions');
+
+const hiu = [2, 4, 5, 7];
+
+// console.log(hiu.filter((e) => 2 === e).join());
 
 const n = 'g'
   .slice(0, 1)
@@ -80,7 +90,7 @@ const searchFunction = (e) => {
 
   window.localStorage.setItem('qhead', queryHead);
   if (!productCategory) return console.log('please input something');
-  ButtonSearch.setAttribute(
+  buttonSearch.setAttribute(
     'href',
     `/?${queryHead}=${productCategory}&page=1`
   );
@@ -89,7 +99,7 @@ const searchFunction = (e) => {
     JSON.stringify(productCategory)
   );
 };
-ButtonSearch.addEventListener('click', searchFunction);
+buttonSearch.addEventListener('click', searchFunction);
 //
 //
 //
@@ -1171,3 +1181,67 @@ const buyFoodHandlerMany = async (e) => {
 
 checkoutButton && checkoutButton.addEventListener('click', buyFoodHandler);
 document.addEventListener('click', buyFoodHandlerMany);
+
+class grandParent {
+  #prop;
+  constructor(prop) {
+    this.#prop = prop;
+  }
+
+  calculateProp(el) {
+    return this.#prop * el;
+  }
+}
+
+class parent extends grandParent {
+  #parentProp = 3;
+  constructor(prop, age) {
+    super(prop);
+    this.age = age;
+  }
+}
+
+const rita = new parent(8, 50);
+
+// let number = 6;
+
+// switch (number) {
+//   case 1:
+//     console.log('this is smallest');
+//   case 2:
+//     console.log('this is 2');
+//   case 6:
+//     console.log('this is the one');
+//   default:
+//     console.log('not found');
+// }
+
+let number = [1, 3, 2, 6];
+
+function nums() {
+  number.forEach((e) => {
+    switch (e) {
+      case 1:
+        console.log('this is smallest');
+        break;
+      case 2:
+        console.log('this is 2');
+        break;
+      case 6:
+        console.log('this is the one');
+        break;
+      default:
+        console.log('not found');
+    }
+  });
+}
+nums();
+
+const arr = [6, 6, 6, 2, 2, 8];
+
+const yu = arr.reduce((acc, el) => {
+  !acc.includes(el) && acc.push(el);
+  return acc;
+}, []);
+
+console.log(yu);

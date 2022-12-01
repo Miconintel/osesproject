@@ -4,8 +4,8 @@ class View {
     this.#parentContainer = parentContainer;
   }
 
-  clickHandler() {
-    console.log(this.parentContainer);
+  clickHandler(handlerFunction) {
+    this.#parentContainer.addEventListener('click', handlerFunction);
   }
 }
 
