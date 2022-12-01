@@ -8,28 +8,35 @@ const Food = require('../models/foodModel');
 const { filter } = require('compression');
 
 exports.base = catchAsync(async (request, response, next) => {
- const pageThatControlsHero=request.query.page
- const category = request.query.category
- const product = request.query.productName
- const filterObj = ['page']
- const queryObj = {...request.query}
- filterObj.forEach(element => {
-  delete queryObj[element]
- });
- const rpage = request.query.page * 1;
- const page = rpage || 1;
- const limit = 10;
- const skip = (page - 1) * limit;
+  const pageThatControlsHero = request.query.page;
+  const category = request.query.category;
+  const product = request.query.productName;
+  const filterObj = ['page'];
+  const queryObj = { ...request.query };
+  filterObj.forEach((element) => {
+    delete queryObj[element];
+  });
+  const rpage = request.query.page * 1;
+  const page = rpage || 1;
+  const limit = 10;
+  const skip = (page - 1) * limit;
+  console.log(category);
+  console.log(product);
+  const allFoods =
+    category || product ? await Food.find(queryObj) : await Food.find();
+  console.log(allFoods);
+  // here I check if there is category or product in the query, if any join using itenary it to find the food using category or product
+  // if category is undefined and the product is defined, it runs the food.find with query.
+  // else if both return undefined it finds all food.
 
-  const allFoods = category || product ? await Food.find(queryObj): await Food.find()
   // const allFoods = category || product ? await Food.find({category:category}): await Food.find()
-  
-  let foodPage =category || product ?  Food.find(queryObj):Food.find()
-  foodPage= await foodPage.skip(skip).limit(limit);
+
+  let foodPage = category || product ? Food.find(queryObj) : Food.find();
+  foodPage = await foodPage.skip(skip).limit(limit);
   // here I got the product query from the DOm so as to ascertain titile
-  const allP =request.query.product
-  const checkCategory = category || allP
-  const title = checkCategory? checkCategory:'Home Page'
+  const allP = request.query.product;
+  const checkCategory = category || allP;
+  const title = checkCategory ? checkCategory : 'Home Page';
   response.status(200).render('overView', {
     currentPage: page,
     pageLimit: limit,
@@ -42,19 +49,18 @@ exports.base = catchAsync(async (request, response, next) => {
   });
 });
 
-exports.getProduct =catchAsync( async(request, response,next)=>{
-  let page = request.query.page
-  console.log(page)
-  let p = request.params.name
- const [food] =  await Food.find({slug:p})
-//  console.log(food)
+exports.getProduct = catchAsync(async (request, response, next) => {
+  let page = request.query.page;
+  // console.log(page)
+  let p = request.params.name;
+  const [food] = await Food.find({ slug: p });
+  //  console.log(food)
   response.status(200).render('product', {
-    currentPage:page,
+    currentPage: page,
     food,
-    title: [food.category, food.slug]
+    title: [food.category, food.slug],
   });
-
-})
+});
 exports.signup = (request, response, next) => {
   response.status(200).render('signup', {
     title: 'signup',
@@ -91,12 +97,11 @@ exports.updateUserData = async (request, response) => {
 };
 
 exports.getMyTours = catchAsync(async (request, response, next) => {
-
   const user = await User.findById(request.user.id).populate('bookings');
   const tours = user.bookings.map((book) => book.parentTour);
   // remove duplicatetours
   const setTours = [...new Set(tours)];
-  
+
   response.status(200).render('mainOverview', {
     title: 'My tours',
     tours: setTours,
